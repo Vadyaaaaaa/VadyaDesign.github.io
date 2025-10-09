@@ -485,6 +485,17 @@
         .profile-text h3 { font-size: 2.88rem; font-weight: 300; margin-bottom: 30px; color: #fff; }
         .profile-text p { font-size: 1.76rem; color: #888; line-height: 1.8; margin-bottom: 20px; }
         .profile-text .japanese { font-size: 1rem; color: #666; line-height: 1.6; }
+        /* Плавная подсветка букв в описании без увеличения */
+        .profile-text p .letter {
+            display: inline-block;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+        }
+        .profile-text p .letter:hover {
+            color: #fff !important;
+            text-shadow: 0 0 20px rgba(255, 255, 255, 0.5) !important;
+            transform: scale(1) !important;
+        }
         /* Красивая анимация в профиле */
         .profile-animation { 
             display: flex; 
@@ -897,25 +908,6 @@
             });
         });
 
-        // Функция восстановления исходного текста для профиля
-        function restoreProfileText() {
-            const profileTextElements = document.querySelectorAll('.profile-text p');
-            profileTextElements.forEach(element => {
-                if (element.classList.contains('letters-processed')) {
-                    // Собираем весь текст из span элементов
-                    const letters = element.querySelectorAll('.letter');
-                    let text = '';
-                    letters.forEach(letter => {
-                        text += letter.textContent;
-                    });
-                    
-                    // Заменяем span элементы на обычный текст
-                    element.innerHTML = text;
-                    element.classList.remove('letters-processed');
-                }
-            });
-        }
-        
         // Функция создания span элементов для всех букв
         function createLetterSpans() {
             // Селекторы для всех текстовых элементов на сайте
@@ -925,6 +917,7 @@
                 '.hero-description',
                 '.profile-title',
                 '.profile-text h3',
+                '.profile-text p',
                 '.service-title',
                 '.service-description',
                 '.works-title',
@@ -984,9 +977,6 @@
         
         // Функция инициализации эффекта лупы для всех текстовых элементов
         function initMagnifierEffect() {
-            // Восстанавливаем исходный текст профиля
-            restoreProfileText();
-            
             // Создаем span элементы для всех букв на сайте
             createLetterSpans();
             
@@ -1088,10 +1078,6 @@
             const profileTitleLetters = profileTitle ? profileTitle.querySelectorAll('.letter') : [];
             console.log('Profile title letters:', profileTitleLetters.length);
             
-            // Проверяем абзац профиля
-            const profileText = document.querySelector('.profile-text p');
-            const profileTextLetters = profileText ? profileText.querySelectorAll('.letter') : [];
-            console.log('Profile text letters (should be 0 - restored to normal):', profileTextLetters.length);
             
             if (letters.length > 0) {
                 console.log('First letter:', letters[0]);
