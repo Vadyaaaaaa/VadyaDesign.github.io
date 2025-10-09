@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Вадим - Моушн дизайнер и веб-разработчик</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Arial', sans-serif; 
+            background: 
+                radial-gradient(ellipse at top left, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(ellipse at top right, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(120, 219, 255, 0.2) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(255, 219, 120, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #fff; 
+            line-height: 1.6; 
+            overflow-x: hidden;
+            z-index: -3;
+        }
+        
+        /* Новые красивые анимации фона */
+        .magical-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        /* Плавающие световые сферы */
+        .light-sphere {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 0%, rgba(120, 119, 198, 0.7) 30%, rgba(255, 119, 198, 0.5) 60%, transparent 100%);
+            border-radius: 50%;
+            animation: sphereFloat 20s infinite ease-in-out;
+            box-shadow: 
+                0 0 20px rgba(255, 255, 255, 0.8),
+                0 0 40px rgba(120, 119, 198, 0.6),
+                0 0 60px rgba(255, 119, 198, 0.4);
+            transition: all 0.4s ease;
+        }
+        
+        .light-sphere:nth-child(1) { 
+            top: 15%; left: 20%; 
+            animation-delay: 0s; 
+            animation-duration: 18s;
+        }
+        .light-sphere:nth-child(2) { 
+            top: 30%; left: 80%; 
+            animation-delay: 3s; 
+            animation-duration: 22s;
+        }
+        .light-sphere:nth-child(3) { 
+            top: 50%; left: 25%; 
+            animation-delay: 6s; 
+            animation-duration: 16s;
+        }
+        .light-sphere:nth-child(4) { 
+            top: 70%; left: 75%; 
+            animation-delay: 9s; 
+            animation-duration: 24s;
+        }
+        .light-sphere:nth-child(5) { 
+            top: 85%; left: 35%; 
+            animation-delay: 12s; 
+            animation-duration: 20s;
+        }
+        .light-sphere:nth-child(6) { 
+            top: 25%; left: 65%; 
+            animation-delay: 15s; 
+            animation-duration: 19s;
+        }
+        .light-sphere:nth-child(7) { 
+            top: 55%; left: 85%; 
+            animation-delay: 18s; 
+            animation-duration: 17s;
+        }
+        .light-sphere:nth-child(8) { 
+            top: 75%; left: 15%; 
+            animation-delay: 21s; 
+            animation-duration: 23s;
+        }
+        
+        /* Плавающие энергетические кольца */
+        .energy-ring {
+            position: absolute;
+            border: 3px solid;
+            border-radius: 50%;
+            animation: ringFloat 25s infinite ease-in-out;
+            transition: all 0.4s ease;
+        }
+        
+        .energy-ring:nth-child(9) {
+            width: 60px;
+            height: 60px;
+            top: 20%;
+            left: 40%;
+            border-color: rgba(120, 119, 198, 0.6);
+            animation-delay: 0s;
+        }
+        .energy-ring:nth-child(10) {
+            width: 80px;
+            height: 80px;
+            top: 50%;
+            right: 25%;
+            border-color: rgba(255, 119, 198, 0.6);
+            animation-delay: 5s;
+        }
+        .energy-ring:nth-child(11) {
+            width: 100px;
+            height: 100px;
+            top: 70%;
+            left: 50%;
+            border-color: rgba(120, 219, 255, 0.6);
+            animation-delay: 10s;
+        }
+        .energy-ring:nth-child(12) {
+            width: 70px;
+            height: 70px;
+            top: 30%;
+            left: 80%;
+            border-color: rgba(255, 219, 120, 0.6);
+            animation-delay: 15s;
+        }
+        
+        /* Магические звезды */
+        .magic-star {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: conic-gradient(from 0deg, 
+                rgba(255, 255, 255, 1) 0deg,
+                rgba(120, 119, 198, 0.8) 72deg,
+                rgba(255, 119, 198, 0.8) 144deg,
+                rgba(120, 219, 255, 0.8) 216deg,
+                rgba(255, 219, 120, 0.8) 288deg,
+                rgba(255, 255, 255, 1) 360deg);
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+            animation: starTwinkle 8s infinite ease-in-out;
+            box-shadow: 
+                0 0 15px rgba(255, 255, 255, 0.8),
+                0 0 30px rgba(120, 119, 198, 0.6),
+                inset 0 0 8px rgba(255, 255, 255, 0.9);
+            transition: all 0.4s ease;
+        }
+        
+        .magic-star:nth-child(13) {
+            top: 25%;
+            left: 15%;
+            animation-delay: 0s;
+        }
+        .magic-star:nth-child(14) {
+            top: 50%;
+            left: 70%;
+            animation-delay: 1.5s;
+        }
+        .magic-star:nth-child(15) {
+            top: 70%;
+            left: 30%;
+            animation-delay: 3s;
+        }
+        .magic-star:nth-child(16) {
+            top: 20%;
+            left: 80%;
+            animation-delay: 4.5s;
+        }
+        .magic-star:nth-child(17) {
+            top: 40%;
+            left: 90%;
+            animation-delay: 6s;
+        }
+        .magic-star:nth-child(18) {
+            top: 90%;
+            left: 10%;
+            animation-delay: 7.5s;
+        }
+        
+        /* Плавающие световые лучи */
+        .light-beam {
+            position: absolute;
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(255, 255, 255, 0.8) 20%, 
+                rgba(120, 119, 198, 0.6) 50%, 
+                rgba(255, 119, 198, 0.4) 80%, 
+                transparent 100%);
+            animation: beamSweep 12s infinite ease-in-out;
+            box-shadow: 
+                0 0 10px rgba(255, 255, 255, 0.6),
+                0 0 20px rgba(120, 119, 198, 0.4);
+            transition: all 0.4s ease;
+        }
+        
+        .light-beam:nth-child(19) {
+            top: 10%;
+            left: 20%;
+            animation-delay: 0s;
+        }
+        .light-beam:nth-child(20) {
+            top: 30%;
+            left: 60%;
+            animation-delay: 2s;
+        }
+        .light-beam:nth-child(21) {
+            top: 50%;
+            left: 10%;
+            animation-delay: 4s;
+        }
+        .light-beam:nth-child(22) {
+            top: 70%;
+            left: 80%;
+            animation-delay: 6s;
+        }
+        .light-beam:nth-child(23) {
+            top: 90%;
+            left: 40%;
+            animation-delay: 8s;
+        }
+        
+        /* Магические частицы */
+        .magic-particle {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(120, 119, 198, 0.8) 40%, transparent 100%);
+            border-radius: 50%;
+            animation: particleDance 15s infinite ease-in-out;
+            box-shadow: 
+                0 0 8px rgba(255, 255, 255, 0.8),
+                0 0 16px rgba(120, 119, 198, 0.6);
+            transition: all 0.4s ease;
+        }
+        
+        .magic-particle:nth-child(24) {
+            top: 15%;
+            left: 25%;
+            animation-delay: 0s;
+        }
+        .magic-particle:nth-child(25) {
+            top: 35%;
+            left: 75%;
+            animation-delay: 3s;
+        }
+        .magic-particle:nth-child(26) {
+            top: 55%;
+            left: 15%;
+            animation-delay: 6s;
+        }
+        .magic-particle:nth-child(27) {
+            top: 75%;
+            left: 85%;
+            animation-delay: 9s;
+        }
+        .magic-particle:nth-child(28) {
+            top: 25%;
+            left: 50%;
+            animation-delay: 12s;
+        }
+        
+        /* Анимации */
+        @keyframes sphereFloat {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) scale(1) rotate(0deg); 
+                opacity: 0.6;
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            25% { 
+                transform: translateY(-30px) translateX(20px) scale(1.2) rotate(90deg); 
+                opacity: 0.9;
+                filter: hue-rotate(90deg) brightness(1.3);
+            }
+            50% { 
+                transform: translateY(-60px) translateX(0px) scale(1.5) rotate(180deg); 
+                opacity: 1;
+                filter: hue-rotate(180deg) brightness(1.6);
+            }
+            75% { 
+                transform: translateY(-30px) translateX(-20px) scale(1.2) rotate(270deg); 
+                opacity: 0.9;
+                filter: hue-rotate(270deg) brightness(1.3);
+            }
+        }
+        
+        @keyframes ringFloat {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                opacity: 0.4;
+                border-width: 3px;
+                filter: blur(0px) brightness(1);
+            }
+            25% { 
+                transform: scale(1.3) rotate(90deg); 
+                opacity: 0.7;
+                border-width: 4px;
+                filter: blur(0.5px) brightness(1.3);
+            }
+            50% { 
+                transform: scale(1.6) rotate(180deg); 
+                opacity: 1;
+                border-width: 5px;
+                filter: blur(1px) brightness(1.6);
+            }
+            75% { 
+                transform: scale(1.3) rotate(270deg); 
+                opacity: 0.7;
+                border-width: 4px;
+                filter: blur(0.5px) brightness(1.3);
+            }
+        }
+        
+        @keyframes starTwinkle {
+            0%, 100% { 
+                transform: scale(1) rotate(0deg); 
+                opacity: 0.7;
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            25% { 
+                transform: scale(1.4) rotate(90deg); 
+                opacity: 1;
+                filter: hue-rotate(90deg) brightness(1.4);
+            }
+            50% { 
+                transform: scale(1.8) rotate(180deg); 
+                opacity: 0.8;
+                filter: hue-rotate(180deg) brightness(1.8);
+            }
+            75% { 
+                transform: scale(1.4) rotate(270deg); 
+                opacity: 1;
+                filter: hue-rotate(270deg) brightness(1.4);
+            }
+        }
+        
+        @keyframes beamSweep {
+            0%, 100% { 
+                transform: translateY(0px) rotate(0deg) scaleY(1); 
+                opacity: 0.5;
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            25% { 
+                transform: translateY(-20px) rotate(5deg) scaleY(1.2); 
+                opacity: 0.8;
+                filter: hue-rotate(90deg) brightness(1.2);
+            }
+            50% { 
+                transform: translateY(-40px) rotate(0deg) scaleY(1.5); 
+                opacity: 1;
+                filter: hue-rotate(180deg) brightness(1.5);
+            }
+            75% { 
+                transform: translateY(-20px) rotate(-5deg) scaleY(1.2); 
+                opacity: 0.8;
+                filter: hue-rotate(270deg) brightness(1.2);
+            }
+        }
+        
+        @keyframes particleDance {
+            0%, 100% { 
+                transform: translateY(0px) translateX(0px) scale(1) rotate(0deg); 
+                opacity: 0.6;
+                filter: hue-rotate(0deg) brightness(1);
+            }
+            20% { 
+                transform: translateY(-15px) translateX(10px) scale(1.3) rotate(72deg); 
+                opacity: 0.9;
+                filter: hue-rotate(72deg) brightness(1.3);
+            }
+            40% { 
+                transform: translateY(-30px) translateX(0px) scale(1.6) rotate(144deg); 
+                opacity: 1;
+                filter: hue-rotate(144deg) brightness(1.6);
+            }
+            60% { 
+                transform: translateY(-15px) translateX(-10px) scale(1.3) rotate(216deg); 
+                opacity: 0.9;
+                filter: hue-rotate(216deg) brightness(1.3);
+            }
+            80% { 
+                transform: translateY(0px) translateX(0px) scale(1) rotate(288deg); 
+                opacity: 0.7;
+                filter: hue-rotate(288deg) brightness(1.1);
+            }
+        }
+        
+        /* Основные стили */
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; }
+        .hero-title { font-size: 4rem; font-weight: bold; margin-bottom: 1rem; background: linear-gradient(45deg, #fff, #7877c6, #ff77c6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero-subtitle { font-size: 1.5rem; color: #888; margin-bottom: 2rem; }
+        .hero-description { font-size: 1.1rem; color: #aaa; max-width: 600px; margin: 0 auto 3rem; }
+        .cta-button { display: inline-block; padding: 15px 30px; background: linear-gradient(45deg, #7877c6, #ff77c6); color: white; text-decoration: none; border-radius: 50px; font-weight: bold; transition: all 0.3s ease; }
+        .cta-button:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(120, 119, 198, 0.4); }
+        
+        .section { padding: 80px 0; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 3rem; color: #fff; }
+        
+        .profile-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .profile-text h2 { font-size: 2rem; margin-bottom: 1rem; color: #fff; }
+        .profile-text p { font-size: 1.1rem; color: #aaa; margin-bottom: 1.5rem; }
+        
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .service-card { background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px; text-align: center; transition: all 0.3s ease; }
+        .service-card:hover { transform: translateY(-10px); background: rgba(255, 255, 255, 0.1); }
+        .service-card h3 { font-size: 1.5rem; margin-bottom: 1rem; color: #fff; }
+        .service-card p { color: #aaa; }
+        
+        .works-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+        .work-card { background: rgba(255, 255, 255, 0.05); border-radius: 20px; overflow: hidden; transition: all 0.3s ease; }
+        .work-card:hover { transform: translateY(-10px); }
+        .work-card img { width: 100%; height: 200px; object-fit: cover; }
+        .work-card-content { padding: 20px; }
+        .work-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: #fff; }
+        .work-card p { color: #aaa; font-size: 0.9rem; }
+        
+        .contact-info { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+        .contact-text h2 { font-size: 2rem; margin-bottom: 1rem; color: #fff; }
+        .contact-text p { color: #aaa; margin-bottom: 1.5rem; }
+        .social-links { display: flex; gap: 20px; }
+        .social-links a { color: #888; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s ease; }
+        .social-links a:hover { color: #fff; }
+        
+        .floating { animation: float 3s ease-in-out infinite; }
+        @media (max-width: 1024px) { .profile-content { grid-template-columns: 1fr; gap: 40px; } .services-grid { grid-template-columns: 1fr; } .works-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 768px) { .hero-title { font-size: 3rem; } .works-grid { grid-template-columns: 1fr; } .contact-info { grid-template-columns: 1fr; gap: 40px; } .social-links { flex-direction: column; gap: 20px; } }
+    </style>
+</head>
+<body>
+    <!-- Новые красивые анимации фона -->
+    <div class="magical-background">
+        <!-- Плавающие световые сферы -->
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        <div class="light-sphere"></div>
+        
+        <!-- Плавающие энергетические кольца -->
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        <div class="energy-ring"></div>
+        
+        <!-- Магические звезды -->
+        <div class="magic-star"></div>
+        <div class="magic-star"></div>
+        <div class="magic-star"></div>
+        <div class="magic-star"></div>
+        <div class="magic-star"></div>
+        <div class="magic-star"></div>
+        
+        <!-- Плавающие световые лучи -->
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        <div class="light-beam"></div>
+        
+        <!-- Магические частицы -->
+        <div class="magic-particle"></div>
+        <div class="magic-particle"></div>
+        <div class="magic-particle"></div>
+        <div class="magic-particle"></div>
+        <div class="magic-particle"></div>
+    </div>
+
+    <div class="container">
+        <section class="hero">
+            <div>
+                <h1 class="hero-title floating">Вадим</h1>
+                <p class="hero-subtitle">Моушн дизайнер и веб-разработчик</p>
+                <p class="hero-description">Создаю современные цифровые решения, которые помогают бизнесу расти и развиваться. Сочетаю эстетику с функциональностью.</p>
+                <a href="#contact" class="cta-button">Связаться со мной</a>
+            </div>
+        </section>
+
+        <section class="section" id="about">
+            <h2 class="section-title">Обо мне</h2>
+            <div class="profile-content">
+                <div class="profile-text">
+                    <h2>Привет! Меня зовут Вадим</h2>
+                    <p>Меня зовут Вадим. Реализую современные сайты, которые помогают бизнесу расти: сочетаю эстетку и функциональность, ориентируюсь на цели и аудиторию.</p>
+                    <p>Специализируюсь на создании интерактивных веб-приложений, моушн-дизайне и пользовательском опыте. Работаю с современными технологиями и слежу за трендами в дизайне.</p>
+                </div>
+                <div class="profile-image">
+                    <div style="width: 300px; height: 300px; background: linear-gradient(45deg, #7877c6, #ff77c6); border-radius: 50%; margin: 0 auto;"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="services">
+            <h2 class="section-title">Услуги</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Веб-разработка</h3>
+                    <p>Создание современных веб-сайтов и приложений с использованием передовых технологий</p>
+                </div>
+                <div class="service-card">
+                    <h3>Моушн-дизайн</h3>
+                    <p>Анимация и визуальные эффекты для веб-сайтов и мобильных приложений</p>
+                </div>
+                <div class="service-card">
+                    <h3>UI/UX дизайн</h3>
+                    <p>Проектирование пользовательских интерфейсов и опыта взаимодействия</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="works">
+            <h2 class="section-title">Работы</h2>
+            <div class="works-grid">
+                <div class="work-card">
+                    <div style="height: 200px; background: linear-gradient(45deg, #7877c6, #ff77c6);"></div>
+                    <div class="work-card-content">
+                        <h3>Проект 1</h3>
+                        <p>Описание проекта и используемых технологий</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div style="height: 200px; background: linear-gradient(45deg, #ff77c6, #78dbff);"></div>
+                    <div class="work-card-content">
+                        <h3>Проект 2</h3>
+                        <p>Описание проекта и используемых технологий</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <div style="height: 200px; background: linear-gradient(45deg, #78dbff, #ffdb78);"></div>
+                    <div class="work-card-content">
+                        <h3>Проект 3</h3>
+                        <p>Описание проекта и используемых технологий</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="contact">
+            <h2 class="section-title">Контакты</h2>
+            <div class="contact-info">
+                <div class="contact-text">
+                    <h2>Давайте работать вместе!</h2>
+                    <p>Готов обсудить ваш проект и предложить оптимальное решение. Свяжитесь со мной любым удобным способом.</p>
+                    <div class="social-links">
+                        <a href="#">Telegram</a>
+                        <a href="#">Email</a>
+                        <a href="#">Behance</a>
+                        <a href="#">GitHub</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <div style="background: rgba(255, 255, 255, 0.05); padding: 30px; border-radius: 20px;">
+                        <h3 style="margin-bottom: 20px; color: #fff;">Написать сообщение</h3>
+                        <p style="color: #aaa;">Форма обратной связи будет добавлена позже</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Реакция всех анимаций на движение курсора
+        let mouseX = 0, mouseY = 0;
+        let isMouseMoving = false;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            isMouseMoving = true;
+            
+            // Нормализуем координаты (0-1)
+            const normalizedX = mouseX / window.innerWidth;
+            const normalizedY = mouseY / window.innerHeight;
+            
+            // Получаем все анимированные элементы
+            const lightSpheres = document.querySelectorAll('.light-sphere');
+            const energyRings = document.querySelectorAll('.energy-ring');
+            const magicStars = document.querySelectorAll('.magic-star');
+            const lightBeams = document.querySelectorAll('.light-beam');
+            const magicParticles = document.querySelectorAll('.magic-particle');
+            
+            // Реакция световых сфер
+            lightSpheres.forEach((sphere, index) => {
+                const intensity = 1 + (normalizedX + normalizedY) * 0.8;
+                const rotation = (normalizedX - normalizedY) * 360;
+                const moveX = normalizedX * 40;
+                const moveY = normalizedY * 40;
+                sphere.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scale(${intensity})`;
+                sphere.style.filter = `hue-rotate(${normalizedX * 720}deg) brightness(${intensity})`;
+            });
+            
+            // Реакция энергетических колец
+            energyRings.forEach((ring, index) => {
+                const pulseIntensity = 1 + normalizedY * 2.5;
+                const rotation = normalizedX * 1080;
+                const moveX = normalizedX * 30;
+                const moveY = normalizedY * 30;
+                ring.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scale(${pulseIntensity})`;
+                ring.style.borderWidth = `${3 + normalizedY * 6}px`;
+                ring.style.filter = `brightness(${pulseIntensity}) blur(${normalizedX * 2}px)`;
+            });
+            
+            // Реакция магических звезд
+            magicStars.forEach((star, index) => {
+                const starIntensity = 1 + (normalizedX + normalizedY) * 1.2;
+                const rotation = (normalizedX - normalizedY) * 720;
+                const moveX = normalizedX * 35;
+                const moveY = normalizedY * 35;
+                star.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scale(${starIntensity})`;
+                star.style.filter = `hue-rotate(${normalizedX * 1080}deg) brightness(${starIntensity}) drop-shadow(0 0 ${starIntensity * 25}px rgba(255, 255, 255, 0.8))`;
+            });
+            
+            // Реакция световых лучей
+            lightBeams.forEach((beam, index) => {
+                const beamIntensity = 1 + normalizedX * 2;
+                const rotation = normalizedY * 180;
+                const moveX = normalizedX * 25;
+                const moveY = normalizedY * 25;
+                beam.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scaleY(${beamIntensity})`;
+                beam.style.filter = `hue-rotate(${normalizedY * 360}deg) brightness(${beamIntensity})`;
+                beam.style.opacity = 0.5 + normalizedY * 0.5;
+            });
+            
+            // Реакция магических частиц
+            magicParticles.forEach((particle, index) => {
+                const particleIntensity = 1 + (normalizedX + normalizedY) * 1.5;
+                const rotation = normalizedX * 1080;
+                const moveX = normalizedX * 50;
+                const moveY = normalizedY * 50;
+                particle.style.transform = `translate(${moveX}px, ${moveY}px) rotate(${rotation}deg) scale(${particleIntensity})`;
+                particle.style.filter = `hue-rotate(${normalizedX * 1440}deg) brightness(${particleIntensity})`;
+            });
+        });
+        
+        // Сброс анимаций когда мышь не движется
+        document.addEventListener('mouseleave', () => {
+            isMouseMoving = false;
+            const allElements = document.querySelectorAll('.light-sphere, .energy-ring, .magic-star, .light-beam, .magic-particle');
+            allElements.forEach(element => {
+                element.style.transform = '';
+                element.style.filter = '';
+                element.style.opacity = '';
+                element.style.borderWidth = '';
+            });
+        });
+        
+        // Плавная прокрутка для якорных ссылок
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Font Test</title>
+    <style>
+        @font-face {
+            font-family: 'Republiko_PersonalUse';
+            src: url('Republiko_PersonalUse.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+        
+        body {
+            background: #000;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            padding: 50px;
+        }
+        
+        .test-font {
+            font-family: 'Republiko_PersonalUse', Arial, sans-serif;
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+        
+        .original-font {
+            font-family: 'Source Code Pro', monospace;
+            font-size: 4rem;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Тест шрифта Republiko_PersonalUse</h1>
+    
+    <div class="test-font">VADYA DESIGN</div>
+    <p>Выше текст с шрифтом Republiko_PersonalUse</p>
+    
+    <div class="original-font">VADYA DESIGN</div>
+    <p>Выше текст с оригинальным шрифтом Source Code Pro</p>
+    
+    <p>Если шрифт Republiko_PersonalUse загрузился, вы увидите разницу в отображении текста.</p>
+</body>
+</html>

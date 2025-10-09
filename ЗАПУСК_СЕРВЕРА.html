@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Запуск сервера By Vadya Design</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+        .command {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1.2em;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .step {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        .warning {
+            background: rgba(255, 193, 7, 0.2);
+            border: 2px solid rgba(255, 193, 7, 0.5);
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Запуск сервера By Vadya Design</h1>
+        
+        <div class="warning">
+            <h3>⚠️ Проблема с PowerShell</h3>
+            <p>В PowerShell есть проблема с кодировкой. Используйте обычный cmd вместо PowerShell.</p>
+        </div>
+        
+        <div class="step">
+            <h3><span class="emoji">1️⃣</span>Откройте обычный cmd (не PowerShell)</h3>
+            <p>• Нажмите Win + R</p>
+            <p>• Введите: <code>cmd</code></p>
+            <p>• Нажмите Enter</p>
+        </div>
+        
+        <div class="step">
+            <h3><span class="emoji">2️⃣</span>Перейдите в папку с сайтом</h3>
+            <div class="command">cd "C:\Users\examp\Desktop\By Vadya Design"</div>
+        </div>
+        
+        <div class="step">
+            <h3><span class="emoji">3️⃣</span>Запустите сервер</h3>
+            <div class="command">python -m http.server 8000</div>
+            <p>Или если не работает:</p>
+            <div class="command">py -m http.server 8000</div>
+        </div>
+        
+        <div class="step">
+            <h3><span class="emoji">4️⃣</span>Откройте сайт в браузере</h3>
+            <p>Перейдите по адресу:</p>
+            <div class="command">http://localhost:8000/kaito-style.html</div>
+        </div>
+        
+        <div class="step">
+            <h3><span class="emoji">5️⃣</span>Альтернативный способ</h3>
+            <p>Если Python не работает, просто откройте HTML файл напрямую:</p>
+            <p>• Найдите файл <code>kaito-style.html</code></p>
+            <p>• Дважды кликните по нему</p>
+            <p>• Сайт откроется в браузере</p>
+        </div>
+        
+        <div style="margin-top: 30px; font-size: 0.9em; opacity: 0.8;">
+            <p>💡 <strong>Важно:</strong> Используйте обычный cmd, а не PowerShell!</p>
+            <p>📁 Все файлы находятся в папке: <code>C:\Users\examp\Desktop\By Vadya Design</code></p>
+        </div>
+    </div>
+</body>
+</html>
+

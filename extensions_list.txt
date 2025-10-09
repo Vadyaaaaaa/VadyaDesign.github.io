@@ -1,0 +1,58 @@
+Список расширений для установки в Cursor:
+
+=== PYTHON РАЗРАБОТКА ===
+ms-python.python - Python
+ms-python.vscode-pylance - Pylance
+ms-python.debugpy - Python Debugger
+ms-python.flask - Flask
+njpwerner.autodocstring - autoDocstring
+
+=== REACT/JAVASCRIPT РАЗРАБОТКА ===
+dsznajder.es7-react-js-snippets - ES7+ React/Redux/React-Native snippets
+formulahendry.auto-rename-tag - Auto Rename Tag
+xabikos.javascriptsnippets - JavaScript (ES6) code snippets
+esbenp.prettier-vscode - Prettier - Code formatter
+dbaeumer.vscode-eslint - ESLint
+
+=== ВЕБ-РАЗРАБОТКА ===
+ecmel.vscode-html-css - HTML CSS Support
+ritwickdey.liveserver - Live Server
+pranaygp.vscode-css-peek - CSS Peek
+abusaidm.html-snippets - HTML Snippets
+
+=== ПОЛЕЗНЫЕ УТИЛИТЫ ===
+eamodio.gitlens - GitLens
+christian-kohler.path-intellisense - Path Intellisense
+pkief.material-icon-theme - Material Icon Theme
+usernamehw.errorlens - Error Lens
+rangav.vscode-thunder-client - Thunder Client
+
+=== ДОПОЛНИТЕЛЬНЫЕ ИНСТРУМЕНТЫ ===
+antfu.vite - Vite
+steoates.autoimport - Auto Import - ES6, TS, JSX, TSX
+aaron-bond.better-comments - Better Comments
+
+=== ИНСТРУКЦИЯ ПО УСТАНОВКЕ ===
+
+СПОСОБ 1 - Автоматическая установка:
+1. Запустите install_extensions.bat (Windows) или install_extensions.sh (Linux/Mac)
+2. Дождитесь завершения установки
+3. Перезапустите Cursor
+
+СПОСОБ 2 - Ручная установка через Command Palette:
+1. Нажмите Ctrl+Shift+P
+2. Введите "Extensions: Install Extensions"
+3. Найдите каждое расширение по ID (например: ms-python.python)
+4. Нажмите Install
+
+СПОСОБ 3 - Через боковую панель:
+1. Нажмите Ctrl+Shift+X
+2. Введите название расширения в поиск
+3. Нажмите Install
+
+СПОСОБ 4 - Через терминал (если доступен CLI):
+cursor --install-extension ms-python.python
+cursor --install-extension ms-python.vscode-pylance
+# и так далее для каждого расширения
+
+
