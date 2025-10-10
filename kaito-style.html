@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>НАУМОВ ВАДИМ</title>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
@@ -480,10 +483,10 @@
         .service-tag { font-size: 1.1rem; color: #888; font-weight: 300; letter-spacing: 0.1em; }
         .profile { padding: 150px 60px; max-width: 100%; margin: 0 auto; text-align: center; }
         .profile-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 60px; opacity: 1; transform: translateY(0); }
-        .profile-content { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-bottom: 80px; }
+        .profile-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
         .profile-text { text-align: left; }
-        .profile-text h3 { font-size: 2.88rem; font-weight: 300; margin-bottom: 30px; color: #fff; }
-        .profile-text p { font-size: 1.76rem; color: #888; line-height: 1.8; margin-bottom: 20px; }
+        .profile-text h3 { font-size: 2.88rem; font-weight: 300; margin-bottom: 60px; color: #fff; }
+        .profile-text p { font-size: 1.76rem; color: #888; line-height: 1.8; margin-bottom: 60px; }
         .profile-text .japanese { font-size: 1rem; color: #666; line-height: 1.6; }
         /* Плавная подсветка букв в описании без увеличения */
         .profile-text p .letter {
@@ -527,7 +530,7 @@
             opacity: 1;
             border-color: #00ffff;
             border-width: 3px;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5); 
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
         }
         .outline-1 {
             width: 70px;
@@ -578,7 +581,9 @@
         .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
         .work-item { position: relative; aspect-ratio: 16/9; background: #222; border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; }
         .work-item:hover { transform: scale(1.05); }
-        .work-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .work-image { width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; }
+        .work-item:hover .work-image { transform: scale(1.1); }
+        .work-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .work-item:hover .work-overlay { opacity: 1; }
         .work-title { font-size: 1.2rem; font-weight: 300; text-align: center; }
         .view-all { text-align: center; }
@@ -597,10 +602,218 @@
         .social-links a { color: #888; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s ease; }
         .social-links a:hover { color: #fff; }
         
+        /* Модальное окно для работ */
+        .work-modal {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        
+        .modal-content {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            background: #000;
+        }
+        
+        .modal-gallery {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px;
+            gap: 40px;
+        }
+        
+        .modal-close {
+            position: fixed;
+            top: 20px;
+            right: 30px;
+            color: #fff;
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10001;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.5);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-close:hover {
+            color: #00ffff;
+            background: rgba(0, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .modal-nav {
+            position: fixed;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            pointer-events: none;
+            z-index: 10002;
+            padding: 0 30px;
+        }
+        
+        .modal-prev, .modal-next {
+            background: rgba(0, 0, 0, 0.7);
+            border: 2px solid #fff;
+            color: #fff;
+            font-size: 28px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            pointer-events: auto;
+            transform: translateY(-50%);
+        }
+        
+        .modal-prev:hover, .modal-next:hover {
+            background: #00ffff;
+            border-color: #00ffff;
+            color: #000;
+            transform: translateY(-50%) scale(1.1);
+        }
+        
+        .modal-image {
+            width: 100%;
+            max-width: 1200px;
+            height: auto;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+        
+        .modal-image:hover {
+            transform: scale(1.02);
+        }
+        
+        .modal-info {
+            text-align: center;
+            padding: 40px 20px;
+            background: transparent;
+            max-width: 800px;
+            width: 100%;
+        }
+        
+        .modal-title {
+            font-size: 3rem;
+            font-weight: 200;
+            color: #fff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+            letter-spacing: 2px;
+        }
+        
+        .modal-description {
+            font-size: 1.4rem;
+            color: #e0e0e0;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+                backdrop-filter: blur(0px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                backdrop-filter: blur(15px);
+            }
+        }
+        
+        @keyframes modalSlideOut {
+            from {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+                backdrop-filter: blur(15px);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.8) translateY(50px);
+                backdrop-filter: blur(0px);
+            }
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeOutDown {
+            from {
+                opacity: 1;
+                transform: translateY(0);
+            }
+            to {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+        }
+        
+        
+        .modal-opening {
+            animation: modalSlideIn 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        
+        .modal-closing {
+            animation: modalSlideOut 0.4s cubic-bezier(0.55, 0.06, 0.68, 0.19) forwards;
+        }
+        
+        .work-container {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .work-container.fade-out {
+            animation: fadeOutDown 0.3s ease-in forwards;
+        }
         
         
         
-        @media (max-width: 1024px) { .profile-content { grid-template-columns: 1fr; gap: 40px; } .profile-text { text-align: center; } .profile-animation { height: 300px; } .outline-shapes { width: 250px; height: 250px; } .services-grid { grid-template-columns: 1fr; } .works-grid { grid-template-columns: repeat(2, 1fr); } }
+        
+        @media (max-width: 1024px) { .profile-content { grid-template-columns: 1fr; gap: 60px; } .profile-text { text-align: center; } .profile-animation { height: 300px; } .outline-shapes { width: 250px; height: 250px; } .services-grid { grid-template-columns: 1fr; } .works-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { 
             .vadya-word { font-size: 8rem; } 
             .design-word { font-size: 2rem; }
@@ -720,7 +933,7 @@
         <div class="stripe"></div>
         <div class="stripe"></div>
         <div class="stripe"></div>
-    </div>
+        </div>
     
     <!-- Плавающие геометрические фигуры -->
     <div class="floating-shapes">
@@ -795,34 +1008,36 @@
         <div class="works-container">
             <h2 class="works-title fade-in">РАБОТЫ</h2>
             <div class="works-grid">
-                <div class="work-item fade-in-scale fade-in-delay-1">
+                <div class="work-item fade-in-scale fade-in-delay-1" data-work="1">
+                    <img src="works/SPACE.jpg" alt="SPACE" class="work-image">
                     <div class="work-overlay">
-                        <h3 class="work-title">САЙЗЕН⁺<br>БРЕНДИНГ ВИДЕО</h3>
+                        <h3 class="work-title">МОИ РАБОТЫ<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-2">
+                <div class="work-item fade-in-scale fade-in-delay-2" data-work="2">
+                    <img src="works/Lumiere Logo.jpg" alt="Lumiere Logo" class="work-image">
                     <div class="work-overlay">
-                        <h3 class="work-title">РЕЙНАТО.ТОКИО<br>ВЕБ</h3>
-                    </div>
-                </div>
-                <div class="work-item fade-in-scale fade-in-delay-3">
-                    <div class="work-overlay">
-                        <h3 class="work-title">РОКУ КИОТО<br>ВЕБ</h3>
-                    </div>
-                </div>
-                <div class="work-item fade-in-scale fade-in-delay-1">
-                    <div class="work-overlay">
-                        <h3 class="work-title">架空のパティスリー<br>『しろいし洋菓子店』<br>ВЕБ</h3>
-                    </div>
-                </div>
-                <div class="work-item fade-in-scale fade-in-delay-2">
-                    <div class="work-overlay">
-                        <h3 class="work-title">КАШИКА_02<br>ВИДЕО, ДИЗАЙН</h3>
+                        <h3 class="work-title">LUMIERE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-3">
                     <div class="work-overlay">
-                        <h3 class="work-title">ИНТЕРСЕКТ<br>ВИДЕО, ДИЗАЙН</h3>
+                        <h3 class="work-title">ПРОЕКТ 3<br>СКОРО</h3>
+                    </div>
+                </div>
+                <div class="work-item fade-in-scale fade-in-delay-1">
+                    <div class="work-overlay">
+                        <h3 class="work-title">ПРОЕКТ 4<br>СКОРО</h3>
+                    </div>
+                </div>
+                <div class="work-item fade-in-scale fade-in-delay-2">
+                    <div class="work-overlay">
+                        <h3 class="work-title">ПРОЕКТ 5<br>СКОРО</h3>
+                    </div>
+                </div>
+                <div class="work-item fade-in-scale fade-in-delay-3">
+                    <div class="work-overlay">
+                        <h3 class="work-title">БОЛЬШЕ РАБОТ<br>СКОРО</h3>
                     </div>
                 </div>
             </div>
@@ -859,6 +1074,28 @@
             </div>
         </div>
     </section>
+    
+    <!-- Модальное окно для просмотра работ -->
+    <div id="workModal" class="work-modal">
+        <div class="modal-content">
+            <span class="modal-close">&times;</span>
+            <div class="modal-nav">
+                <button class="modal-prev" id="modalPrev">‹</button>
+                <button class="modal-next" id="modalNext">›</button>
+            </div>
+            <div class="modal-gallery">
+                <img id="modalImage" src="" alt="" class="modal-image">
+                <div class="modal-info">
+                    <h3 id="modalTitle" class="modal-title"></h3>
+                    <p id="modalDescription" class="modal-description"></p>
+                    <div class="modal-counter">
+                        <span id="modalCounter">1 / 5</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <!-- Кастомный курсор удален -->
     <script>
         // Кастомный курсор удален
@@ -996,38 +1233,38 @@
                     const parentContainer = this.closest('.hero-title, .hero-subtitle, .hero-description, .profile-title, .service-title, .service-description, .works-title, .work-title, .contact-title, .contact-label, .contact-value, .social-links, .view-all-btn');
                     
                     if (parentContainer) {
-                        // Убираем эффект с соседних букв в том же контейнере
-                        parentContainer.querySelectorAll('.letter').forEach(l => {
-                            if (l !== this) {
-                                l.style.transform = 'scale(1)';
-                                l.style.textShadow = '';
-                                l.style.zIndex = '1';
-                                l.style.color = '';
-                            }
-                        });
-                        
-                        // Применяем эффект к текущей букве
-                        this.style.transform = 'scale(1.8)';
-                        this.style.textShadow = '0 0 12px rgba(255, 255, 255, 0.8)';
-                        this.style.zIndex = '100';
-                        this.style.color = '#fff';
-                        
-                        // Применяем частичный эффект к соседним буквам
-                        const nextLetter = this.nextElementSibling;
-                        const prevLetter = this.previousElementSibling;
-                        
-                        if (nextLetter && nextLetter.classList.contains('letter')) {
-                            nextLetter.style.transform = 'scale(1.15)';
-                            nextLetter.style.textShadow = '0 0 6px rgba(255, 255, 255, 0.6)';
-                            nextLetter.style.zIndex = '50';
-                            nextLetter.style.color = '#fff';
+                    // Убираем эффект с соседних букв в том же контейнере
+                    parentContainer.querySelectorAll('.letter').forEach(l => {
+                        if (l !== this) {
+                            l.style.transform = 'scale(1)';
+                            l.style.textShadow = '';
+                            l.style.zIndex = '1';
+                            l.style.color = '';
                         }
-                        
-                        if (prevLetter && prevLetter.classList.contains('letter')) {
-                            prevLetter.style.transform = 'scale(1.15)';
-                            prevLetter.style.textShadow = '0 0 6px rgba(255, 255, 255, 0.6)';
-                            prevLetter.style.zIndex = '50';
-                            prevLetter.style.color = '#fff';
+                    });
+                    
+                    // Применяем эффект к текущей букве
+                    this.style.transform = 'scale(1.8)';
+                    this.style.textShadow = '0 0 12px rgba(255, 255, 255, 0.8)';
+                    this.style.zIndex = '100';
+                    this.style.color = '#fff';
+                    
+                    // Применяем частичный эффект к соседним буквам
+                    const nextLetter = this.nextElementSibling;
+                    const prevLetter = this.previousElementSibling;
+                    
+                    if (nextLetter && nextLetter.classList.contains('letter')) {
+                        nextLetter.style.transform = 'scale(1.15)';
+                        nextLetter.style.textShadow = '0 0 6px rgba(255, 255, 255, 0.6)';
+                        nextLetter.style.zIndex = '50';
+                        nextLetter.style.color = '#fff';
+                    }
+                    
+                    if (prevLetter && prevLetter.classList.contains('letter')) {
+                        prevLetter.style.transform = 'scale(1.15)';
+                        prevLetter.style.textShadow = '0 0 6px rgba(255, 255, 255, 0.6)';
+                        prevLetter.style.zIndex = '50';
+                        prevLetter.style.color = '#fff';
                         }
                     }
                 };
@@ -1431,6 +1668,338 @@
         
         // Инициализация фигур
         document.addEventListener('DOMContentLoaded', initFloatingShapes);
+        
+        // Интерактивная галерея работ
+        function initWorksGallery() {
+            const workItem = document.querySelector('.work-item[data-work="1"]');
+            const modal = document.getElementById('workModal');
+            const modalGallery = document.querySelector('.modal-gallery');
+            const modalClose = document.querySelector('.modal-close');
+            const modalPrev = document.getElementById('modalPrev');
+            const modalNext = document.getElementById('modalNext');
+            
+            // Массив всех работ
+            const allWorks = [
+                {
+                    title: 'SPACE',
+                    description: 'Брендинг проект для космической компании. Создание фирменного стиля, логотипа и визуальной концепции.',
+                    image: 'works/SPACE.jpg'
+                },
+                {
+                    title: 'ART BILLBOARD',
+                    description: 'Дизайн рекламного билборда с современным подходом к визуальной коммуникации.',
+                    image: 'works/ARTBillboard.jpg'
+                },
+                {
+                    title: 'ART LOGO',
+                    description: 'Создание логотипа для арт-проекта с фокусом на креативность и узнаваемость.',
+                    image: 'works/ARTLogo.jpg'
+                },
+                {
+                    title: 'EXHIBITION',
+                    description: 'Дизайн выставочного пространства с интерактивными элементами и современной навигацией.',
+                    image: 'works/Exhibition.jpg'
+                },
+                {
+                    title: 'GRAPHIC DESIGN',
+                    description: 'Комплексный графический дизайн проект с акцентом на минимализм и функциональность.',
+                    image: 'works/Gdesign.jpg'
+                }
+            ];
+            
+            // Массив работ Lumiere
+            const lumiereWorks = [
+                {
+                    title: 'LUMIERE LOGO',
+                    description: 'Создание логотипа для бренда Lumiere с акцентом на элегантность и современность.',
+                    image: 'works/Lumiere Logo.jpg'
+                },
+                {
+                    title: 'LUMIERE BACKDROP',
+                    description: 'Дизайн фонового изображения для презентации бренда с фокусом на визуальную привлекательность.',
+                    image: 'works/Lumiere Backdrop.jpg'
+                },
+                {
+                    title: 'LUMIERE BAG',
+                    description: 'Дизайн упаковки для продуктов бренда с современным подходом к брендингу.',
+                    image: 'works/Lumiere Bag.jpg'
+                },
+                {
+                    title: 'LUMIERE BOX',
+                    description: 'Создание дизайна коробки для упаковки с акцентом на премиальность и качество.',
+                    image: 'works/Lumiere Box.jpg'
+                }
+            ];
+            
+            let currentWorkIndex = 0;
+            let isClosing = false;
+            let currentWorksArray = allWorks;
+            let currentGalleryType = 'main'; // 'main' или 'lumiere'
+            
+            // Обработчик клика на левый верхний квадратик
+            workItem.addEventListener('click', function() {
+                openFullscreenGallery();
+            });
+            
+            // Обработчик клика на второй квадратик (Lumiere)
+            const workItem2 = document.querySelector('.work-item[data-work="2"]');
+            workItem2.addEventListener('click', function() {
+                openLumiereGallery();
+            });
+            
+            // Функция открытия полноэкранной галереи
+            function openFullscreenGallery() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Устанавливаем текущий массив работ и тип галереи
+                currentWorksArray = allWorks;
+                currentGalleryType = 'main';
+                
+                // Сбрасываем флаг закрытия
+                isClosing = false;
+                
+                // Сбрасываем позицию скролла на самый верх
+                modal.scrollTop = 0;
+                
+                // Сбрасываем индекс текущей работы
+                currentWorkIndex = 0;
+                
+                // Добавляем класс для анимации открытия
+                modal.classList.add('modal-opening');
+                
+                // Создаем все элементы галереи
+                createGalleryContent(allWorks);
+            }
+            
+            // Функция открытия галереи Lumiere
+            function openLumiereGallery() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                
+                // Устанавливаем текущий массив работ и тип галереи
+                currentWorksArray = lumiereWorks;
+                currentGalleryType = 'lumiere';
+                
+                // Сбрасываем флаг закрытия
+                isClosing = false;
+                
+                // Сбрасываем позицию скролла на самый верх
+                modal.scrollTop = 0;
+                
+                // Сбрасываем индекс текущей работы
+                currentWorkIndex = 0;
+                
+                // Добавляем класс для анимации открытия
+                modal.classList.add('modal-opening');
+                
+                // Создаем все элементы галереи Lumiere
+                createGalleryContent(lumiereWorks);
+            }
+            
+            // Функция создания контента галереи
+            function createGalleryContent(worksArray) {
+                modalGallery.innerHTML = '';
+                
+                worksArray.forEach((work, index) => {
+                    // Создаем контейнер для работы
+                    const workContainer = document.createElement('div');
+                    workContainer.className = 'work-container';
+                    workContainer.style.cssText = `
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        gap: 40px;
+                        padding: 60px 20px;
+                        min-height: 100vh;
+                        justify-content: center;
+                        opacity: 0;
+                        transform: translateY(30px);
+                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    `;
+                    
+                    // Добавляем задержку для последовательного появления
+                    setTimeout(() => {
+                        workContainer.style.opacity = '1';
+                        workContainer.style.transform = 'translateY(0)';
+                    }, index * 200);
+                    
+                    // Создаем изображение
+                    const img = document.createElement('img');
+                    img.src = work.image;
+                    img.alt = work.title;
+                    img.className = 'modal-image';
+                    img.style.cssText = `
+                        width: 100%;
+                        max-width: 1200px;
+                        height: auto;
+                        object-fit: contain;
+                        border-radius: 12px;
+                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        opacity: 0;
+                        transform: scale(0.9);
+                    `;
+                    
+                    // Анимация появления изображения
+                    setTimeout(() => {
+                        img.style.opacity = '1';
+                        img.style.transform = 'scale(1)';
+                    }, index * 200 + 300);
+                    
+                    // Создаем информацию о работе
+                    const info = document.createElement('div');
+                    info.className = 'modal-info';
+                    info.style.cssText = `
+                        text-align: center;
+                        padding: 40px 20px;
+                        background: transparent;
+                        max-width: 800px;
+                        width: 100%;
+                        opacity: 0;
+                        transform: translateY(20px);
+                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                    `;
+                    
+                    // Анимация появления информации
+                    setTimeout(() => {
+                        info.style.opacity = '1';
+                        info.style.transform = 'translateY(0)';
+                    }, index * 200 + 500);
+                    
+                    const title = document.createElement('h3');
+                    title.textContent = work.title;
+                    title.style.cssText = `
+                        font-size: 2.5rem;
+                        font-weight: 300;
+                        color: #fff;
+                        margin-bottom: 20px;
+                        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                    `;
+                    
+                    const description = document.createElement('p');
+                    description.textContent = work.description;
+                    description.style.cssText = `
+                        font-size: 1.2rem;
+                        color: #ccc;
+                        line-height: 1.8;
+                        margin-bottom: 20px;
+                    `;
+                    
+                    info.appendChild(title);
+                    info.appendChild(description);
+                    
+                    workContainer.appendChild(img);
+                    workContainer.appendChild(info);
+                    modalGallery.appendChild(workContainer);
+                });
+                
+                // Убеждаемся, что скролл находится в самом верху
+                setTimeout(() => {
+                    modal.scrollTop = 0;
+                }, 100);
+            }
+            
+            
+            // Функция закрытия модального окна
+            function closeModal() {
+                // Добавляем класс для анимации закрытия
+                modal.classList.remove('modal-opening');
+                modal.classList.add('modal-closing');
+                
+                // Ждем завершения анимации закрытия, затем скрываем модальное окно
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                    modal.classList.remove('modal-closing');
+                }, 400); // Длительность анимации закрытия
+            }
+            
+            // Обработчики кнопок навигации
+            modalNext.addEventListener('click', function() {
+                currentWorkIndex = (currentWorkIndex + 1) % currentWorksArray.length;
+                scrollToWork(currentWorkIndex);
+            });
+            
+            modalPrev.addEventListener('click', function() {
+                currentWorkIndex = (currentWorkIndex - 1 + currentWorksArray.length) % currentWorksArray.length;
+                scrollToWork(currentWorkIndex);
+            });
+            
+            // Функция прокрутки к конкретной работе
+            function scrollToWork(index) {
+                const workContainers = modalGallery.querySelectorAll('.work-container');
+                if (workContainers[index]) {
+                    workContainers[index].scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                }
+            }
+            
+            // Навигация по работам стрелками
+            document.addEventListener('keydown', function(e) {
+                if (modal.style.display === 'block') {
+                    if (e.key === 'ArrowLeft') {
+                        modalPrev.click();
+                    } else if (e.key === 'ArrowRight') {
+                        modalNext.click();
+                    } else if (e.key === 'Escape') {
+                        closeModal();
+                    }
+                }
+            });
+            
+            // Закрытие модального окна
+            modalClose.addEventListener('click', closeModal);
+            
+            // Закрытие по клику вне модального окна
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+            
+            // Обработчик скролла для автоматического закрытия
+            modal.addEventListener('scroll', function() {
+                if (isClosing) return; // Предотвращаем множественные срабатывания
+                
+                const scrollTop = modal.scrollTop;
+                const scrollHeight = modal.scrollHeight;
+                const clientHeight = modal.clientHeight;
+                const scrollBottom = scrollHeight - clientHeight;
+                
+                // Разные настройки для разных галерей
+                let closeThreshold, closeDelay;
+                
+                if (currentGalleryType === 'lumiere') {
+                    // Для галереи Lumiere - закрытие через 1 секунду
+                    closeThreshold = 5; // Минимальный возможный допуск (максимально поздно срабатывает)
+                    closeDelay = 1000; // Задержка 1 секунда
+                    console.log('Lumiere gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
+                } else {
+                    // Для основной галереи - стандартные настройки
+                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
+                    closeDelay = 800; // Меньше задержка
+                    console.log('Main gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
+                }
+                
+                // Проверяем, доскроллил ли пользователь до конца
+                if (scrollTop >= scrollBottom - closeThreshold) {
+                    console.log('Closing condition met! Gallery type:', currentGalleryType, 'Delay:', closeDelay + 'ms');
+                    isClosing = true;
+                    // Задержка перед закрытием (разная для разных галерей)
+                    setTimeout(() => {
+                        console.log('Closing modal after delay');
+                        closeModal();
+                    }, closeDelay);
+                }
+            });
+            
+        }
+        
+        // Инициализация галереи при загрузке страницы
+        document.addEventListener('DOMContentLoaded', initWorksGallery);
     </script>
 </body>
 </html>

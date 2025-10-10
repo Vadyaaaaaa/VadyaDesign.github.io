@@ -1,7 +1,7 @@
 from flask import Flask, send_from_directory, jsonify
 import os
 
-app = Flask(__name__, static_folder='assets', static_url_path='/assets')
+app = Flask(__name__)
 
 @app.get('/health')
 def healthcheck():
@@ -15,9 +15,17 @@ def index():
 def kaito_style():
 	return send_from_directory('.', 'kaito-style.html')
 
+@app.get('/test-images.html')
+def test_images():
+	return send_from_directory('.', 'test-images.html')
+
+@app.get('/works/<filename>')
+def works_file(filename):
+	return send_from_directory('works', filename)
+
 @app.get('/<path:path>')
 def static_proxy(path: str):
-	if os.path.exists(path) and path != 'kaito-style.html':
+	if os.path.exists(path) and path not in ['kaito-style.html', 'test-images.html']:
 		return send_from_directory('.', path)
 	return ('Not found', 404)
 
