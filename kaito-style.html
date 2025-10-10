@@ -1020,9 +1020,10 @@
                         <h3 class="work-title">LUMIERE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-3">
+                <div class="work-item fade-in-scale fade-in-delay-3" data-work="3">
+                    <img src="works/EkoLife Logo.jpg" alt="EkoLife Logo" class="work-image">
                     <div class="work-overlay">
-                        <h3 class="work-title">ПРОЕКТ 3<br>СКОРО</h3>
+                        <h3 class="work-title">EKOLIFE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-1">
@@ -1730,11 +1731,39 @@
                     image: 'works/Lumiere Box.jpg'
                 }
             ];
+
+            const ekoLifeWorks = [
+                {
+                    title: 'EKOLIFE LOGO',
+                    description: 'Создание логотипа для экологического бренда EkoLife с акцентом на природность и устойчивость.',
+                    image: 'works/EkoLife Logo.jpg'
+                },
+                {
+                    title: 'EKOLIFE CHEMISTRY',
+                    description: 'Дизайн химической формулы для демонстрации экологически чистых компонентов продукта.',
+                    image: 'works/EkoLife Chemistry.jpg'
+                },
+                {
+                    title: 'EKOLIFE CUP',
+                    description: 'Дизайн экологической чашки с фокусом на переработку и экологичность материалов.',
+                    image: 'works/EkoLife Cup.jpg'
+                },
+                {
+                    title: 'EKOLIFE PACKAGE',
+                    description: 'Создание дизайна упаковки с акцентом на экологичность и минимализм.',
+                    image: 'works/EkoLife Package.jpg'
+                },
+                {
+                    title: 'EKOLIFE PACKAGE 2',
+                    description: 'Альтернативный дизайн упаковки с современным подходом к экологическому брендингу.',
+                    image: 'works/EkoLife Package 2.jpg'
+                }
+            ];
             
             let currentWorkIndex = 0;
             let isClosing = false;
             let currentWorksArray = allWorks;
-            let currentGalleryType = 'main'; // 'main' или 'lumiere'
+            let currentGalleryType = 'main'; // 'main', 'lumiere' или 'ekolife'
             
             // Обработчик клика на левый верхний квадратик
             workItem.addEventListener('click', function() {
@@ -1745,6 +1774,12 @@
             const workItem2 = document.querySelector('.work-item[data-work="2"]');
             workItem2.addEventListener('click', function() {
                 openLumiereGallery();
+            });
+
+            // Обработчик клика на третий квадратик (EkoLife)
+            const workItem3 = document.querySelector('.work-item[data-work="3"]');
+            workItem3.addEventListener('click', function() {
+                openEkoLifeGallery();
             });
             
             // Функция открытия полноэкранной галереи
@@ -1776,25 +1811,50 @@
             function openLumiereGallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-                
+
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = lumiereWorks;
                 currentGalleryType = 'lumiere';
-                
+
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-                
+
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-                
+
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-                
+
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-                
+
                 // Создаем все элементы галереи Lumiere
                 createGalleryContent(lumiereWorks);
+            }
+
+            // Функция открытия галереи EkoLife
+            function openEkoLifeGallery() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Устанавливаем текущий массив работ и тип галереи
+                currentWorksArray = ekoLifeWorks;
+                currentGalleryType = 'ekolife';
+
+                // Сбрасываем флаг закрытия
+                isClosing = false;
+
+                // Сбрасываем позицию скролла на самый верх
+                modal.scrollTop = 0;
+
+                // Сбрасываем индекс текущей работы
+                currentWorkIndex = 0;
+
+                // Добавляем класс для анимации открытия
+                modal.classList.add('modal-opening');
+
+                // Создаем все элементы галереи EkoLife
+                createGalleryContent(ekoLifeWorks);
             }
             
             // Функция создания контента галереи
@@ -1978,10 +2038,10 @@
                     closeDelay = 1000; // Задержка 1 секунда
                     console.log('Lumiere gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
                 } else {
-                    // Для основной галереи - стандартные настройки
+                    // Для основной галереи и EkoLife - стандартные настройки
                     closeThreshold = 200; // Больший допуск (раньше срабатывает)
                     closeDelay = 800; // Меньше задержка
-                    console.log('Main gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
+                    console.log('Main/EkoLife gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
                 }
                 
                 // Проверяем, доскроллил ли пользователь до конца
