@@ -7,6 +7,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Last-Modified" content="0">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
@@ -581,7 +582,9 @@
         .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
         .work-item { position: relative; aspect-ratio: 16/9; background: #222; border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; }
         .work-item:hover { transform: scale(1.05); }
-        .work-image { width: 100%; height: 100%; object-fit: cover; transition: all 0.3s ease; }
+        .work-image { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; transition: all 0.3s ease; }
+        .backdrop-image { object-position: center 35%; }
+        .cup-image { object-position: center 50%; }
         .work-item:hover .work-image { transform: scale(1.1); }
         .work-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
         .work-item:hover .work-overlay { opacity: 1; }
@@ -1015,20 +1018,21 @@
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-2" data-work="2">
-                    <img src="works/Lumiere Logo.jpg" alt="Lumiere Logo" class="work-image">
+                    <img src="works/Lumiere Backdrop.jpg" alt="Lumiere Backdrop" class="work-image backdrop-image">
                     <div class="work-overlay">
                         <h3 class="work-title">LUMIERE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-3" data-work="3">
-                    <img src="works/EkoLife Logo.jpg" alt="EkoLife Logo" class="work-image">
+                    <img src="12345/EkoLife Cup.jpg?v=2" alt="EkoLife Cup" class="work-image cup-image">
                     <div class="work-overlay">
                         <h3 class="work-title">EKOLIFE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-1">
+                <div class="work-item fade-in-scale fade-in-delay-1" data-work="4">
+                    <img src="123456/UPDUTY LOGO.jpg" alt="UPDUTY PROJECT" class="work-image">
                     <div class="work-overlay">
-                        <h3 class="work-title">ПРОЕКТ 4<br>СКОРО</h3>
+                        <h3 class="work-title">UPDUTY<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-2">
@@ -1736,27 +1740,71 @@
                 {
                     title: 'EKOLIFE LOGO',
                     description: 'Создание логотипа для экологического бренда EkoLife с акцентом на природность и устойчивость.',
-                    image: 'works/EkoLife Logo.jpg'
+                    image: '12345/EkoLife Logo.jpg?v=2'
                 },
                 {
                     title: 'EKOLIFE CHEMISTRY',
                     description: 'Дизайн химической формулы для демонстрации экологически чистых компонентов продукта.',
-                    image: 'works/EkoLife Chemistry.jpg'
+                    image: '12345/EkoLife Chemistry.jpg?v=2'
                 },
                 {
                     title: 'EKOLIFE CUP',
                     description: 'Дизайн экологической чашки с фокусом на переработку и экологичность материалов.',
-                    image: 'works/EkoLife Cup.jpg'
+                    image: '12345/EkoLife Cup.jpg?v=2'
                 },
                 {
                     title: 'EKOLIFE PACKAGE',
                     description: 'Создание дизайна упаковки с акцентом на экологичность и минимализм.',
-                    image: 'works/EkoLife Package.jpg'
+                    image: '12345/EkoLife Package.jpg?v=2'
                 },
                 {
                     title: 'EKOLIFE PACKAGE 2',
                     description: 'Альтернативный дизайн упаковки с современным подходом к экологическому брендингу.',
-                    image: 'works/EkoLife Package 2.jpg'
+                    image: '12345/EkoLife Package 2.jpg?v=2'
+                }
+            ];
+
+            // Массив работ проекта UPDUTY
+            const newProjectWorks = [
+                {
+                    title: 'UPDUTY LOGO',
+                    description: 'Создание основного логотипа для бренда UPDUTY с современным дизайном и узнаваемостью.',
+                    image: '123456/UPDUTY LOGO.jpg'
+                },
+                {
+                    title: 'UPDUTY LOGO 2',
+                    description: 'Альтернативный вариант логотипа UPDUTY с акцентом на минимализм и элегантность.',
+                    image: '123456/UPDUTY LOGO 2.jpg'
+                },
+                {
+                    title: 'UPDUTY BUSINESS CARD',
+                    description: 'Дизайн визитной карточки с фирменным стилем UPDUTY и профессиональным подходом.',
+                    image: '123456/UPDUTY BUSINESS CARD.jpg'
+                },
+                {
+                    title: 'UPDUTY FOLDER',
+                    description: 'Создание дизайна папки для документов с брендингом UPDUTY.',
+                    image: '123456/UPDUTY FOLDER.jpg'
+                },
+                {
+                    title: 'UPDUTY BADGE',
+                    description: 'Дизайн значка/бейджа с логотипом UPDUTY для корпоративного использования.',
+                    image: '123456/UPDUTY BADGE.jpg'
+                },
+                {
+                    title: 'UPDUTY HOODIES',
+                    description: 'Дизайн толстовки с принтом UPDUTY для мерчандайзинга и корпоративного стиля.',
+                    image: '123456/UPDUTY HOODIES.jpg'
+                },
+                {
+                    title: 'UPDUTY SIGNBOARD',
+                    description: 'Создание дизайна вывески для офиса или торговой точки UPDUTY.',
+                    image: '123456/UPDUTY SIGNBOARD.jpg'
+                },
+                {
+                    title: 'UPDUTY WEBSITE',
+                    description: 'Дизайн веб-сайта для бренда UPDUTY с современным интерфейсом и пользовательским опытом.',
+                    image: '123456/UPDUTY WEBSITE.jpg'
                 }
             ];
             
@@ -1780,6 +1828,12 @@
             const workItem3 = document.querySelector('.work-item[data-work="3"]');
             workItem3.addEventListener('click', function() {
                 openEkoLifeGallery();
+            });
+
+            // Обработчик клика на четвертый квадратик (Новый проект)
+            const workItem4 = document.querySelector('.work-item[data-work="4"]');
+            workItem4.addEventListener('click', function() {
+                openNewProjectGallery();
             });
             
             // Функция открытия полноэкранной галереи
@@ -1855,6 +1909,31 @@
 
                 // Создаем все элементы галереи EkoLife
                 createGalleryContent(ekoLifeWorks);
+            }
+
+            // Функция открытия галереи нового проекта
+            function openNewProjectGallery() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Устанавливаем текущий массив работ и тип галереи
+                currentWorksArray = newProjectWorks;
+                currentGalleryType = 'newproject';
+
+                // Сбрасываем флаг закрытия
+                isClosing = false;
+
+                // Сбрасываем позицию скролла на самый верх
+                modal.scrollTop = 0;
+
+                // Сбрасываем индекс текущей работы
+                currentWorkIndex = 0;
+
+                // Добавляем класс для анимации открытия
+                modal.classList.add('modal-opening');
+
+                // Создаем все элементы галереи нового проекта
+                createGalleryContent(newProjectWorks);
             }
             
             // Функция создания контента галереи
@@ -2037,6 +2116,11 @@
                     closeThreshold = 5; // Минимальный возможный допуск (максимально поздно срабатывает)
                     closeDelay = 1000; // Задержка 1 секунда
                     console.log('Lumiere gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
+                } else if (currentGalleryType === 'newproject') {
+                    // Для галереи UPDUTY - закрытие через 3.8 секунды (еще на 2 секунды больше)
+                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
+                    closeDelay = 3800; // Задержка 3.8 секунды
+                    console.log('UPDUTY gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
                 } else {
                     // Для основной галереи и EkoLife - стандартные настройки
                     closeThreshold = 200; // Больший допуск (раньше срабатывает)
