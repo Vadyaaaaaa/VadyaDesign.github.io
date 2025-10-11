@@ -2144,6 +2144,21 @@
         
         // Инициализация галереи при загрузке страницы
         document.addEventListener('DOMContentLoaded', initWorksGallery);
+        
+        // Автоматическая прокрутка в верхний блок при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Прокручиваем страницу в самый верх
+            window.scrollTo({
+                top: 0,
+                left: 0,
+                behavior: 'smooth'
+            });
+        });
+        
+        // Также прокручиваем вверх при обновлении страницы
+        window.addEventListener('beforeunload', function() {
+            window.scrollTo(0, 0);
+        });
     </script>
 </body>
 </html>
