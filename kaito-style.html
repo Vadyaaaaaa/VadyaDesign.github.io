@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>НАУМОВ ВАДИМ</title>
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-    <meta http-equiv="Pragma" content="no-cache">
-    <meta http-equiv="Expires" content="0">
-    <meta http-equiv="Last-Modified" content="0">
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
+    <meta name="description" content="Портфолио графического дизайнера Наумова Вадима">
+    <meta name="keywords" content="дизайн, графический дизайн, портфолио, логотипы, брендинг">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet">
+    <link rel="preload" href="Republiko_PersonalUse.otf" as="font" type="font/otf" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <style>
         @font-face {
             font-family: 'Republiko_PersonalUse';
@@ -43,313 +43,84 @@
         /* Мерцающие фотографии удалены */
         /* Кастомный курсор удален */
         
-        /* Интерактивные фиолетовые полосы */
-        .interactive-stripes {
+        /* 3D Фоновая анимация сферы */
+        .background-sphere {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 1;
-            overflow: hidden;
-        }
-        
-        .stripe {
-            position: absolute;
-            background: linear-gradient(45deg, #ffffff, #f0f0f0, #e0e0e0, #d0d0d0);
-            opacity: 0.12;
-            animation: stripeFloat 15s infinite ease-in-out;
-            border-radius: 2px;
-        }
-        
-        .stripe:nth-child(1) {
-            width: 300px;
-            height: 4px;
-            top: 20%;
-            left: -300px;
-            animation-delay: 0s;
-            animation-duration: 20s;
-        }
-        
-        .stripe:nth-child(2) {
-            width: 250px;
-            height: 3px;
-            top: 40%;
-            left: -250px;
-            animation-delay: -3s;
-            animation-duration: 18s;
-        }
-        
-        .stripe:nth-child(3) {
-            width: 400px;
-            height: 5px;
-            top: 60%;
-            left: -400px;
-            animation-delay: -6s;
-            animation-duration: 22s;
-        }
-        
-        .stripe:nth-child(4) {
-            width: 200px;
-            height: 2px;
-            top: 80%;
-            left: -200px;
-            animation-delay: -9s;
-            animation-duration: 16s;
-        }
-        
-        .stripe:nth-child(5) {
-            width: 350px;
-            height: 4px;
-            top: 10%;
-            left: -350px;
-            animation-delay: -12s;
-            animation-duration: 24s;
-        }
-        
-        .stripe:nth-child(6) {
-            width: 180px;
-            height: 3px;
-            top: 70%;
-            left: -180px;
-            animation-delay: -15s;
-            animation-duration: 19s;
-        }
-        
-        .stripe:nth-child(7) {
-            width: 320px;
-            height: 2px;
-            top: 30%;
-            left: -320px;
-            animation-delay: -18s;
-            animation-duration: 21s;
-        }
-        
-        .stripe:nth-child(8) {
-            width: 280px;
-            height: 4px;
             top: 50%;
-            left: -280px;
-            animation-delay: -21s;
-            animation-duration: 17s;
-        }
-        
-        @keyframes stripeFloat {
-            0% {
-                transform: translateX(-100vw) rotate(0deg) scaleY(1);
-                opacity: 0.12;
-            }
-            25% {
-                transform: translateX(0vw) rotate(5deg) scaleY(1.2);
-                opacity: 0.2;
-            }
-            50% {
-                transform: translateX(100vw) rotate(-3deg) scaleY(0.8);
-                opacity: 0.15;
-            }
-            75% {
-                transform: translateX(200vw) rotate(7deg) scaleY(1.1);
-                opacity: 0.25;
-            }
-            100% {
-                transform: translateX(300vw) rotate(0deg) scaleY(1);
-                opacity: 0.12;
-            }
-        }
-        
-        /* Дополнительные эффекты для полос */
-        .stripe::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 0;
-            right: 0;
-            bottom: -2px;
-            background: inherit;
-            filter: blur(8px);
-            opacity: 0.3;
-            z-index: -1;
-        }
-        
-        .stripe::after {
-            content: '';
-            position: absolute;
-            top: 1px;
-            left: 0;
-            right: 0;
-            bottom: 1px;
-            background: inherit;
-            filter: brightness(1.8);
-            opacity: 0.6;
-            z-index: 1;
-        }
-        
-        /* Плавающие геометрические фигуры */
-        .floating-shapes {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 2;
-            overflow: hidden;
-        }
-        
-        .shape {
-            position: absolute;
-            border: 2px solid #ffffff;
-            background: transparent;
-            opacity: 0.15;
-            animation: shapeFloat 12s infinite ease-in-out;
-        }
-        
-        .shape:nth-child(1) {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            top: 15%;
-            left: 25%;
-            animation-delay: 0s;
-            animation-duration: 8s;
-        }
-        
-        .shape:nth-child(2) {
-            width: 15px;
-            height: 15px;
-            top: 35%;
-            left: 75%;
-            animation-delay: -2s;
-            animation-duration: 10s;
-        }
-        
-        .shape:nth-child(3) {
-            width: 25px;
-            height: 25px;
-            clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
-            top: 55%;
-            left: 15%;
-            animation-delay: -4s;
-            animation-duration: 9s;
-        }
-        
-        .shape:nth-child(4) {
-            width: 18px;
-            height: 18px;
-            transform: rotate(45deg);
-            top: 75%;
-            left: 85%;
-            animation-delay: -6s;
-            animation-duration: 11s;
-        }
-        
-        .shape:nth-child(5) {
-            width: 22px;
-            height: 22px;
-            border-radius: 30%;
-            top: 25%;
             left: 50%;
-            animation-delay: -8s;
-            animation-duration: 7s;
-        }
-        
-        .shape:nth-child(6) {
-            width: 16px;
-            height: 16px;
-            clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
-            top: 65%;
-            left: 40%;
-            animation-delay: -10s;
-            animation-duration: 13s;
-        }
-        
-        .shape:nth-child(7) {
-            width: 20px;
-            height: 20px;
-            border-radius: 20%;
-            top: 45%;
-            left: 90%;
-            animation-delay: -12s;
-            animation-duration: 8.5s;
-        }
-        
-        .shape:nth-child(8) {
-            width: 14px;
-            height: 14px;
-            top: 85%;
-            left: 10%;
-            animation-delay: -14s;
-            animation-duration: 9.5s;
-        }
-        
-        .shape:nth-child(9) {
-            width: 24px;
-            height: 24px;
-            clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
-            top: 5%;
-            left: 60%;
-            animation-delay: -16s;
-            animation-duration: 10.5s;
-        }
-        
-        .shape:nth-child(10) {
-            width: 17px;
-            height: 17px;
-            border-radius: 50%;
-            top: 95%;
-            left: 70%;
-            animation-delay: -18s;
-            animation-duration: 12s;
-        }
-        
-        @keyframes shapeFloat {
-            0% {
-                transform: translateY(100vh) rotate(0deg) scale(1);
-                opacity: 0.15;
-            }
-            25% {
-                transform: translateY(75vh) rotate(90deg) scale(1.2);
-                opacity: 0.3;
-            }
-            50% {
-                transform: translateY(50vh) rotate(180deg) scale(0.8);
-                opacity: 0.2;
-            }
-            75% {
-                transform: translateY(25vh) rotate(270deg) scale(1.1);
-                opacity: 0.35;
-            }
-            100% {
-                transform: translateY(-100vh) rotate(360deg) scale(1);
-                opacity: 0.15;
-            }
-        }
-        
-        /* Дополнительные эффекты для фигур */
-        .shape::before {
-            content: '';
-            position: absolute;
-            top: -3px;
-            left: -3px;
-            right: -3px;
-            bottom: -3px;
-            border: 1px solid #ffffff;
-            opacity: 0.1;
-            z-index: -1;
-        }
-        
-        .shape::after {
-            content: '';
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            right: 1px;
-            bottom: 1px;
-            border: 1px solid #ffffff;
-            opacity: 0.2;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
             z-index: 1;
+            transform-style: preserve-3d;
+            perspective: 800px;
         }
+        
+        .sphere {
+            animation: rot 16s linear infinite reverse;
+            width: 800px;
+            height: 800px;
+            border-radius: 50%;
+            transform-style: preserve-3d;
+            transform-origin: center center;
+            will-change: transform;
+        }
+        
+        .sphere i {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            line-height: 800px;
+            transform-style: preserve-3d;
+            border-radius: 50%;
+            backface-visibility: visible;
+            box-shadow: 0 0 200px 0 rgba(255, 255, 255, 0.02),
+                       inset 0 0 200px 0 rgba(255, 255, 255, 0.04);
+            will-change: transform;
+            contain: layout style paint;
+        }
+        
+        /* Создание элементов сферы */
+        .sphere i:nth-child(1) { transform: rotateY(11.25deg); }
+        .sphere i:nth-child(2) { transform: rotateY(22.5deg); }
+        .sphere i:nth-child(3) { transform: rotateY(33.75deg); }
+        .sphere i:nth-child(4) { transform: rotateY(45deg); }
+        .sphere i:nth-child(5) { transform: rotateY(56.25deg); }
+        .sphere i:nth-child(6) { transform: rotateY(67.5deg); }
+        .sphere i:nth-child(7) { transform: rotateY(78.75deg); }
+        .sphere i:nth-child(8) { transform: rotateY(90deg); }
+        .sphere i:nth-child(9) { transform: rotateY(101.25deg); }
+        .sphere i:nth-child(10) { transform: rotateY(112.5deg); }
+        .sphere i:nth-child(11) { transform: rotateY(123.75deg); }
+        .sphere i:nth-child(12) { transform: rotateY(135deg); }
+        .sphere i:nth-child(13) { transform: rotateY(146.25deg); }
+        .sphere i:nth-child(14) { transform: rotateY(157.5deg); }
+        .sphere i:nth-child(15) { transform: rotateY(168.75deg); }
+        .sphere i:nth-child(16) { transform: rotateY(180deg); }
+        .sphere i:nth-child(17) { transform: rotateX(11.25deg); }
+        .sphere i:nth-child(18) { transform: rotateX(22.5deg); }
+        .sphere i:nth-child(19) { transform: rotateX(33.75deg); }
+        .sphere i:nth-child(20) { transform: rotateX(45deg); }
+        .sphere i:nth-child(21) { transform: rotateX(56.25deg); }
+        .sphere i:nth-child(22) { transform: rotateX(67.5deg); }
+        .sphere i:nth-child(23) { transform: rotateX(78.75deg); }
+        .sphere i:nth-child(24) { transform: rotateX(90deg); }
+        .sphere i:nth-child(25) { transform: rotateX(101.25deg); }
+        .sphere i:nth-child(26) { transform: rotateX(112.5deg); }
+        .sphere i:nth-child(27) { transform: rotateX(123.75deg); }
+        .sphere i:nth-child(28) { transform: rotateX(135deg); }
+        .sphere i:nth-child(29) { transform: rotateX(146.25deg); }
+        .sphere i:nth-child(30) { transform: rotateX(157.5deg); }
+        .sphere i:nth-child(31) { transform: rotateX(168.75deg); }
+        .sphere i:nth-child(32) { transform: rotateX(180deg); }
+        
+        @keyframes rot {
+            to { transform: rotateY(360deg) rotateZ(360deg) translate3d(0, 0, 0); }
+        }
+        
+        
+        
+        
+        
         .scroll-indicator { position: fixed; top: 0; left: 0; width: 100%; height: 4px; background: #333; z-index: 1000; }
         .scroll-progress { height: 100%; background: #fff; width: 0%; transition: width 0.1s ease; }
         .hero { 
@@ -576,21 +347,21 @@
         .service-card:hover { border-color: #fff; transform: translateY(-10px); }
         .service-title { font-size: 1.5rem; margin-bottom: 20px; color: #fff; font-weight: 300; }
         .service-description { color: #888; line-height: 1.8; font-size: 1rem; }
-        .works { padding: 150px 20px; background: #111; }
+        .works { padding: 150px 20px; background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(15px); position: relative; z-index: 10; }
         .works-container { max-width: 100%; margin: 0 auto; padding: 0 60px; }
-        .works-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 80px; text-align: center; }
+        .works-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 80px; text-align: center; position: relative; z-index: 11; }
         .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
-        .work-item { position: relative; aspect-ratio: 16/9; background: #222; border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; }
+        .work-item { position: relative; aspect-ratio: 16/9; background: rgba(34, 34, 34, 0.8); border-radius: 8px; overflow: hidden; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.15); z-index: 11; will-change: transform; contain: layout style paint; }
         .work-item:hover { transform: scale(1.05); }
-        .work-image { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; transition: all 0.3s ease; }
+        .work-image { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; transition: all 0.3s ease; will-change: transform; contain: layout style paint; }
         .backdrop-image { object-position: center 35%; }
         .cup-image { object-position: center 50%; }
         .work-item:hover .work-image { transform: scale(1.1); }
-        .work-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; }
+        .work-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); display: flex; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s ease; backdrop-filter: blur(8px); }
         .work-item:hover .work-overlay { opacity: 1; }
         .work-title { font-size: 1.2rem; font-weight: 300; text-align: center; }
         .view-all { text-align: center; }
-        .view-all-btn { display: inline-block; padding: 15px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; font-weight: 300; letter-spacing: 0.1em; }
+        .view-all-btn { display: inline-block; padding: 15px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; font-weight: 300; letter-spacing: 0.1em; will-change: transform, background-color; contain: layout style paint; }
         .view-all-btn:hover { background: #fff; color: #000; }
         .contact { padding: 150px 60px; text-align: center; }
         .contact-container { max-width: 100%; margin: 0 auto; }
@@ -652,6 +423,8 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            will-change: transform, background-color;
+            contain: layout style paint;
         }
         
         .modal-close:hover {
@@ -686,6 +459,8 @@
             transition: all 0.3s ease;
             pointer-events: auto;
             transform: translateY(-50%);
+            will-change: transform, background-color;
+            contain: layout style paint;
         }
         
         .modal-prev:hover, .modal-next:hover {
@@ -741,12 +516,12 @@
         @keyframes modalSlideIn {
             from {
                 opacity: 0;
-                transform: scale(0.8) translateY(50px);
+                transform: scale(0.8) translate3d(0, 50px, 0);
                 backdrop-filter: blur(0px);
             }
             to {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1) translate3d(0, 0, 0);
                 backdrop-filter: blur(15px);
             }
         }
@@ -754,12 +529,12 @@
         @keyframes modalSlideOut {
             from {
                 opacity: 1;
-                transform: scale(1) translateY(0);
+                transform: scale(1) translate3d(0, 0, 0);
                 backdrop-filter: blur(15px);
             }
             to {
                 opacity: 0;
-                transform: scale(0.8) translateY(50px);
+                transform: scale(0.8) translate3d(0, 50px, 0);
                 backdrop-filter: blur(0px);
             }
         }
@@ -777,22 +552,22 @@
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translate3d(0, 30px, 0);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate3d(0, 0, 0);
             }
         }
         
         @keyframes fadeOutDown {
             from {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translate3d(0, 0, 0);
             }
             to {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translate3d(0, 30px, 0);
             }
         }
         
@@ -936,6 +711,133 @@
             z-index: 10000;
             opacity: 1;
             transition: opacity 0.8s ease-out;
+            overflow: hidden;
+        }
+        
+        /* Анимация загрузки - 3D цилиндры с фоновым изображением */
+        .loading-animation {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            --size: min(35vw, 35vh);
+            --width: calc(var(--size) / 40);
+            --dist: calc(var(--width) * 9.8);
+            --count: 64;
+            --bg: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5eeea355389655.59822ff824b72.gif');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--width);
+        }
+        
+        .loading-tube {
+            transform-style: preserve-3d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: loadingSpeen 6s infinite linear;
+            width: calc(var(--dist) * 2);
+            height: var(--size);
+            position: relative;
+        }
+        
+        .loading-tube:nth-child(1) {
+            animation-delay: -7.5s;
+        }
+        
+        .loading-tube:nth-child(2) {
+            animation-delay: -5s;
+        }
+        
+        .loading-tube:nth-child(3) {
+            animation-delay: -2.5s;
+        }
+        
+        .loading-strip {
+            transform-style: preserve-3d;
+            background-color: white;
+            height: var(--size);
+            width: var(--width);
+            position: absolute;
+            background-image: var(--bg);
+            background-size: calc(var(--width) * var(--count)) auto;
+            background-repeat: no-repeat;
+            backface-visibility: hidden;
+        }
+        
+        .loading-strip:nth-child(1) { transform: rotateY(calc(1turn * 1 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -0) center; }
+        .loading-strip:nth-child(2) { transform: rotateY(calc(1turn * 2 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -1) center; }
+        .loading-strip:nth-child(3) { transform: rotateY(calc(1turn * 3 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -2) center; }
+        .loading-strip:nth-child(4) { transform: rotateY(calc(1turn * 4 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -3) center; }
+        .loading-strip:nth-child(5) { transform: rotateY(calc(1turn * 5 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -4) center; }
+        .loading-strip:nth-child(6) { transform: rotateY(calc(1turn * 6 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -5) center; }
+        .loading-strip:nth-child(7) { transform: rotateY(calc(1turn * 7 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -6) center; }
+        .loading-strip:nth-child(8) { transform: rotateY(calc(1turn * 8 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -7) center; }
+        .loading-strip:nth-child(9) { transform: rotateY(calc(1turn * 9 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -8) center; }
+        .loading-strip:nth-child(10) { transform: rotateY(calc(1turn * 10 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -9) center; }
+        .loading-strip:nth-child(11) { transform: rotateY(calc(1turn * 11 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -10) center; }
+        .loading-strip:nth-child(12) { transform: rotateY(calc(1turn * 12 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -11) center; }
+        .loading-strip:nth-child(13) { transform: rotateY(calc(1turn * 13 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -12) center; }
+        .loading-strip:nth-child(14) { transform: rotateY(calc(1turn * 14 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -13) center; }
+        .loading-strip:nth-child(15) { transform: rotateY(calc(1turn * 15 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -14) center; }
+        .loading-strip:nth-child(16) { transform: rotateY(calc(1turn * 16 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -15) center; }
+        .loading-strip:nth-child(17) { transform: rotateY(calc(1turn * 17 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -16) center; }
+        .loading-strip:nth-child(18) { transform: rotateY(calc(1turn * 18 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -17) center; }
+        .loading-strip:nth-child(19) { transform: rotateY(calc(1turn * 19 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -18) center; }
+        .loading-strip:nth-child(20) { transform: rotateY(calc(1turn * 20 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -19) center; }
+        .loading-strip:nth-child(21) { transform: rotateY(calc(1turn * 21 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -20) center; }
+        .loading-strip:nth-child(22) { transform: rotateY(calc(1turn * 22 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -21) center; }
+        .loading-strip:nth-child(23) { transform: rotateY(calc(1turn * 23 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -22) center; }
+        .loading-strip:nth-child(24) { transform: rotateY(calc(1turn * 24 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -23) center; }
+        .loading-strip:nth-child(25) { transform: rotateY(calc(1turn * 25 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -24) center; }
+        .loading-strip:nth-child(26) { transform: rotateY(calc(1turn * 26 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -25) center; }
+        .loading-strip:nth-child(27) { transform: rotateY(calc(1turn * 27 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -26) center; }
+        .loading-strip:nth-child(28) { transform: rotateY(calc(1turn * 28 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -27) center; }
+        .loading-strip:nth-child(29) { transform: rotateY(calc(1turn * 29 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -28) center; }
+        .loading-strip:nth-child(30) { transform: rotateY(calc(1turn * 30 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -29) center; }
+        .loading-strip:nth-child(31) { transform: rotateY(calc(1turn * 31 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -30) center; }
+        .loading-strip:nth-child(32) { transform: rotateY(calc(1turn * 32 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -31) center; }
+        .loading-strip:nth-child(33) { transform: rotateY(calc(1turn * 33 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -32) center; }
+        .loading-strip:nth-child(34) { transform: rotateY(calc(1turn * 34 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -33) center; }
+        .loading-strip:nth-child(35) { transform: rotateY(calc(1turn * 35 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -34) center; }
+        .loading-strip:nth-child(36) { transform: rotateY(calc(1turn * 36 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -35) center; }
+        .loading-strip:nth-child(37) { transform: rotateY(calc(1turn * 37 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -36) center; }
+        .loading-strip:nth-child(38) { transform: rotateY(calc(1turn * 38 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -37) center; }
+        .loading-strip:nth-child(39) { transform: rotateY(calc(1turn * 39 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -38) center; }
+        .loading-strip:nth-child(40) { transform: rotateY(calc(1turn * 40 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -39) center; }
+        .loading-strip:nth-child(41) { transform: rotateY(calc(1turn * 41 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -40) center; }
+        .loading-strip:nth-child(42) { transform: rotateY(calc(1turn * 42 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -41) center; }
+        .loading-strip:nth-child(43) { transform: rotateY(calc(1turn * 43 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -42) center; }
+        .loading-strip:nth-child(44) { transform: rotateY(calc(1turn * 44 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -43) center; }
+        .loading-strip:nth-child(45) { transform: rotateY(calc(1turn * 45 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -44) center; }
+        .loading-strip:nth-child(46) { transform: rotateY(calc(1turn * 46 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -45) center; }
+        .loading-strip:nth-child(47) { transform: rotateY(calc(1turn * 47 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -46) center; }
+        .loading-strip:nth-child(48) { transform: rotateY(calc(1turn * 48 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -47) center; }
+        .loading-strip:nth-child(49) { transform: rotateY(calc(1turn * 49 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -48) center; }
+        .loading-strip:nth-child(50) { transform: rotateY(calc(1turn * 50 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -49) center; }
+        .loading-strip:nth-child(51) { transform: rotateY(calc(1turn * 51 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -50) center; }
+        .loading-strip:nth-child(52) { transform: rotateY(calc(1turn * 52 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -51) center; }
+        .loading-strip:nth-child(53) { transform: rotateY(calc(1turn * 53 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -52) center; }
+        .loading-strip:nth-child(54) { transform: rotateY(calc(1turn * 54 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -53) center; }
+        .loading-strip:nth-child(55) { transform: rotateY(calc(1turn * 55 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -54) center; }
+        .loading-strip:nth-child(56) { transform: rotateY(calc(1turn * 56 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -55) center; }
+        .loading-strip:nth-child(57) { transform: rotateY(calc(1turn * 57 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -56) center; }
+        .loading-strip:nth-child(58) { transform: rotateY(calc(1turn * 58 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -57) center; }
+        .loading-strip:nth-child(59) { transform: rotateY(calc(1turn * 59 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -58) center; }
+        .loading-strip:nth-child(60) { transform: rotateY(calc(1turn * 60 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -59) center; }
+        .loading-strip:nth-child(61) { transform: rotateY(calc(1turn * 61 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -60) center; }
+        .loading-strip:nth-child(62) { transform: rotateY(calc(1turn * 62 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -61) center; }
+        .loading-strip:nth-child(63) { transform: rotateY(calc(1turn * 63 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -62) center; }
+        .loading-strip:nth-child(64) { transform: rotateY(calc(1turn * 64 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -63) center; }
+        
+        @keyframes loadingSpeen {
+            0% {
+                transform: rotateY(0deg);
+            }
+            100% {
+                transform: rotateY(360deg);
+            }
         }
 
         .loading-screen.fade-out {
@@ -944,8 +846,13 @@
         }
 
         .loading-container {
+            position: absolute;
+            top: 72%;
+            left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
             color: #fff;
+            z-index: 2;
         }
 
         .loading-logo {
@@ -954,7 +861,7 @@
 
         .loading-title {
             font-family: 'Republiko_PersonalUse', 'Helvetica Neue', Arial, sans-serif;
-            font-size: clamp(2rem, 8vw, 4rem);
+            font-size: clamp(1.5rem, 6vw, 3rem);
             font-weight: normal;
             margin: 0;
             background: linear-gradient(45deg, #fff, #ccc, #fff);
@@ -966,7 +873,7 @@
         }
 
         .loading-subtitle {
-            font-size: clamp(0.8rem, 3vw, 1.2rem);
+            font-size: clamp(0.7rem, 2.5vw, 1rem);
             color: #888;
             margin: 10px 0 0 0;
             font-weight: 300;
@@ -988,6 +895,8 @@
             border-top: 2px solid #fff;
             border-radius: 50%;
             animation: spin 1.5s linear infinite;
+            will-change: transform;
+            contain: layout style paint;
         }
 
         .spinner-ring:nth-child(1) {
@@ -1026,8 +935,8 @@
         }
 
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% { transform: rotate(0deg) translate3d(0, 0, 0); }
+            100% { transform: rotate(360deg) translate3d(0, 0, 0); }
         }
 
         @keyframes pulse {
@@ -1058,11 +967,65 @@
 <body>
     <!-- Экран загрузки -->
     <div id="loadingScreen" class="loading-screen">
-        <div class="loading-container">
-            <div class="loading-logo">
-                <h1 class="loading-title">НАУМОВ ВАДИМ</h1>
-                <p class="loading-subtitle">Графический дизайнер</p>
+        <!-- 3D Анимация загрузки -->
+        <div class="loading-animation">
+            <div class="loading-tube">
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
             </div>
+            <div class="loading-tube">
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+            </div>
+            <div class="loading-tube">
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+                <div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div><div class="loading-strip"></div>
+            </div>
+        </div>
+        
+        <div class="loading-container">
             <div class="loading-spinner">
                 <div class="spinner-ring"></div>
                 <div class="spinner-ring"></div>
@@ -1074,30 +1037,14 @@
 
     <div class="scroll-indicator"><div class="scroll-progress" id="scrollProgress"></div></div>
     
-    <!-- Интерактивные фиолетовые полосы -->
-    <div class="interactive-stripes">
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
-        <div class="stripe"></div>
+    <!-- 3D Фоновая анимация сферы -->
+    <div class="background-sphere">
+        <div class="sphere">
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+            <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
         </div>
-    
-    <!-- Плавающие геометрические фигуры -->
-    <div class="floating-shapes">
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
-        <div class="shape"></div>
     </div>
     
     <!-- Глобальные анимации для всего сайта -->
@@ -1160,31 +1107,31 @@
             <h2 class="works-title fade-in">РАБОТЫ</h2>
             <div class="works-grid">
                 <div class="work-item fade-in-scale fade-in-delay-1" data-work="1">
-                    <img src="works/SPACE.jpg" alt="SPACE" class="work-image">
+                    <img src="works/SPACE.jpg" alt="SPACE" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">МОИ РАБОТЫ<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-2" data-work="2">
-                    <img src="works/Lumiere Backdrop.jpg" alt="Lumiere Backdrop" class="work-image backdrop-image">
+                    <img src="works/Lumiere Backdrop.jpg" alt="Lumiere Backdrop" class="work-image backdrop-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">LUMIERE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-3" data-work="3">
-                    <img src="12345/EkoLife Cup.jpg?v=2" alt="EkoLife Cup" class="work-image cup-image">
+                    <img src="12345/EkoLife Cup.jpg?v=2" alt="EkoLife Cup" class="work-image cup-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">EKOLIFE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-1" data-work="4">
-                    <img src="123456/UPDUTY LOGO.jpg" alt="UPDUTY PROJECT" class="work-image">
+                    <img src="123456/UPDUTY LOGO.jpg" alt="UPDUTY PROJECT" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">UPDUTY<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
                 <div class="work-item fade-in-scale fade-in-delay-2" data-work="5">
-                    <img src="1234567/LOGO GHY.jpg" alt="GHY PROJECT" class="work-image">
+                    <img src="1234567/LOGO GHY.jpg" alt="GHY PROJECT" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">GHY<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
@@ -1253,14 +1200,14 @@
     <!-- Кастомный курсор удален -->
     <script>
         // Экран загрузки
-        function initLoadingScreen() {
+        function initLoadingScreen(duration = 2000) {
             const loadingScreen = document.getElementById('loadingScreen');
             const body = document.body;
             
             // Добавляем класс loading к body
             body.classList.add('loading');
             
-            // Показываем экран загрузки на 5 секунд
+            // Показываем экран загрузки на указанное время
             setTimeout(() => {
                 loadingScreen.classList.add('fade-out');
                 body.classList.remove('loading');
@@ -1271,34 +1218,44 @@
                         loadingScreen.parentNode.removeChild(loadingScreen);
                     }
                 }, 800); // Ждем завершения CSS transition
-            }, 5000); // 5 секунд
+            }, duration);
         }
         
-        // Запускаем экран загрузки при загрузке страницы
-        document.addEventListener('DOMContentLoaded', initLoadingScreen);
+        // Проверяем, был ли уже показан экран загрузки в этой сессии
+        function shouldShowLoadingScreen() {
+            const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
+            return !hasSeenLoading;
+        }
         
-        // Также запускаем при обновлении страницы
-        window.addEventListener('beforeunload', function() {
-            // Сбрасываем localStorage для принудительного показа экрана загрузки
-            localStorage.setItem('pageReloaded', Date.now().toString());
-        });
-        
-        // Проверяем, была ли страница обновлена
-        window.addEventListener('load', function() {
-            const reloaded = localStorage.getItem('pageReloaded');
-            if (reloaded) {
-                localStorage.removeItem('pageReloaded');
-                // Если страница была обновлена, показываем экран загрузки
-                initLoadingScreen();
+        // Инициализация экрана загрузки
+        document.addEventListener('DOMContentLoaded', function() {
+            if (shouldShowLoadingScreen()) {
+                // При первом заходе показываем 7 секунд
+                initLoadingScreen(7000);
+                sessionStorage.setItem('hasSeenLoading', 'true');
+            } else {
+                // При последующих обновлениях показываем 2 секунды
+                initLoadingScreen(2000);
             }
         });
         
         // Кастомный курсор удален
-        window.addEventListener('scroll', () => { const scrollTop = window.pageYOffset; const docHeight = document.body.offsetHeight - window.innerHeight; const scrollPercent = (scrollTop / docHeight) * 100; document.getElementById('scrollProgress').style.width = scrollPercent + '%'; });
+        // Оптимизированный скролл индикатор с debounce
+        const updateScrollProgress = debounce(() => {
+            const scrollTop = window.pageYOffset;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            const progressBar = document.getElementById('scrollProgress');
+            if (progressBar) {
+                progressBar.style.width = scrollPercent + '%';
+            }
+        }, 10);
+        
+        window.addEventListener('scroll', updateScrollProgress, { passive: true });
         document.querySelectorAll('a[href^="#"]').forEach(anchor => { anchor.addEventListener('click', function (e) { e.preventDefault(); const target = document.querySelector(this.getAttribute('href')); if (target) { target.scrollIntoView({ behavior: 'smooth', block: 'start' }); } }); });
         const observerOptions = { 
-            threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5], 
-            rootMargin: '0px 0px -20px 0px' 
+            threshold: [0, 0.5], 
+            rootMargin: '0px 0px -50px 0px' 
         };
         const observer = new IntersectionObserver((entries) => { 
             entries.forEach(entry => { 
@@ -1578,291 +1535,27 @@
         
         // Анимация печатания удалена
         
-        // Интерактивные фиолетовые полосы
-        function initInteractiveStripes() {
-            const stripes = document.querySelectorAll('.stripe');
-            let mouseX = 0, mouseY = 0;
-            
-            // Отслеживание движения мыши
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                stripes.forEach((stripe, index) => {
-                    const rect = stripe.getBoundingClientRect();
-                    const stripeX = rect.left + rect.width / 2;
-                    const stripeY = rect.top + rect.height / 2;
-                    
-                    const distance = Math.sqrt((mouseX - stripeX) ** 2 + (mouseY - stripeY) ** 2);
-                    const maxDistance = 200;
-                    
-                    if (distance < maxDistance) {
-                        const intensity = 1 - (distance / maxDistance);
-                        const moveY = (mouseY - stripeY) * intensity * 0.4;
-                        const moveX = (mouseX - stripeX) * intensity * 0.2;
-                        const rotate = (mouseX - stripeX) * intensity * 0.2;
-                        const scale = 1 + intensity * 0.3;
-                        
-                        stripe.style.transform = `translateX(${moveX}px) translateY(${moveY}px) rotate(${rotate}deg) scaleY(${scale})`;
-                        stripe.style.opacity = 0.12 + intensity * 0.3;
-                        stripe.style.filter = `brightness(${1 + intensity * 1.5}) contrast(${1 + intensity * 0.5})`;
-                    } else {
-                        stripe.style.transform = '';
-                        stripe.style.opacity = '';
-                        stripe.style.filter = '';
-                    }
-                });
-            });
-            
-            // Параллакс эффект при скролле
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                
-                stripes.forEach((stripe, index) => {
-                    const speed = 0.5 + (index * 0.1);
-                    const yPos = scrolled * speed;
-                    const xPos = scrolled * (index % 2 === 0 ? 0.1 : -0.1);
-                    const rotate = scrolled * 0.05;
-                    
-                    stripe.style.transform += ` translate(${xPos}px, ${yPos}px) rotate(${rotate}deg)`;
-                });
-            });
-            
-            // Случайные изменения скорости анимации
-            setInterval(() => {
-                stripes.forEach(stripe => {
-                    const randomSpeed = 0.8 + Math.random() * 0.4; // от 0.8x до 1.2x
-                    stripe.style.animationDuration = `${20 * randomSpeed}s`;
-                });
-            }, 5000);
-            
-            // Создание новых полос для бесконечной анимации
-            setInterval(() => {
-                createInfiniteStripe();
-            }, 3000);
-            
-            // Создание новых полос при клике
-            document.addEventListener('click', (e) => {
-                if (Math.random() > 0.7) { // 30% шанс
-                    createTemporaryStripe(e.clientX, e.clientY);
-                }
-            });
+        // 3D Фоновая анимация сферы
+        function initSphereAnimation() {
+            // Сфера уже создана в HTML, анимация запускается автоматически через CSS
+            console.log('3D Sphere animation initialized');
         }
         
-        // Создание бесконечной полосы
-        function createInfiniteStripe() {
-            const container = document.querySelector('.interactive-stripes');
-            const stripe = document.createElement('div');
-            stripe.className = 'stripe';
-            stripe.style.position = 'absolute';
-            stripe.style.left = '-300px';
-            stripe.style.top = Math.random() * 100 + '%';
-            stripe.style.width = (200 + Math.random() * 200) + 'px';
-            stripe.style.height = (2 + Math.random() * 3) + 'px';
-            stripe.style.animation = 'stripeFloat ' + (15 + Math.random() * 10) + 's linear infinite';
-            stripe.style.opacity = '0.12';
-            
-            container.appendChild(stripe);
-            
-            // Удаление через 25 секунд
-            setTimeout(() => {
-                if (stripe.parentNode) {
-                    stripe.parentNode.removeChild(stripe);
-                }
-            }, 25000);
+        // Debounce функция для оптимизации
+        function debounce(func, wait) {
+            let timeout;
+            return function executedFunction(...args) {
+                const later = () => {
+                    clearTimeout(timeout);
+                    func(...args);
+                };
+                clearTimeout(timeout);
+                timeout = setTimeout(later, wait);
+            };
         }
         
-        // Создание временной полосы при клике
-        function createTemporaryStripe(x, y) {
-            const container = document.querySelector('.interactive-stripes');
-            const stripe = document.createElement('div');
-            stripe.className = 'stripe';
-            stripe.style.position = 'absolute';
-            stripe.style.left = x + 'px';
-            stripe.style.top = y + 'px';
-            stripe.style.width = '200px';
-            stripe.style.height = '3px';
-            stripe.style.animation = 'stripeFloat 8s ease-out forwards';
-            stripe.style.opacity = '0.3';
-            
-            container.appendChild(stripe);
-            
-            // Удаление через 8 секунд
-            setTimeout(() => {
-                if (stripe.parentNode) {
-                    stripe.parentNode.removeChild(stripe);
-                }
-            }, 8000);
-        }
-        
-        // Инициализация полос
-        document.addEventListener('DOMContentLoaded', initInteractiveStripes);
-        
-        // Плавающие геометрические фигуры
-        function initFloatingShapes() {
-            const shapes = document.querySelectorAll('.shape');
-            let mouseX = 0, mouseY = 0;
-            
-            // Отслеживание движения мыши
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                shapes.forEach((shape, index) => {
-                    const rect = shape.getBoundingClientRect();
-                    const shapeX = rect.left + rect.width / 2;
-                    const shapeY = rect.top + rect.height / 2;
-                    
-                    const distance = Math.sqrt((mouseX - shapeX) ** 2 + (mouseY - shapeY) ** 2);
-                    const maxDistance = 150;
-                    
-                    if (distance < maxDistance) {
-                        const intensity = 1 - (distance / maxDistance);
-                        const moveX = (mouseX - shapeX) * intensity * 0.3;
-                        const moveY = (mouseY - shapeY) * intensity * 0.3;
-                        const scale = 1 + intensity * 0.6;
-                        const rotate = intensity * 360;
-                        
-                        shape.style.transform = `translate(${moveX}px, ${moveY}px) scale(${scale}) rotate(${rotate}deg)`;
-                        shape.style.opacity = 0.15 + intensity * 0.4;
-                        shape.style.filter = `brightness(${1 + intensity * 1.5}) contrast(${1 + intensity * 1.2})`;
-                        shape.style.borderColor = `rgba(255, 255, 255, ${0.15 + intensity * 0.5})`;
-                    } else {
-                        shape.style.transform = '';
-                        shape.style.opacity = '';
-                        shape.style.filter = '';
-                        shape.style.borderColor = '';
-                    }
-                });
-            });
-            
-            // Параллакс эффект при скролле
-            window.addEventListener('scroll', () => {
-                const scrolled = window.pageYOffset;
-                
-                shapes.forEach((shape, index) => {
-                    const speed = 0.4 + (index * 0.08);
-                    const yPos = scrolled * speed;
-                    const xPos = scrolled * (index % 2 === 0 ? 0.08 : -0.08);
-                    const rotate = scrolled * 0.15;
-                    
-                    shape.style.transform += ` translate(${xPos}px, ${yPos}px) rotate(${rotate}deg)`;
-                });
-            });
-            
-            // Случайные изменения формы
-            setInterval(() => {
-                shapes.forEach(shape => {
-                    const randomScale = 0.8 + Math.random() * 0.4;
-                    const randomRotate = Math.random() * 360;
-                    shape.style.animationDuration = `${12 * randomScale}s`;
-                });
-            }, 5000);
-            
-            // Создание новых фигур для бесконечной анимации
-            setInterval(() => {
-                createInfiniteShape();
-            }, 4000);
-            
-            // Создание новых фигур при двойном клике
-            document.addEventListener('dblclick', (e) => {
-                createTemporaryShape(e.clientX, e.clientY);
-            });
-        }
-        
-        // Создание бесконечной фигуры
-        function createInfiniteShape() {
-            const container = document.querySelector('.floating-shapes');
-            const shape = document.createElement('div');
-            shape.className = 'shape';
-            shape.style.position = 'absolute';
-            shape.style.left = Math.random() * 100 + '%';
-            shape.style.top = '100vh';
-            shape.style.width = (15 + Math.random() * 15) + 'px';
-            shape.style.height = (15 + Math.random() * 15) + 'px';
-            shape.style.border = '2px solid #ffffff';
-            shape.style.background = 'transparent';
-            shape.style.animation = 'shapeFloat ' + (10 + Math.random() * 8) + 's linear infinite';
-            shape.style.opacity = '0.15';
-            
-            // Случайная форма
-            const shapes = ['circle', 'square', 'triangle', 'diamond', 'hexagon'];
-            const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-            
-            switch(randomShape) {
-                case 'circle':
-                    shape.style.borderRadius = '50%';
-                    break;
-                case 'square':
-                    shape.style.borderRadius = '0';
-                    break;
-                case 'triangle':
-                    shape.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
-                    break;
-                case 'diamond':
-                    shape.style.clipPath = 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)';
-                    break;
-                case 'hexagon':
-                    shape.style.clipPath = 'polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%)';
-                    break;
-            }
-            
-            container.appendChild(shape);
-            
-            // Удаление через 18 секунд
-            setTimeout(() => {
-                if (shape.parentNode) {
-                    shape.parentNode.removeChild(shape);
-                }
-            }, 18000);
-        }
-        
-        // Создание временной фигуры при двойном клике
-        function createTemporaryShape(x, y) {
-            const container = document.querySelector('.floating-shapes');
-            const shape = document.createElement('div');
-            shape.className = 'shape';
-            shape.style.position = 'absolute';
-            shape.style.left = x + 'px';
-            shape.style.top = y + 'px';
-            shape.style.width = '20px';
-            shape.style.height = '20px';
-            shape.style.border = '2px solid #ffffff';
-            shape.style.background = 'transparent';
-            shape.style.animation = 'shapeFloat 4s ease-out forwards';
-            shape.style.opacity = '0.5';
-            
-            // Случайная форма
-            const shapes = ['circle', 'square', 'triangle', 'diamond'];
-            const randomShape = shapes[Math.floor(Math.random() * shapes.length)];
-            
-            switch(randomShape) {
-                case 'circle':
-                    shape.style.borderRadius = '50%';
-                    break;
-                case 'square':
-                    shape.style.borderRadius = '0';
-                    break;
-                case 'triangle':
-                    shape.style.clipPath = 'polygon(50% 0%, 0% 100%, 100% 100%)';
-                    break;
-                case 'diamond':
-                    shape.style.clipPath = 'polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%)';
-                    break;
-            }
-            
-            container.appendChild(shape);
-            
-            // Удаление через 4 секунды
-            setTimeout(() => {
-                if (shape.parentNode) {
-                    shape.parentNode.removeChild(shape);
-                }
-            }, 4000);
-        }
-        
-        // Инициализация фигур
-        document.addEventListener('DOMContentLoaded', initFloatingShapes);
+        // Инициализация анимации сферы
+        document.addEventListener('DOMContentLoaded', initSphereAnimation);
         
         // Интерактивная галерея работ
         function initWorksGallery() {
@@ -2198,7 +1891,7 @@
                         min-height: 100vh;
                         justify-content: center;
                         opacity: 0;
-                        transform: translateY(30px);
+                        transform: translate3d(0, 30px, 0);
                         transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                     `;
                     
