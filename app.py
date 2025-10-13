@@ -31,6 +31,10 @@ def ekolife_file(filename):
 def newproject_file(filename):
 	return send_from_directory('123456', filename)
 
+@app.get('/1234567/<filename>')
+def project5_file(filename):
+	return send_from_directory('1234567', filename)
+
 @app.get('/<path:path>')
 def static_proxy(path: str):
 	if os.path.exists(path) and path not in ['kaito-style.html', 'test-images.html']:
