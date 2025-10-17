@@ -35,6 +35,10 @@ def newproject_file(filename):
 def project5_file(filename):
 	return send_from_directory('1234567', filename)
 
+@app.get('/123456789/<filename>')
+def royalhorse_file(filename):
+	return send_from_directory('123456789', filename)
+
 @app.get('/<path:path>')
 def static_proxy(path: str):
 	if os.path.exists(path) and path not in ['kaito-style.html', 'test-images.html']:

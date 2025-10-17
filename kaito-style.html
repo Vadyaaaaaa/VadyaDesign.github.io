@@ -30,18 +30,6 @@
             position: relative;
         }
         
-        /* Анимация фона удалена */
-        
-        /* Энергетические кольца удалены */
-        
-        /* Магические звезды удалены */
-        
-        /* Все анимированные элементы фона удалены */
-        
-        /* Анимации печатания удалены */
-        
-        /* Мерцающие фотографии удалены */
-        /* Кастомный курсор удален */
         
         /* 3D Фоновая анимация сферы */
         .background-sphere {
@@ -133,7 +121,6 @@
             background: transparent; 
             overflow: hidden;
         }
-        /* Старые частицы и фигуры удалены - теперь используются глобальные */
         .hero-content { 
             text-align: center; 
             max-width: 100%; 
@@ -280,7 +267,6 @@
             position: relative;
             height: 400px;
         }
-        /* Цветные фигуры удалены */
         
         /* Белые контурные фигуры с реакцией на курсор */
         .outline-shapes {
@@ -607,97 +593,8 @@
             .social-links { flex-direction: column; gap: 20px; } 
         }
         @media (max-width: 480px) { .hero-content { padding: 0 20px; } .profile { padding: 150px 20px; } .services { padding: 150px 20px; } .works-container { padding: 0 20px; } .contact { padding: 150px 20px; } }
-        /* Анимации скролла удалены */
-        .scroll-reveal {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
-        .scroll-reveal.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-            filter: blur(0);
-        }
         
-        .scroll-slide-left {
-            opacity: 1;
-            transform: translateX(0) rotate(0deg);
-            filter: grayscale(0%) brightness(1);
-        }
-        .scroll-slide-left.visible {
-            opacity: 1;
-            transform: translateX(0) rotate(0deg);
-            filter: grayscale(0%) brightness(1);
-        }
         
-        .scroll-slide-right {
-            opacity: 1;
-            transform: translateX(0) rotate(0deg);
-            filter: grayscale(0%) brightness(1);
-        }
-        .scroll-slide-right.visible {
-            opacity: 1;
-            transform: translateX(0) rotate(0deg);
-            filter: grayscale(0%) brightness(1);
-        }
-        
-        .scroll-scale {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            filter: hue-rotate(0deg) saturate(1);
-        }
-        .scroll-scale.visible {
-            opacity: 1;
-            transform: scale(1) rotate(0deg);
-            filter: hue-rotate(0deg) saturate(1);
-        }
-        
-        .scroll-morph {
-            opacity: 1;
-            transform: translateY(0) scaleX(1);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-        }
-        .scroll-morph.visible {
-            opacity: 1;
-            transform: translateY(0) scaleX(1);
-            clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
-        }
-        
-        .scroll-float {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg);
-        }
-        .scroll-float.visible {
-            opacity: 1;
-            transform: translateY(0) rotateX(0deg);
-        }
-        
-        .scroll-stagger {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        .scroll-stagger.visible {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        
-        /* Параллакс эффект удален */
-        .parallax-slow {
-            transform: translateY(0);
-        }
-        .parallax-fast {
-            transform: translateY(0);
-        }
-        
-        /* Старые анимации удалены */
-        .fade-in { opacity: 1; transform: translateY(0); }
-        .fade-in.visible { opacity: 1; transform: translateY(0); }
-        .fade-in-left { opacity: 1; transform: translateX(0); }
-        .fade-in-left.visible { opacity: 1; transform: translateX(0); }
-        .fade-in-right { opacity: 1; transform: translateX(0); }
-        .fade-in-right.visible { opacity: 1; transform: translateX(0); }
-        .fade-in-scale { opacity: 1; transform: scale(1); }
-        .fade-in-scale.visible { opacity: 1; transform: scale(1); }
 
         /* Экран загрузки */
         .loading-screen {
@@ -1056,10 +953,6 @@
         </div>
     </div>
     
-    <!-- Глобальные анимации для всего сайта -->
-    
-    <!-- Анимация фона удалена -->
-    
     <section class="hero" id="home">
         <div class="hero-content">
             <h1 class="hero-title">
@@ -1073,14 +966,14 @@
         </div>
     </section>
     <section class="profile" id="profile">
-        <h2 class="profile-title scroll-reveal">ПРОФИЛЬ</h2>
+        <h2 class="profile-title">ПРОФИЛЬ</h2>
         <div class="profile-content">
-            <div class="profile-text scroll-slide-left">
+            <div class="profile-text">
                 <p>Графический дизайнер с 2-летним стажем работы в создании визуального контента для брендов и
                     маркетинговых кампаний. Специализируюсь на разработке фирменного стиля, создании рекламных
                     материалов.</p>
             </div>
-            <div class="profile-animation scroll-slide-right">
+            <div class="profile-animation">
                 <div class="outline-shapes">
                     <div class="outline-shape outline-1"></div>
                     <div class="outline-shape outline-2"></div>
@@ -1093,19 +986,19 @@
     </section>
     <section class="services">
         <div class="services-grid">
-            <div class="service-card scroll-stagger">
+            <div class="service-card">
                 <h3 class="service-title">Моушн Дизайн</h3>
                 <p class="service-description">Я проектирую и создаю целенаправленные анимации для эффективной передачи сообщений как в видео, так и на веб-сайтах. Специализируясь на моушн графике, я фокусируюсь на потоке и плавности движения, балансируя визуальное воздействие с интуитивной удобностью.</p>
             </div>
-            <div class="service-card scroll-stagger">
+            <div class="service-card">
                 <h3 class="service-title">Веб Разработка</h3>
                 <p class="service-description">Я предоставляю разработку, ориентированную на удобство использования, в различных областях, включая разметку, стилизацию, разработку CMS, моушн дизайн и оптимизацию UI/UX. Я также приоритизирую улучшения производительности и доступности для обеспечения плавного и интуитивного веб-опыта.</p>
             </div>
-            <div class="service-card fade-in fade-in-delay-3">
+            <div class="service-card">
                 <h3 class="service-title">Визуальный Дизайн</h3>
                 <p class="service-description">Я создаю дизайны, которые визуально воплощают видение и концепцию бренда, особенно в видеоконтенте. Объединяя элементы, такие как макет, типографика, цветовые палитры и иконки, я создаю визуалы, которые одновременно привлекательны и запоминаются пользователям.</p>
             </div>
-            <div class="service-card fade-in fade-in-delay-4">
+            <div class="service-card">
                 <h3 class="service-title">Арт Дирекшн</h3>
                 <p class="service-description">Я руковожу творческой стратегией проектов, обеспечивая отражение видения и ценностей бренда в дизайне. От концепции до финального результата я управляю каждым этапом для создания целостной и впечатляющей творческой работы.</p>
             </div>
@@ -1113,62 +1006,63 @@
     </section>
     <section class="works" id="works">
         <div class="works-container">
-            <h2 class="works-title fade-in">РАБОТЫ</h2>
+            <h2 class="works-title">РАБОТЫ</h2>
             <div class="works-grid">
-                <div class="work-item fade-in-scale fade-in-delay-1" data-work="1">
+                <div class="work-item" data-work="1">
                     <img src="works/SPACE.jpg" alt="SPACE" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">МОИ РАБОТЫ<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-2" data-work="2">
+                <div class="work-item" data-work="2">
                     <img src="works/Lumiere Backdrop.jpg" alt="Lumiere Backdrop" class="work-image backdrop-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">LUMIERE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-3" data-work="3">
+                <div class="work-item" data-work="3">
                     <img src="12345/EkoLife Cup.jpg?v=2" alt="EkoLife Cup" class="work-image cup-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">EKOLIFE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-1" data-work="4">
+                <div class="work-item" data-work="4">
                     <img src="123456/UPDUTY LOGO.jpg" alt="UPDUTY PROJECT" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">UPDUTY<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-2" data-work="5">
+                <div class="work-item" data-work="5">
                     <img src="1234567/LOGO GHY.jpg" alt="GHY PROJECT" class="work-image" loading="lazy">
                     <div class="work-overlay">
                         <h3 class="work-title">GHY<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
-                <div class="work-item fade-in-scale fade-in-delay-3">
+                <div class="work-item" data-work="6">
+                    <img src="123456789/Royal Horse Logo 2.jpg" alt="Royal Horse Logo" class="work-image" loading="lazy">
                     <div class="work-overlay">
-                        <h3 class="work-title">БОЛЬШЕ РАБОТ<br>СКОРО</h3>
+                        <h3 class="work-title">ROYAL HORSE<br>НАЖМИ ДЛЯ ПРОСМОТРА</h3>
                     </div>
                 </div>
             </div>
-            <div class="view-all fade-in">
+            <div class="view-all">
                 <a href="#" class="view-all-btn">СМОТРЕТЬ ВСЕ РАБОТЫ</a>
             </div>
         </div>
     </section>
     <section class="contact" id="contact">
         <div class="contact-container">
-            <h2 class="contact-title fade-in">КОНТАКТЫ</h2>
+            <h2 class="contact-title">КОНТАКТЫ</h2>
             <div class="contact-info">
-                <div class="contact-item fade-in-left fade-in-delay-1">
+                <div class="contact-item">
                     <div class="contact-label">АДРЕС</div>
                     <div class="contact-value">34°41'38"С, 135°30'08"В</div>
                 </div>
-                <div class="contact-item fade-in fade-in-delay-2">
+                <div class="contact-item">
                     <div class="contact-label">ПОЧТА</div>
                     <div class="contact-value"><a href="mailto:id@kaitonote.com">id@kaitonote.com</a></div>
                 </div>
-                <div class="contact-item fade-in-right fade-in-delay-3">
+                <div class="contact-item">
                     <div class="contact-label">СОЦСЕТИ</div>
                     <div class="contact-value">
                         <div class="social-links">
@@ -1206,7 +1100,6 @@
         </div>
     </div>
     
-    <!-- Кастомный курсор удален -->
     <script>
         // Экран загрузки
         function initLoadingScreen(duration = 2000) {
@@ -1250,7 +1143,6 @@
             }
         });
         
-        // Кастомный курсор удален
         // Оптимизированный скролл индикатор с debounce
         const updateScrollProgress = debounce(() => {
             const scrollTop = window.pageYOffset;
@@ -1279,35 +1171,7 @@
             }); 
         }, observerOptions);
         
-        // Observe all elements with animation classes
-        document.querySelectorAll('.fade-in, .fade-in-left, .fade-in-right, .fade-in-scale, .scroll-reveal, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-morph, .scroll-float, .scroll-stagger').forEach(el => {
-            observer.observe(el);
-        });
         
-        // Параллакс эффект и постоянная проверка анимаций
-        window.addEventListener('scroll', () => {
-            const scrolled = window.pageYOffset;
-            const parallaxElements = document.querySelectorAll('.parallax-slow, .parallax-fast');
-            
-            parallaxElements.forEach(el => {
-                const speed = el.classList.contains('parallax-slow') ? 0.5 : 1.5;
-                const yPos = -(scrolled * speed);
-                el.style.transform = `translateY(${yPos}px)`;
-            });
-            
-            // Постоянная проверка видимости элементов для анимаций
-            const animatedElements = document.querySelectorAll('.scroll-reveal, .scroll-slide-left, .scroll-slide-right, .scroll-scale, .scroll-morph, .scroll-float, .scroll-stagger');
-            animatedElements.forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-                
-                if (isVisible) {
-                    el.classList.add('visible');
-                } else {
-                    el.classList.remove('visible');
-                }
-            });
-        });
 
         // Функция создания span элементов для всех букв
         function createLetterSpans() {
@@ -1468,90 +1332,10 @@
             initMagnifierEffect();
         }, 3000);
         
-        // Добавляем глобальную функцию для тестирования
-        window.testMagnifier = function() {
-            console.log('Testing magnifier effect...');
-            const letters = document.querySelectorAll('.letter');
-            console.log('Found', letters.length, 'letters');
-            
-            // Проверяем заголовок профиля
-            const profileTitle = document.querySelector('.profile-title');
-            const profileTitleLetters = profileTitle ? profileTitle.querySelectorAll('.letter') : [];
-            console.log('Profile title letters:', profileTitleLetters.length);
-            
-            
-            if (letters.length > 0) {
-                console.log('First letter:', letters[0]);
-                console.log('Letter classes:', letters[0].className);
-                console.log('Letter parent:', letters[0].parentElement.className);
-            }
-        };
-        // Видео из профиля удалено
         
-        // Реакция белых контуров на курсор
-        function initOutlineCursorReaction() {
-            const outlineShapes = document.querySelectorAll('.outline-shape');
-            const outlineContainer = document.querySelector('.outline-shapes');
-            
-            if (!outlineContainer) return;
-            
-            outlineContainer.addEventListener('mousemove', (e) => {
-                const rect = outlineContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                outlineShapes.forEach((shape, index) => {
-                    const shapeRect = shape.getBoundingClientRect();
-                    const shapeX = shapeRect.left - rect.left + shapeRect.width / 2;
-                    const shapeY = shapeRect.top - rect.top + shapeRect.height / 2;
-                    
-                    const distance = Math.sqrt((x - shapeX) ** 2 + (y - shapeY) ** 2);
-                    const maxDistance = 150;
-                    
-                    if (distance < maxDistance) {
-                        const intensity = 1 - (distance / maxDistance);
-                        const scale = 1 + intensity * 0.5;
-                        const rotation = intensity * 360;
-                        
-                        shape.style.transform = `scale(${scale}) rotate(${rotation}deg)`;
-                        shape.style.opacity = 0.6 + intensity * 0.4;
-                        shape.style.borderColor = `rgba(0, 255, 255, ${0.5 + intensity * 0.5})`;
-                        shape.style.boxShadow = `0 0 ${intensity * 30}px rgba(0, 255, 255, ${intensity * 0.8})`;
-                    } else {
-                        shape.style.transform = '';
-                        shape.style.opacity = '';
-                        shape.style.borderColor = '';
-                        shape.style.boxShadow = '';
-                    }
-                });
-            });
-            
-            outlineContainer.addEventListener('mouseleave', () => {
-                outlineShapes.forEach(shape => {
-                    shape.style.transform = '';
-                    shape.style.opacity = '';
-                    shape.style.borderColor = '';
-                    shape.style.boxShadow = '';
-                });
-            });
-        }
         
-        // Инициализация при загрузке страницы - отключена для отладки
-        // document.addEventListener('DOMContentLoaded', initOutlineCursorReaction);
         
-        // Реакция всех анимаций на движение курсора
-        let mouseX = 0, mouseY = 0;
-        let isMouseMoving = false;
         
-        // Анимация фона удалена
-        
-        // Анимация печатания удалена
-        
-        // 3D Фоновая анимация сферы
-        function initSphereAnimation() {
-            // Сфера уже создана в HTML, анимация запускается автоматически через CSS
-            console.log('3D Sphere animation initialized');
-        }
         
         // Debounce функция для оптимизации
         function debounce(func, wait) {
@@ -1567,8 +1351,6 @@
         }
         
         
-        // Инициализация анимации сферы
-        document.addEventListener('DOMContentLoaded', initSphereAnimation);
         
         // Интерактивная галерея работ
         function initWorksGallery() {
@@ -1727,6 +1509,30 @@
                     image: '1234567/BADGE&WEB GHY.jpg'
                 }
             ];
+
+            // Массив работ проекта Royal Horse
+            const royalHorseWorks = [
+                {
+                    title: 'ROYAL HORSE LOGO',
+                    description: 'Создание основного логотипа для бренда Royal Horse с элегантным дизайном и премиальным стилем.',
+                    image: '123456789/Royal Horse Logo 2.jpg'
+                },
+                {
+                    title: 'ROYAL HORSE ОПИСАНИЕ',
+                    description: 'Дизайн описания бренда Royal Horse с акцентом на качество и роскошь.',
+                    image: '123456789/Royal Horse описание.jpg'
+                },
+                {
+                    title: 'ROYAL HORSE ОПИСАНИЕ 2',
+                    description: 'Альтернативный дизайн описания бренда с современным подходом к премиальному брендингу.',
+                    image: '123456789/Royal Horse описание 2.jpg'
+                },
+                {
+                    title: 'ROYAL HORSE ФИНАЛ',
+                    description: 'Финальная версия проекта Royal Horse с завершенным фирменным стилем.',
+                    image: '123456789/Royal Horse конец.png'
+                }
+            ];
             
             let currentWorkIndex = 0;
             let isClosing = false;
@@ -1760,6 +1566,12 @@
             const workItem5 = document.querySelector('.work-item[data-work="5"]');
             workItem5.addEventListener('click', function() {
                 openProject5Gallery();
+            });
+
+            // Обработчик клика на шестой квадратик (Royal Horse)
+            const workItem6 = document.querySelector('.work-item[data-work="6"]');
+            workItem6.addEventListener('click', function() {
+                openRoyalHorseGallery();
             });
             
             // Функция открытия полноэкранной галереи
@@ -1885,6 +1697,31 @@
 
                 // Создаем все элементы галереи проекта GHY
                 createGalleryContent(project5Works);
+            }
+
+            // Функция открытия галереи проекта Royal Horse
+            function openRoyalHorseGallery() {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+
+                // Устанавливаем текущий массив работ и тип галереи
+                currentWorksArray = royalHorseWorks;
+                currentGalleryType = 'royalhorse';
+
+                // Сбрасываем флаг закрытия
+                isClosing = false;
+
+                // Сбрасываем позицию скролла на самый верх
+                modal.scrollTop = 0;
+
+                // Сбрасываем индекс текущей работы
+                currentWorkIndex = 0;
+
+                // Добавляем класс для анимации открытия
+                modal.classList.add('modal-opening');
+
+                // Создаем все элементы галереи проекта Royal Horse
+                createGalleryContent(royalHorseWorks);
             }
             
             // Функция создания контента галереи
@@ -2072,6 +1909,11 @@
                     closeThreshold = 200; // Больший допуск (раньше срабатывает)
                     closeDelay = 3800; // Задержка 3.8 секунды
                     console.log('UPDUTY gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
+                } else if (currentGalleryType === 'royalhorse') {
+                    // Для галереи Royal Horse - закрытие через 2 секунды
+                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
+                    closeDelay = 2000; // Задержка 2 секунды
+                    console.log('Royal Horse gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
                 } else {
                     // Для основной галереи и EkoLife - стандартные настройки
                     closeThreshold = 200; // Больший допуск (раньше срабатывает)
