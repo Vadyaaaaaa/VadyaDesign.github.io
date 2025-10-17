@@ -241,12 +241,12 @@
         /* CSS hover отключен - используется только JavaScript */
         .hero-services { display: flex; justify-content: center; flex-wrap: wrap; gap: 40px; margin-top: 60px; opacity: 1; transform: translateY(0); }
         .service-tag { font-size: 1.1rem; color: #888; font-weight: 300; letter-spacing: 0.1em; }
-        .profile { padding: 150px 60px; max-width: 100%; margin: 0 auto; text-align: center; }
+        .profile { padding: 120px 60px; max-width: 100%; margin: 0 auto; text-align: center; }
         .profile-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 60px; opacity: 1; transform: translateY(0); }
         .profile-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; margin-bottom: 60px; }
         .profile-text { text-align: left; }
         .profile-text h3 { font-size: 2.88rem; font-weight: 300; margin-bottom: 60px; color: #fff; }
-        .profile-text p { font-size: 1.76rem; color: #888; line-height: 1.8; margin-bottom: 60px; }
+        .profile-text p { font-size: 1.76rem; color: #888; line-height: 1.8; margin-bottom: 60px; word-spacing: 0.1em; }
         .profile-text .japanese { font-size: 1rem; color: #666; line-height: 1.6; }
         /* Плавная подсветка букв в описании без увеличения */
         .profile-text p .letter {
@@ -326,15 +326,16 @@
             top: 45%;
             left: 45%;
         }
-        .services { padding: 150px 60px; max-width: 100%; margin: 0 auto; }
-        .services-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 60px; }
-        .service-card { padding: 40px; border: 1px solid #333; border-radius: 8px; transition: all 0.3s ease; cursor: pointer; position: relative; overflow: hidden; }
-        .service-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent); transition: left 0.5s ease; }
-        .service-card:hover::before { left: 100%; }
-        .service-card:hover { border-color: #fff; transform: translateY(-10px); }
-        .service-title { font-size: 1.5rem; margin-bottom: 20px; color: #fff; font-weight: 300; }
-        .service-description { color: #888; line-height: 1.8; font-size: 1rem; }
-        .works { padding: 150px 20px; background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(15px); position: relative; z-index: 10; }
+        .competencies { padding: 180px 60px; max-width: 100%; margin: 0 auto; text-align: center; }
+        .competencies-title { font-size: clamp(1.8rem, 5vw, 3rem); font-weight: 100; margin-bottom: 60px; color: #fff; }
+        .competencies-content { max-width: 1000px; margin: 0 auto; }
+        .competencies-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 30px; }
+        .competencies-section { text-align: left; }
+        .competencies-subtitle { font-size: 1.3rem; font-weight: 300; margin-bottom: 30px; color: #fff; line-height: 1.4; }
+        .competencies-text { font-size: 1rem; color: #ccc; line-height: 1.6; margin-bottom: 15px; }
+        
+        
+        .works { padding: 120px 20px; background: rgba(17, 17, 17, 0.7); backdrop-filter: blur(15px); position: relative; z-index: 10; }
         .works-container { max-width: 100%; margin: 0 auto; padding: 0 60px; }
         .works-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 80px; text-align: center; position: relative; z-index: 11; }
         .works-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; margin-bottom: 60px; }
@@ -348,20 +349,37 @@
         .work-item:hover .work-overlay { opacity: 1; }
         .work-title { font-size: 1.2rem; font-weight: 300; text-align: center; }
         .view-all { text-align: center; }
-        .view-all-btn { display: inline-block; padding: 15px 30px; border: 1px solid #fff; color: #fff; text-decoration: none; border-radius: 4px; transition: all 0.3s ease; font-weight: 300; letter-spacing: 0.1em; will-change: transform, background-color; contain: layout style paint; }
-        .view-all-btn:hover { background: #fff; color: #000; }
-        .contact { padding: 150px 60px; text-align: center; }
+        .contact { padding: 120px 60px; text-align: center; }
         .contact-container { max-width: 100%; margin: 0 auto; }
         .contact-title { font-size: clamp(2rem, 6vw, 4rem); font-weight: 100; margin-bottom: 80px; }
-        .contact-info { display: grid; grid-template-columns: repeat(3, 1fr); gap: 60px; margin-bottom: 80px; }
-        .contact-item { text-align: center; }
-        .contact-label { color: #888; font-size: 0.9rem; margin-bottom: 15px; text-transform: uppercase; letter-spacing: 0.1em; }
-        .contact-value { font-size: 1.1rem; color: #fff; }
-        .contact-value a { color: #fff; text-decoration: none; transition: color 0.3s ease; }
-        .contact-value a:hover { color: #00ffff; }
-        .social-links { display: flex; justify-content: center; gap: 40px; margin-top: 40px; }
-        .social-links a { color: #888; text-decoration: none; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; transition: color 0.3s ease; }
-        .social-links a:hover { color: #fff; }
+        
+        .contact-minimal { 
+            display: flex; 
+            justify-content: center; 
+            gap: 60px; 
+            margin: 0 auto 80px; 
+            max-width: 600px; 
+        }
+        
+        .contact-item-minimal { 
+            text-align: center; 
+        }
+        
+        .contact-link { 
+            color: #fff; 
+            text-decoration: none; 
+            font-size: 1.1rem; 
+            font-weight: 300; 
+            letter-spacing: 0.05em; 
+            transition: all 0.3s ease; 
+            padding: 15px 25px; 
+            display: inline-block; 
+        }
+        
+        .contact-link:hover { 
+            color: #00ffff; 
+            transform: translateY(-2px); 
+        }
         
         /* Модальное окно для работ */
         .work-modal {
@@ -455,6 +473,17 @@
             border-color: #00ffff;
             color: #000;
             transform: translateY(-50%) scale(1.1);
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateX(-50%) translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(-50%) translateY(0);
+            }
         }
         
         .modal-image {
@@ -579,20 +608,20 @@
         
         
         
-        @media (max-width: 1024px) { .profile-content { grid-template-columns: 1fr; gap: 60px; } .profile-text { text-align: center; } .profile-animation { height: 300px; } .outline-shapes { width: 250px; height: 250px; } .services-grid { grid-template-columns: 1fr; } .works-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 1024px) { .profile-content { grid-template-columns: 1fr; gap: 60px; } .profile-text { text-align: center; } .profile-animation { height: 300px; } .outline-shapes { width: 250px; height: 250px; } .competencies-grid { grid-template-columns: 1fr; gap: 30px; } .works-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) { 
             .vadya-word { font-size: 8rem; } 
             .design-word { font-size: 2rem; }
             .hero-content { padding: 0 30px; } 
-            .profile { padding: 150px 30px; } 
-            .services { padding: 150px 30px; } 
+            .profile { padding: 120px 30px; } 
+            .competencies { padding: 180px 30px; }
+            .competencies-grid { gap: 20px; }
             .works-container { padding: 0 30px; } 
-            .contact { padding: 150px 30px; } 
+            .contact { padding: 120px 30px; } 
             .works-grid { grid-template-columns: 1fr; } 
-            .contact-info { grid-template-columns: 1fr; gap: 40px; } 
-            .social-links { flex-direction: column; gap: 20px; } 
+            .contact-minimal { flex-direction: column; gap: 30px; } 
         }
-        @media (max-width: 480px) { .hero-content { padding: 0 20px; } .profile { padding: 150px 20px; } .services { padding: 150px 20px; } .works-container { padding: 0 20px; } .contact { padding: 150px 20px; } }
+        @media (max-width: 480px) { .hero-content { padding: 0 20px; } .profile { padding: 120px 20px; } .competencies { padding: 180px 20px; } .competencies-subtitle { font-size: 1.1rem; } .competencies-text { font-size: 0.9rem; } .works-container { padding: 0 20px; } .contact { padding: 120px 20px; } }
         
         
 
@@ -781,47 +810,6 @@
             letter-spacing: 2px;
         }
 
-        .loading-spinner {
-            position: relative;
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 30px;
-        }
-
-        .spinner-ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 2px solid transparent;
-            border-top: 2px solid #fff;
-            border-radius: 50%;
-            animation: spin 1.5s linear infinite;
-            will-change: transform;
-            contain: layout style paint;
-        }
-
-        .spinner-ring:nth-child(1) {
-            animation-delay: 0s;
-            border-top-color: #fff;
-        }
-
-        .spinner-ring:nth-child(2) {
-            animation-delay: 0.5s;
-            border-top-color: #ccc;
-            width: 70%;
-            height: 70%;
-            top: 15%;
-            left: 15%;
-        }
-
-        .spinner-ring:nth-child(3) {
-            animation-delay: 1s;
-            border-top-color: #888;
-            width: 40%;
-            height: 40%;
-            top: 30%;
-            left: 30%;
-        }
 
         .loading-text {
             font-size: 1rem;
@@ -848,7 +836,7 @@
         /* Основной контент скрыт по умолчанию */
         .hero,
         .profile,
-        .services,
+        .competencies,
         .works,
         .contact,
         .scroll-progress,
@@ -860,7 +848,7 @@
         /* Показываем контент только после загрузки */
         body.loaded .hero,
         body.loaded .profile,
-        body.loaded .services,
+        body.loaded .competencies,
         body.loaded .works,
         body.loaded .contact,
         body.loaded .scroll-progress,
@@ -932,11 +920,6 @@
         </div>
         
         <div class="loading-container">
-            <div class="loading-spinner">
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-                <div class="spinner-ring"></div>
-            </div>
             <div class="loading-text">Загрузка...</div>
         </div>
         </div>
@@ -969,9 +952,7 @@
         <h2 class="profile-title">ПРОФИЛЬ</h2>
         <div class="profile-content">
             <div class="profile-text">
-                <p>Графический дизайнер с 2-летним стажем работы в создании визуального контента для брендов и
-                    маркетинговых кампаний. Специализируюсь на разработке фирменного стиля, создании рекламных
-                    материалов.</p>
+                <p>Графический дизайнер с 2-летним стажем работы в создании визуального контента для брендов и маркетинговых кампаний. Специализируюсь на разработке фирменного стиля, создании рекламных материалов.</p>
             </div>
             <div class="profile-animation">
                 <div class="outline-shapes">
@@ -984,23 +965,25 @@
             </div>
         </div>
     </section>
-    <section class="services">
-        <div class="services-grid">
-            <div class="service-card">
-                <h3 class="service-title">Моушн Дизайн</h3>
-                <p class="service-description">Я проектирую и создаю целенаправленные анимации для эффективной передачи сообщений как в видео, так и на веб-сайтах. Специализируясь на моушн графике, я фокусируюсь на потоке и плавности движения, балансируя визуальное воздействие с интуитивной удобностью.</p>
-            </div>
-            <div class="service-card">
-                <h3 class="service-title">Веб Разработка</h3>
-                <p class="service-description">Я предоставляю разработку, ориентированную на удобство использования, в различных областях, включая разметку, стилизацию, разработку CMS, моушн дизайн и оптимизацию UI/UX. Я также приоритизирую улучшения производительности и доступности для обеспечения плавного и интуитивного веб-опыта.</p>
-            </div>
-            <div class="service-card">
-                <h3 class="service-title">Визуальный Дизайн</h3>
-                <p class="service-description">Я создаю дизайны, которые визуально воплощают видение и концепцию бренда, особенно в видеоконтенте. Объединяя элементы, такие как макет, типографика, цветовые палитры и иконки, я создаю визуалы, которые одновременно привлекательны и запоминаются пользователям.</p>
-            </div>
-            <div class="service-card">
-                <h3 class="service-title">Арт Дирекшн</h3>
-                <p class="service-description">Я руковожу творческой стратегией проектов, обеспечивая отражение видения и ценностей бренда в дизайне. От концепции до финального результата я управляю каждым этапом для создания целостной и впечатляющей творческой работы.</p>
+    <section class="competencies" id="competencies">
+        <h2 class="competencies-title">КЛЮЧЕВЫЕ КОМПЕТЕНЦИИ</h2>
+        <div class="competencies-content">
+            <h3 class="competencies-subtitle">Профессиональные навыки</h3>
+            <div class="competencies-grid">
+                <div class="competencies-section">
+                    <p class="competencies-text">Разработка визуальных концепций для различных медиа</p>
+                    <p class="competencies-text">Проектирование пользовательских интерфейсов<br>с учетом современных трендов</p>
+                    <p class="competencies-text">Брендинг и айдентика с продуманной системой элементов</p>
+                    <p class="competencies-text">Adobe Creative Suite (Photoshop, Illustrator, After Effects)</p>
+                    <p class="competencies-text">Figma и инструменты для веб-дизайна</p>
+                </div>
+                <div class="competencies-section">
+                    <p class="competencies-text">UX/UI дизайн с фокусом на пользовательский опыт</p>
+                    <p class="competencies-text">Внимание к деталям на всех этапах работы</p>
+                    <p class="competencies-text">Понимание психологии восприятия визуальной информации</p>
+                    <p class="competencies-text">Инновационные решения в рамках поставленных задач</p>
+                    <p class="competencies-text">Эффективная коммуникация с клиентами и командой</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1046,34 +1029,18 @@
                 </div>
             </div>
             <div class="view-all">
-                <a href="#" class="view-all-btn">СМОТРЕТЬ ВСЕ РАБОТЫ</a>
             </div>
         </div>
     </section>
     <section class="contact" id="contact">
         <div class="contact-container">
             <h2 class="contact-title">КОНТАКТЫ</h2>
-            <div class="contact-info">
-                <div class="contact-item">
-                    <div class="contact-label">АДРЕС</div>
-                    <div class="contact-value">34°41'38"С, 135°30'08"В</div>
+            <div class="contact-minimal">
+                <div class="contact-item-minimal">
+                    <a href="https://mail.yandex.ru/compose?to=Rau1ik@yandex.ru" target="_blank" class="contact-link">Rau1ik@yandex.ru</a>
                 </div>
-                <div class="contact-item">
-                    <div class="contact-label">ПОЧТА</div>
-                    <div class="contact-value"><a href="mailto:id@kaitonote.com">id@kaitonote.com</a></div>
-                </div>
-                <div class="contact-item">
-                    <div class="contact-label">СОЦСЕТИ</div>
-                    <div class="contact-value">
-                        <div class="social-links">
-                            <a href="#">X</a>
-                            <a href="#">Инстаграм</a>
-                            <a href="#">Вимeo</a>
-                            <a href="#">Ютуб</a>
-                            <a href="#">Беханс</a>
-                            <a href="#">Гитхаб</a>
-                        </div>
-                    </div>
+                <div class="contact-item-minimal">
+                    <a href="https://t.me/Vadyyya" target="_blank" class="contact-link">Telegram</a>
                 </div>
             </div>
         </div>
@@ -1183,15 +1150,15 @@
                 '.profile-title',
                 '.profile-text h3',
                 '.profile-text p',
-                '.service-title',
-                '.service-description',
+                '.competencies-title',
+                '.competencies-subtitle',
+                '.competencies-text',
                 '.works-title',
                 '.work-title',
                 '.contact-title',
                 '.contact-label',
                 '.contact-value',
-                '.social-links a',
-                '.view-all-btn'
+                '.social-item',
             ];
             
             textSelectors.forEach(selector => {
@@ -1258,7 +1225,7 @@
                     console.log('Mouse enter on letter:', this.textContent);
                     
                     // Определяем родительский контейнер для изоляции эффекта
-                    const parentContainer = this.closest('.hero-title, .hero-subtitle, .hero-description, .profile-title, .service-title, .service-description, .works-title, .work-title, .contact-title, .contact-label, .contact-value, .social-links, .view-all-btn');
+                    const parentContainer = this.closest('.hero-title, .hero-subtitle, .hero-description, .profile-title, .competencies-title, .competencies-subtitle, .competencies-text, .works-title, .work-title, .contact-title, .contact-label, .contact-value, .social-grid');
                     
                     if (parentContainer) {
                     // Убираем эффект с соседних букв в том же контейнере
@@ -1301,7 +1268,7 @@
                     console.log('Mouse leave on letter:', this.textContent);
                     
                     // Возвращаем все буквы в том же контейнере к исходному состоянию
-                    const parentContainer = this.closest('.hero-title, .hero-subtitle, .hero-description, .profile-title, .service-title, .service-description, .works-title, .work-title, .contact-title, .contact-label, .contact-value, .social-links, .view-all-btn');
+                    const parentContainer = this.closest('.hero-title, .hero-subtitle, .hero-description, .profile-title, .competencies-title, .competencies-subtitle, .competencies-text, .works-title, .work-title, .contact-title, .contact-label, .contact-value, .social-grid');
                     
                     if (parentContainer) {
                         parentContainer.querySelectorAll('.letter').forEach(l => {
@@ -1365,27 +1332,22 @@
             const allWorks = [
                 {
                     title: 'SPACE',
-                    description: 'Брендинг проект для космической компании. Создание фирменного стиля, логотипа и визуальной концепции.',
                     image: 'works/SPACE.jpg'
                 },
                 {
                     title: 'ART BILLBOARD',
-                    description: 'Дизайн рекламного билборда с современным подходом к визуальной коммуникации.',
                     image: 'works/ARTBillboard.jpg'
                 },
                 {
                     title: 'ART LOGO',
-                    description: 'Создание логотипа для арт-проекта с фокусом на креативность и узнаваемость.',
                     image: 'works/ARTLogo.jpg'
                 },
                 {
                     title: 'EXHIBITION',
-                    description: 'Дизайн выставочного пространства с интерактивными элементами и современной навигацией.',
                     image: 'works/Exhibition.jpg'
                 },
                 {
                     title: 'GRAPHIC DESIGN',
-                    description: 'Комплексный графический дизайн проект с акцентом на минимализм и функциональность.',
                     image: 'works/Gdesign.jpg'
                 }
             ];
@@ -1514,22 +1476,18 @@
             const royalHorseWorks = [
                 {
                     title: 'ROYAL HORSE LOGO',
-                    description: 'Создание основного логотипа для бренда Royal Horse с элегантным дизайном и премиальным стилем.',
                     image: '123456789/Royal Horse Logo 2.jpg'
                 },
                 {
                     title: 'ROYAL HORSE ОПИСАНИЕ',
-                    description: 'Дизайн описания бренда Royal Horse с акцентом на качество и роскошь.',
                     image: '123456789/Royal Horse описание.jpg'
                 },
                 {
                     title: 'ROYAL HORSE ОПИСАНИЕ 2',
-                    description: 'Альтернативный дизайн описания бренда с современным подходом к премиальному брендингу.',
                     image: '123456789/Royal Horse описание 2.jpg'
                 },
                 {
                     title: 'ROYAL HORSE ФИНАЛ',
-                    description: 'Финальная версия проекта Royal Horse с завершенным фирменным стилем.',
                     image: '123456789/Royal Horse конец.png'
                 }
             ];
@@ -1728,22 +1686,49 @@
             function createGalleryContent(worksArray) {
                 modalGallery.innerHTML = '';
                 
+                // Проверяем, является ли это галереей Royal Horse
+                const isRoyalHorse = currentGalleryType === 'royalhorse';
+                
+                // Скрываем навигацию для всех галерей
+                const modalNav = document.querySelector('.modal-nav');
+                if (modalNav) {
+                    modalNav.style.display = 'none';
+                }
+                
                 worksArray.forEach((work, index) => {
                     // Создаем контейнер для работы
                     const workContainer = document.createElement('div');
                     workContainer.className = 'work-container';
-                    workContainer.style.cssText = `
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 40px;
-                        padding: 60px 20px;
-                        min-height: 100vh;
-                        justify-content: center;
-                        opacity: 0;
-                        transform: translate3d(0, 30px, 0);
-                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                    `;
+                    
+                    if (isRoyalHorse) {
+                        // Для Royal Horse: без отступов, только изображения
+                        workContainer.style.cssText = `
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 0;
+                            padding: 0;
+                            min-height: 100vh;
+                            justify-content: center;
+                            opacity: 0;
+                            transform: translate3d(0, 30px, 0);
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        `;
+                    } else {
+                        // Для остальных галерей: стандартный стиль
+                        workContainer.style.cssText = `
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 40px;
+                            padding: 60px 20px;
+                            min-height: 100vh;
+                            justify-content: center;
+                            opacity: 0;
+                            transform: translate3d(0, 30px, 0);
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        `;
+                    }
                     
                     // Добавляем задержку для последовательного появления
                     setTimeout(() => {
@@ -1756,17 +1741,34 @@
                     img.src = work.image;
                     img.alt = work.title;
                     img.className = 'modal-image';
-                    img.style.cssText = `
-                        width: 100%;
-                        max-width: 1200px;
-                        height: auto;
-                        object-fit: contain;
-                        border-radius: 12px;
-                        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                        opacity: 0;
-                        transform: scale(0.9);
-                    `;
+                    
+                    if (isRoyalHorse) {
+                        // Для Royal Horse: увеличенный размер, без отступов
+                        img.style.cssText = `
+                            width: 100%;
+                            max-width: 100vw;
+                            height: auto;
+                            object-fit: contain;
+                            border-radius: 0;
+                            box-shadow: none;
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            opacity: 0;
+                            transform: scale(0.9);
+                        `;
+                    } else {
+                        // Для остальных галерей: стандартный стиль
+                        img.style.cssText = `
+                            width: 100%;
+                            max-width: 1200px;
+                            height: auto;
+                            object-fit: contain;
+                            border-radius: 12px;
+                            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            opacity: 0;
+                            transform: scale(0.9);
+                        `;
+                    }
                     
                     // Анимация появления изображения
                     setTimeout(() => {
@@ -1774,52 +1776,122 @@
                         img.style.transform = 'scale(1)';
                     }, index * 200 + 300);
                     
-                    // Создаем информацию о работе
-                    const info = document.createElement('div');
-                    info.className = 'modal-info';
-                    info.style.cssText = `
-                        text-align: center;
-                        padding: 40px 20px;
-                        background: transparent;
-                        max-width: 800px;
-                        width: 100%;
-                        opacity: 0;
-                        transform: translateY(20px);
-                        transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                    `;
-                    
-                    // Анимация появления информации
-                    setTimeout(() => {
-                        info.style.opacity = '1';
-                        info.style.transform = 'translateY(0)';
-                    }, index * 200 + 500);
-                    
-                    const title = document.createElement('h3');
-                    title.textContent = work.title;
-                    title.style.cssText = `
-                        font-size: 2.5rem;
-                        font-weight: 300;
-                        color: #fff;
-                        margin-bottom: 20px;
-                        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-                    `;
-                    
-                    const description = document.createElement('p');
-                    description.textContent = work.description;
-                    description.style.cssText = `
-                        font-size: 1.2rem;
-                        color: #ccc;
-                        line-height: 1.8;
-                        margin-bottom: 20px;
-                    `;
-                    
-                    info.appendChild(title);
-                    info.appendChild(description);
-                    
                     workContainer.appendChild(img);
-                    workContainer.appendChild(info);
+                    
+                    // Добавляем информацию о работе для всех галерей кроме основного блока (SPACE) и Royal Horse
+                    if (!isRoyalHorse && currentGalleryType !== 'main') {
+                        // Создаем информацию о работе
+                        const info = document.createElement('div');
+                        info.className = 'modal-info';
+                        info.style.cssText = `
+                            text-align: center;
+                            padding: 40px 20px;
+                            background: transparent;
+                            max-width: 800px;
+                            width: 100%;
+                            opacity: 0;
+                            transform: translateY(20px);
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        `;
+                        
+                        // Анимация появления информации
+                        setTimeout(() => {
+                            info.style.opacity = '1';
+                            info.style.transform = 'translateY(0)';
+                        }, index * 200 + 500);
+                        
+                        const title = document.createElement('h3');
+                        title.textContent = work.title;
+                        title.style.cssText = `
+                            font-size: 2.5rem;
+                            font-weight: 300;
+                            color: #fff;
+                            margin-bottom: 20px;
+                            text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                        `;
+                        
+                        const description = document.createElement('p');
+                        description.textContent = work.description;
+                        description.style.cssText = `
+                            font-size: 1.2rem;
+                            color: #ccc;
+                            line-height: 1.8;
+                            margin-bottom: 20px;
+                        `;
+                        
+                        info.appendChild(title);
+                        info.appendChild(description);
+                        workContainer.appendChild(info);
+                    }
+                    
                     modalGallery.appendChild(workContainer);
                 });
+                
+                // Добавляем стрелочку закрытия снизу для всех галерей
+                    const closeButton = document.createElement('div');
+                    closeButton.className = 'royal-horse-close';
+                    closeButton.innerHTML = '↓';
+                    closeButton.style.cssText = `
+                        position: fixed;
+                        bottom: 10px;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 60px;
+                        height: 60px;
+                        background: rgba(0, 0, 0, 0.8);
+                        border: 2px solid #fff;
+                        border-radius: 50%;
+                        color: #fff;
+                        font-size: 24px;
+                        font-weight: bold;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        cursor: pointer;
+                        z-index: 10000;
+                        transition: all 0.3s ease;
+                        opacity: 0;
+                        animation: fadeInUp 0.6s ease 3s forwards;
+                        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+                    `;
+                    
+                    closeButton.addEventListener('click', function() {
+                        // Анимация исчезновения стрелочки
+                        this.style.transition = 'all 0.3s ease';
+                        this.style.opacity = '0';
+                        this.style.transform = 'translateX(-50%) scale(0.5)';
+                        
+                        // Закрываем модальное окно через небольшую задержку
+                        setTimeout(() => {
+                            closeModal();
+                        }, 150);
+                    });
+                    closeButton.addEventListener('mouseenter', function() {
+                        this.style.background = '#00ffff';
+                        this.style.borderColor = '#00ffff';
+                        this.style.color = '#000';
+                        this.style.transform = 'translateX(-50%) scale(1.1)';
+                        this.style.boxShadow = '0 6px 25px rgba(0, 255, 255, 0.4)';
+                    });
+                    closeButton.addEventListener('mouseleave', function() {
+                        this.style.background = 'rgba(0, 0, 0, 0.8)';
+                        this.style.borderColor = '#fff';
+                        this.style.color = '#fff';
+                        this.style.transform = 'translateX(-50%) scale(1)';
+                        this.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.6)';
+                    });
+                    
+                    document.body.appendChild(closeButton);
+                    
+                    // Удаляем кнопку при закрытии модального окна
+                    const originalCloseModal = closeModal;
+                    closeModal = function() {
+                        const closeBtn = document.querySelector('.royal-horse-close');
+                        if (closeBtn) {
+                            closeBtn.remove();
+                        }
+                        originalCloseModal();
+                    };
                 
                 // Убеждаемся, что скролл находится в самом верху
                 setTimeout(() => {
@@ -1896,33 +1968,13 @@
                 const clientHeight = modal.clientHeight;
                 const scrollBottom = scrollHeight - clientHeight;
                 
-                // Разные настройки для разных галерей
-                let closeThreshold, closeDelay;
+                // Отключаем анимацию закрытия по скролу для всех галерей
+                let closeThreshold = -1; // Отключаем закрытие по скролу
+                let closeDelay = 0;
+                console.log('Auto-close disabled for all galleries');
                 
-                if (currentGalleryType === 'lumiere') {
-                    // Для галереи Lumiere - закрытие через 1 секунду
-                    closeThreshold = 5; // Минимальный возможный допуск (максимально поздно срабатывает)
-                    closeDelay = 1000; // Задержка 1 секунда
-                    console.log('Lumiere gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
-                } else if (currentGalleryType === 'newproject') {
-                    // Для галереи UPDUTY - закрытие через 3.8 секунды (еще на 2 секунды больше)
-                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
-                    closeDelay = 3800; // Задержка 3.8 секунды
-                    console.log('UPDUTY gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
-                } else if (currentGalleryType === 'royalhorse') {
-                    // Для галереи Royal Horse - закрытие через 2 секунды
-                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
-                    closeDelay = 2000; // Задержка 2 секунды
-                    console.log('Royal Horse gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
-                } else {
-                    // Для основной галереи и EkoLife - стандартные настройки
-                    closeThreshold = 200; // Больший допуск (раньше срабатывает)
-                    closeDelay = 800; // Меньше задержка
-                    console.log('Main/EkoLife gallery: closeThreshold =', closeThreshold, 'closeDelay =', closeDelay);
-                }
-                
-                // Проверяем, доскроллил ли пользователь до конца
-                if (scrollTop >= scrollBottom - closeThreshold) {
+                // Проверяем, доскроллил ли пользователь до конца (только если closeThreshold >= 0)
+                if (closeThreshold >= 0 && scrollTop >= scrollBottom - closeThreshold) {
                     console.log('Closing condition met! Gallery type:', currentGalleryType, 'Delay:', closeDelay + 'ms');
                     isClosing = true;
                     // Задержка перед закрытием (разная для разных галерей)
@@ -1952,6 +2004,8 @@
         window.addEventListener('beforeunload', function() {
             window.scrollTo(0, 0);
         });
+        
+        
     </script>
 </body>
 </html>
