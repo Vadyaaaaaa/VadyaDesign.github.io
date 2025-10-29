@@ -1,0 +1,6 @@
+vadya-website/
+react-app/node_modules/
+*.log
+dist/
+build/
+

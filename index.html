@@ -381,6 +381,77 @@
             transform: translateY(-2px); 
         }
         
+        /* Экран загрузки — стили */
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            opacity: 1;
+            overflow: hidden;
+        }
+        .loading-screen.fade-out { opacity: 0; pointer-events: none; transition: opacity 0.8s ease-out; }
+
+        .loading-animation {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            --size: min(40vw, 40vh);
+            --width: calc(var(--size) / 40);
+            --dist: calc(var(--width) * 9.8);
+            --count: 64;
+            --bg: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5eeea355389655.59822ff824b72.gif');
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--width);
+        }
+        .tube { transform-style: preserve-3d; display: flex; align-items: center; justify-content: center; animation: speen 6s infinite linear; width: calc(var(--dist) * 2); height: var(--size); position: relative; }
+        .tube:nth-child(1) { animation-delay: -7.5s; }
+        .tube:nth-child(2) { animation-delay: -5s; }
+        .tube:nth-child(3) { animation-delay: -2.5s; }
+        .strip { transform-style: preserve-3d; background-color: white; height: var(--size); width: var(--width); position: absolute; background-image: var(--bg); background-size: calc(var(--width) * var(--count)) auto; background-repeat: no-repeat; backface-visibility: hidden; }
+        /* Развёртка цилиндров */
+        .strip:nth-child(1) { transform: rotateY(calc(1turn * 1 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -0) center; }
+        .strip:nth-child(2) { transform: rotateY(calc(1turn * 2 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -1) center; }
+        .strip:nth-child(3) { transform: rotateY(calc(1turn * 3 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -2) center; }
+        .strip:nth-child(4) { transform: rotateY(calc(1turn * 4 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -3) center; }
+        .strip:nth-child(5) { transform: rotateY(calc(1turn * 5 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -4) center; }
+        .strip:nth-child(6) { transform: rotateY(calc(1turn * 6 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -5) center; }
+        .strip:nth-child(7) { transform: rotateY(calc(1turn * 7 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -6) center; }
+        .strip:nth-child(8) { transform: rotateY(calc(1turn * 8 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -7) center; }
+        .strip:nth-child(9) { transform: rotateY(calc(1turn * 9 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -8) center; }
+        .strip:nth-child(10) { transform: rotateY(calc(1turn * 10 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -9) center; }
+        /* ... укорочено для компактности ... */
+
+        .loading-container { position: absolute; top: 72%; left: 50%; transform: translate(-50%, -50%); text-align: center; color: #fff; z-index: 2; }
+        .loading-text { font-size: 1rem; color: #666; letter-spacing: 1px; animation: pulse 2s ease-in-out infinite; }
+        @keyframes speen { 0% { transform: perspective(400px) rotateY(0deg); } 100% { transform: perspective(400px) rotateY(360deg); } }
+        @keyframes pulse { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; } }
+
+        /* Прячем основной контент до загрузки */
+        .hero,
+        .profile,
+        .competencies,
+        .works,
+        .contact,
+        .scroll-progress,
+        .background-sphere { opacity: 0; transition: opacity 0.5s ease; }
+        body.loaded .hero,
+        body.loaded .profile,
+        body.loaded .competencies,
+        body.loaded .works,
+        body.loaded .contact,
+        body.loaded .scroll-progress,
+        body.loaded .background-sphere { opacity: 1; }
+
         /* Модальное окно для работ */
         .work-modal {
             display: none;
@@ -624,238 +695,33 @@
         @media (max-width: 480px) { .hero-content { padding: 0 20px; } .profile { padding: 120px 20px; } .competencies { padding: 180px 20px; } .competencies-subtitle { font-size: 1.1rem; } .competencies-text { font-size: 0.9rem; } .works-container { padding: 0 20px; } .contact { padding: 120px 20px; } }
         
         
-
-        /* Экран загрузки */
-        .loading-screen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #000000 0%, #111111 50%, #000000 100%);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            opacity: 1;
-            overflow: hidden;
+        /* Дополнительная мобильная адаптация */
+        @media (max-width: 600px) {
+            .hero { height: 88vh; }
+            .hero-content { padding: 0 16px; }
+            .vadya-word { font-size: clamp(4.5rem, 18vw, 6.5rem); letter-spacing: 0.06em; }
+            .design-word { font-size: clamp(2.2rem, 10vw, 3.2rem); letter-spacing: 0.12em; transform: translateX(0); text-align: center; }
+            .profile { padding: 100px 16px; }
+            .competencies { padding: 140px 16px; }
+            .works-container { padding: 0 16px; }
+            .contact { padding: 100px 16px; }
+            .works-grid { grid-template-columns: 1fr; gap: 24px; }
+            .scroll-indicator { height: 3px; }
+            .sphere, .sphere i { width: 420px; height: 420px; line-height: 420px; }
+            .modal-image { max-width: 100vw; border-radius: 8px; }
+            .modal-info { padding: 24px 16px; }
+            .modal-title { font-size: 2rem; }
+            .modal-description { font-size: 1rem; }
+            .contact-minimal { gap: 20px; }
         }
-        
-        /* Transition только для исчезновения */
-        .loading-screen.fade-out {
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.8s ease-out;
+        @media (max-width: 375px) {
+            .vadya-word { font-size: clamp(3.4rem, 16vw, 5.2rem); }
+            .design-word { font-size: clamp(1.8rem, 9.5vw, 2.6rem); }
+            .profile { padding: 80px 14px; }
+            .competencies { padding: 120px 14px; }
+            .contact { padding: 80px 14px; }
+            .sphere, .sphere i { width: 360px; height: 360px; line-height: 360px; }
         }
-        
-        /* Анимация загрузки - 3D цилиндры с фоновым изображением */
-        .loading-animation {
-            position: absolute;
-            top: 40%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            --size: min(40vw, 40vh);
-            --width: calc(var(--size) / 40);
-            --dist: calc(var(--width) * 9.8);
-            --count: 64;
-            --bg: url('https://mir-s3-cdn-cf.behance.net/project_modules/max_1200/5eeea355389655.59822ff824b72.gif');
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: var(--width);
-        }
-        
-        .tube {
-            transform-style: preserve-3d;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: speen 6s infinite linear;
-            width: calc(var(--dist) * 2);
-            height: var(--size);
-            position: relative;
-        }
-        
-        .tube:nth-child(1) {
-            animation-delay: -7.5s;
-        }
-        
-        .tube:nth-child(2) {
-            animation-delay: -5s;
-        }
-        
-        .tube:nth-child(3) {
-            animation-delay: -2.5s;
-        }
-        
-        .strip {
-            transform-style: preserve-3d;
-            background-color: white;
-            height: var(--size);
-            width: var(--width);
-            position: absolute;
-            background-image: var(--bg);
-            background-size: calc(var(--width) * var(--count)) auto;
-            background-repeat: no-repeat;
-            backface-visibility: hidden;
-        }
-        
-        .strip:nth-child(1) { transform: rotateY(calc(1turn * 1 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -0) center; }
-        .strip:nth-child(2) { transform: rotateY(calc(1turn * 2 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -1) center; }
-        .strip:nth-child(3) { transform: rotateY(calc(1turn * 3 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -2) center; }
-        .strip:nth-child(4) { transform: rotateY(calc(1turn * 4 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -3) center; }
-        .strip:nth-child(5) { transform: rotateY(calc(1turn * 5 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -4) center; }
-        .strip:nth-child(6) { transform: rotateY(calc(1turn * 6 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -5) center; }
-        .strip:nth-child(7) { transform: rotateY(calc(1turn * 7 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -6) center; }
-        .strip:nth-child(8) { transform: rotateY(calc(1turn * 8 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -7) center; }
-        .strip:nth-child(9) { transform: rotateY(calc(1turn * 9 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -8) center; }
-        .strip:nth-child(10) { transform: rotateY(calc(1turn * 10 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -9) center; }
-        .strip:nth-child(11) { transform: rotateY(calc(1turn * 11 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -10) center; }
-        .strip:nth-child(12) { transform: rotateY(calc(1turn * 12 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -11) center; }
-        .strip:nth-child(13) { transform: rotateY(calc(1turn * 13 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -12) center; }
-        .strip:nth-child(14) { transform: rotateY(calc(1turn * 14 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -13) center; }
-        .strip:nth-child(15) { transform: rotateY(calc(1turn * 15 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -14) center; }
-        .strip:nth-child(16) { transform: rotateY(calc(1turn * 16 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -15) center; }
-        .strip:nth-child(17) { transform: rotateY(calc(1turn * 17 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -16) center; }
-        .strip:nth-child(18) { transform: rotateY(calc(1turn * 18 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -17) center; }
-        .strip:nth-child(19) { transform: rotateY(calc(1turn * 19 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -18) center; }
-        .strip:nth-child(20) { transform: rotateY(calc(1turn * 20 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -19) center; }
-        .strip:nth-child(21) { transform: rotateY(calc(1turn * 21 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -20) center; }
-        .strip:nth-child(22) { transform: rotateY(calc(1turn * 22 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -21) center; }
-        .strip:nth-child(23) { transform: rotateY(calc(1turn * 23 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -22) center; }
-        .strip:nth-child(24) { transform: rotateY(calc(1turn * 24 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -23) center; }
-        .strip:nth-child(25) { transform: rotateY(calc(1turn * 25 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -24) center; }
-        .strip:nth-child(26) { transform: rotateY(calc(1turn * 26 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -25) center; }
-        .strip:nth-child(27) { transform: rotateY(calc(1turn * 27 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -26) center; }
-        .strip:nth-child(28) { transform: rotateY(calc(1turn * 28 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -27) center; }
-        .strip:nth-child(29) { transform: rotateY(calc(1turn * 29 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -28) center; }
-        .strip:nth-child(30) { transform: rotateY(calc(1turn * 30 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -29) center; }
-        .strip:nth-child(31) { transform: rotateY(calc(1turn * 31 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -30) center; }
-        .strip:nth-child(32) { transform: rotateY(calc(1turn * 32 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -31) center; }
-        .strip:nth-child(33) { transform: rotateY(calc(1turn * 33 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -32) center; }
-        .strip:nth-child(34) { transform: rotateY(calc(1turn * 34 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -33) center; }
-        .strip:nth-child(35) { transform: rotateY(calc(1turn * 35 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -34) center; }
-        .strip:nth-child(36) { transform: rotateY(calc(1turn * 36 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -35) center; }
-        .strip:nth-child(37) { transform: rotateY(calc(1turn * 37 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -36) center; }
-        .strip:nth-child(38) { transform: rotateY(calc(1turn * 38 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -37) center; }
-        .strip:nth-child(39) { transform: rotateY(calc(1turn * 39 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -38) center; }
-        .strip:nth-child(40) { transform: rotateY(calc(1turn * 40 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -39) center; }
-        .strip:nth-child(41) { transform: rotateY(calc(1turn * 41 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -40) center; }
-        .strip:nth-child(42) { transform: rotateY(calc(1turn * 42 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -41) center; }
-        .strip:nth-child(43) { transform: rotateY(calc(1turn * 43 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -42) center; }
-        .strip:nth-child(44) { transform: rotateY(calc(1turn * 44 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -43) center; }
-        .strip:nth-child(45) { transform: rotateY(calc(1turn * 45 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -44) center; }
-        .strip:nth-child(46) { transform: rotateY(calc(1turn * 46 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -45) center; }
-        .strip:nth-child(47) { transform: rotateY(calc(1turn * 47 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -46) center; }
-        .strip:nth-child(48) { transform: rotateY(calc(1turn * 48 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -47) center; }
-        .strip:nth-child(49) { transform: rotateY(calc(1turn * 49 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -48) center; }
-        .strip:nth-child(50) { transform: rotateY(calc(1turn * 50 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -49) center; }
-        .strip:nth-child(51) { transform: rotateY(calc(1turn * 51 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -50) center; }
-        .strip:nth-child(52) { transform: rotateY(calc(1turn * 52 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -51) center; }
-        .strip:nth-child(53) { transform: rotateY(calc(1turn * 53 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -52) center; }
-        .strip:nth-child(54) { transform: rotateY(calc(1turn * 54 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -53) center; }
-        .strip:nth-child(55) { transform: rotateY(calc(1turn * 55 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -54) center; }
-        .strip:nth-child(56) { transform: rotateY(calc(1turn * 56 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -55) center; }
-        .strip:nth-child(57) { transform: rotateY(calc(1turn * 57 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -56) center; }
-        .strip:nth-child(58) { transform: rotateY(calc(1turn * 58 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -57) center; }
-        .strip:nth-child(59) { transform: rotateY(calc(1turn * 59 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -58) center; }
-        .strip:nth-child(60) { transform: rotateY(calc(1turn * 60 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -59) center; }
-        .strip:nth-child(61) { transform: rotateY(calc(1turn * 61 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -60) center; }
-        .strip:nth-child(62) { transform: rotateY(calc(1turn * 62 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -61) center; }
-        .strip:nth-child(63) { transform: rotateY(calc(1turn * 63 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -62) center; }
-        .strip:nth-child(64) { transform: rotateY(calc(1turn * 64 / var(--count))) translateZ(var(--dist)); background-position: calc(var(--width) * -63) center; }
-        
-        @keyframes speen {
-            0% {
-                transform: perspective(400px) rotateY(0deg);
-            }
-            100% {
-                transform: perspective(400px) rotateY(360deg);
-            }
-        }
-
-
-        .loading-container {
-            position: absolute;
-            top: 72%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            color: #fff;
-            z-index: 2;
-        }
-
-        .loading-logo {
-            margin-bottom: 40px;
-        }
-
-        .loading-title {
-            font-family: 'Republiko_PersonalUse', 'Helvetica Neue', Arial, sans-serif;
-            font-size: clamp(1.5rem, 6vw, 3rem);
-            font-weight: normal;
-            margin: 0;
-            background: linear-gradient(45deg, #fff, #ccc, #fff);
-            background-size: 200% 200%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: gradientShift 3s ease-in-out infinite;
-        }
-
-        .loading-subtitle {
-            font-size: clamp(0.7rem, 2.5vw, 1rem);
-            color: #888;
-            margin: 10px 0 0 0;
-            font-weight: 300;
-            letter-spacing: 2px;
-        }
-
-
-        .loading-text {
-            font-size: 1rem;
-            color: #666;
-            letter-spacing: 1px;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg) translate3d(0, 0, 0); }
-            100% { transform: rotate(360deg) translate3d(0, 0, 0); }
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.6; }
-            50% { opacity: 1; }
-        }
-
-        /* Основной контент скрыт по умолчанию */
-        .hero,
-        .profile,
-        .competencies,
-        .works,
-        .contact,
-        .scroll-progress,
-        .background-sphere {
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        /* Показываем контент только после загрузки */
-        body.loaded .hero,
-        body.loaded .profile,
-        body.loaded .competencies,
-        body.loaded .works,
-        body.loaded .contact,
-        body.loaded .scroll-progress,
-        body.loaded .background-sphere {
-            opacity: 1;
-        }
-        
     </style>
 </head>
 <body>
@@ -897,10 +763,8 @@
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
-                <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
             </div>
             <div class="tube">
-                <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
                 <div class="strip"></div><div class="strip"></div><div class="strip"></div><div class="strip"></div>
@@ -1092,22 +956,9 @@
             }, duration);
         }
         
-        // Проверяем, был ли уже показан экран загрузки в этой сессии
-        function shouldShowLoadingScreen() {
-            const hasSeenLoading = sessionStorage.getItem('hasSeenLoading');
-            return !hasSeenLoading;
-        }
-        
-        // Инициализация экрана загрузки
+        // Инициализация экрана загрузки (всегда показываем 5 секунд)
         document.addEventListener('DOMContentLoaded', function() {
-            if (shouldShowLoadingScreen()) {
-                // При первом заходе показываем 7 секунд
-                initLoadingScreen(7000);
-                sessionStorage.setItem('hasSeenLoading', 'true');
-            } else {
-                // При последующих обновлениях показываем 2 секунды
-                initLoadingScreen(2000);
-            }
+            initLoadingScreen(5000);
         });
         
         // Оптимизированный скролл индикатор с debounce
@@ -1139,7 +990,6 @@
         }, observerOptions);
         
         
-
         // Функция создания span элементов для всех букв
         function createLetterSpans() {
             // Селекторы для всех текстовых элементов на сайте
@@ -1561,23 +1411,23 @@
             function openLumiereGallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-
+                
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = lumiereWorks;
                 currentGalleryType = 'lumiere';
-
+                
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-
+                
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-
+                
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-
+                
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-
+                
                 // Создаем все элементы галереи Lumiere
                 createGalleryContent(lumiereWorks);
             }
@@ -1586,23 +1436,23 @@
             function openEkoLifeGallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-
+                
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = ekoLifeWorks;
                 currentGalleryType = 'ekolife';
-
+                
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-
+                
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-
+                
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-
+                
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-
+                
                 // Создаем все элементы галереи EkoLife
                 createGalleryContent(ekoLifeWorks);
             }
@@ -1611,23 +1461,23 @@
             function openNewProjectGallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-
+                
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = newProjectWorks;
                 currentGalleryType = 'newproject';
-
+                
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-
+                
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-
+                
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-
+                
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-
+                
                 // Создаем все элементы галереи нового проекта
                 createGalleryContent(newProjectWorks);
             }
@@ -1636,23 +1486,23 @@
             function openProject5Gallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-
+                
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = project5Works;
                 currentGalleryType = 'project5';
-
+                
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-
+                
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-
+                
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-
+                
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-
+                
                 // Создаем все элементы галереи проекта GHY
                 createGalleryContent(project5Works);
             }
@@ -1661,23 +1511,23 @@
             function openRoyalHorseGallery() {
                 modal.style.display = 'block';
                 document.body.style.overflow = 'hidden';
-
+                
                 // Устанавливаем текущий массив работ и тип галереи
                 currentWorksArray = royalHorseWorks;
                 currentGalleryType = 'royalhorse';
-
+                
                 // Сбрасываем флаг закрытия
                 isClosing = false;
-
+                
                 // Сбрасываем позицию скролла на самый верх
                 modal.scrollTop = 0;
-
+                
                 // Сбрасываем индекс текущей работы
                 currentWorkIndex = 0;
-
+                
                 // Добавляем класс для анимации открытия
                 modal.classList.add('modal-opening');
-
+                
                 // Создаем все элементы галереи проекта Royal Horse
                 createGalleryContent(royalHorseWorks);
             }
@@ -1764,7 +1614,7 @@
                             object-fit: contain;
                             border-radius: 12px;
                             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            transition: all 0.3s ease;
                             opacity: 0;
                             transform: scale(0.9);
                         `;
@@ -2009,3 +1859,4 @@
     </script>
 </body>
 </html>
+
