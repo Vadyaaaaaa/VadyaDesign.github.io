@@ -266,6 +266,11 @@
         
         /* Удалён разделитель */
 
+        /* Мобильный фоновый элемент - скрыт на десктопе */
+        #mobileBgSphere {
+            display: none;
+        }
+
         /* Экран загрузки — новая минималистичная анимация */
         .loading-screen {
             position: fixed;
@@ -566,12 +571,29 @@
             /* Мобильная версия: полностью черный фон + гифка сферы, которая двигается при скролле */
             body { 
                 background: #000000 !important;
-                background-image: url('assets/img/BG.gif') !important;
-                background-repeat: no-repeat !important;
-                background-attachment: scroll !important;
-                background-size: 400px 400px !important;
-                background-position: center 30vh; /* Без !important, чтобы JS мог изменять */
+                background-image: none !important;
                 position: relative;
+            }
+            #mobileBgSphere {
+                display: block !important;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                min-height: 100%;
+                background-image: url('assets/img/BG.gif');
+                background-repeat: no-repeat;
+                background-size: 400px 400px;
+                background-position: center center;
+                z-index: 0;
+                pointer-events: none;
+                will-change: transform;
+            }
+            /* Поднимаем контент над фоном */
+            .hero, .profile, .competencies, .works, .contact {
+                position: relative;
+                z-index: 1;
             }
             .modal-image { max-width: 100vw; border-radius: 8px; }
             .modal-info { padding: 24px 16px; }
@@ -622,11 +644,10 @@
             .contact { padding: 80px 14px; }
             body { 
                 background: #000000 !important;
-                background-image: url('assets/img/BG.gif') !important;
-                background-repeat: no-repeat !important;
-                background-attachment: scroll !important;
-                background-size: 320px 320px !important;
-                background-position: center 30vh; /* Без !important, чтобы JS мог изменять */
+                background-image: none !important;
+            }
+            #mobileBgSphere {
+                background-size: 320px 320px;
             }
         }
         
@@ -711,6 +732,8 @@
     
     <div class="scroll-indicator"><div class="scroll-progress" id="scrollProgress"></div></div>
     <div id="bgDimmer" aria-hidden="true"></div>
+    <!-- Мобильный фоновый элемент со сферой -->
+    <div id="mobileBgSphere" aria-hidden="true"></div>
     
     <section class="hero" id="home">
         <div class="hero-content">
@@ -864,33 +887,46 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Мобильная версия: синхронизация фоновой сферы со скроллом
+        // Мобильная версия: синхронизация фоновой сферы со скроллом через transform
         (function initMobileBgScroll(){
-            if (window.innerWidth > 600) return; // Только для мобильных
+            const sphere = document.getElementById('mobileBgSphere');
+            if (!sphere || window.innerWidth > 600) return; // Только для мобильных
             
             let ticking = false;
-            const initialVh = window.innerHeight * 0.3; // 30vh в пикселях
+            const initialOffset = window.innerHeight * 0.3; // Начальная позиция 30vh от верха
             
-            function updateBgPosition(){
+            function updateSpherePosition(){
                 const scrollY = window.pageYOffset || window.scrollY;
-                const body = document.body;
-                // Смещаем фон вместе со скроллом (можно изменить множитель для эффекта параллакса)
-                const bgPositionY = initialVh + (scrollY * 0.5); // 0.5 = скорость движения фона
-                body.style.backgroundPosition = `center ${bgPositionY}px`;
+                // Смещаем сферу вместе со скроллом (0.8 = скорость движения, можно менять)
+                const translateY = initialOffset + (scrollY * 0.8);
+                sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
                 ticking = false;
             }
             
             function requestTick(){
                 if (!ticking) {
-                    requestAnimationFrame(updateBgPosition);
+                    requestAnimationFrame(updateSpherePosition);
                     ticking = true;
                 }
             }
             
+            // Обновляем высоту элемента, чтобы покрыть весь скролл
+            function updateHeight(){
+                const docHeight = Math.max(
+                    document.body.scrollHeight,
+                    document.body.offsetHeight,
+                    document.documentElement.clientHeight,
+                    document.documentElement.scrollHeight,
+                    document.documentElement.offsetHeight
+                );
+                sphere.style.height = docHeight + 'px';
+            }
+            
             window.addEventListener('scroll', requestTick, { passive: true });
-            window.addEventListener('resize', updateBgPosition, { passive: true });
-            // Обновляем при загрузке
-            updateBgPosition();
+            window.addEventListener('resize', () => { updateHeight(); updateSpherePosition(); }, { passive: true });
+            // Инициализация
+            updateHeight();
+            updateSpherePosition();
         })();
 
         // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
