@@ -581,6 +581,17 @@
             /* Корректные переносы и размеры шрифтов в блоке компетенций */
             .competencies-subtitle { font-size: 1.6rem; line-height: 1.3; }
             .competencies-text { font-size: 1.1rem; line-height: 1.45; }
+            /* Глобально на мобильных: не переносить слова по частям */
+            body, p, h1, h2, h3, h4, h5, h6,
+            .profile-text p, .competencies-text, .modal-description, .work-title,
+            .hero-description, .contact-link, .works-title, .contact-title, .contact-note {
+                hyphens: none;
+                -webkit-hyphens: none;
+                -ms-hyphens: none;
+                word-break: keep-all;
+                overflow-wrap: normal;
+                white-space: normal;
+            }
         }
         @media (max-width: 375px) {
             .vadya-word { font-size: clamp(3.4rem, 16vw, 5.2rem); }
@@ -825,7 +836,7 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Индикатор посещений (устойчивый, с локальным фолбэком и защитой от дублей в сессии)
+        // Индикатор посещений (инициализация ключа + многоступенчатые фолбэки)
         (function initVisitCounter(){
             const textNode = document.querySelector('#visitIndicator span:last-child');
             if (!textNode) return;
@@ -835,59 +846,51 @@
             const sessionKey = 'visit-counted';
             const localKey = 'local-visit-count';
 
-            function renderCount(count){
-                textNode.textContent = 'Посещений: ' + (count ? Number(count).toLocaleString('ru-RU') : '—');
-            }
+            const endpoints = ['https://api.countapi.xyz', 'https://api.countapi.store', 'https://api.countapi.dev'];
 
-            function incrementLocal(){
+            const renderCount = (count) => {
+                textNode.textContent = 'Посещений: ' + (Number.isFinite(count) ? Number(count).toLocaleString('ru-RU') : '—');
+            };
+
+            const incrementLocal = () => {
                 try {
                     const current = Number(localStorage.getItem(localKey) || '0') + 1;
                     localStorage.setItem(localKey, String(current));
                     renderCount(current);
-                } catch(_) {
-                    renderCount('—');
+                } catch(_) { renderCount('—'); }
+            };
+
+            const alreadyCounted = sessionStorage.getItem(sessionKey) === '1';
+
+            const tryFetch = async () => {
+                // Пытаемся создать ключ (без ошибок, если уже существует)
+                for (const base of endpoints) {
+                    try {
+                        await fetch(`${base}/create?namespace=${encodeURIComponent(namespace)}&key=${encodeURIComponent(key)}&value=0`, { method: 'GET', cache: 'no-store' });
+                        break;
+                    } catch(_) {}
                 }
-            }
 
-            // Не считаем повторно в рамках одной вкладки/сессии
-            const alreadyCounted = sessionStorage.getItem(sessionKey);
-
-            // Основной запрос к CountAPI (hit только один раз за сессию, иначе get)
-            const endpoint = alreadyCounted
-                ? `https://api.countapi.xyz/get/${namespace}/${key}`
-                : `https://api.countapi.xyz/hit/${namespace}/${key}`;
-
-            fetch(endpoint, { cache: 'no-store' })
-                .then(r => r.ok ? r.json() : Promise.reject())
-                .then(d => {
-                    if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
-                    if (d && (typeof d.value === 'number')) {
-                        renderCount(d.value);
-                    } else {
-                        throw new Error('Invalid response');
-                    }
-                })
-                .catch(() => {
-                    // Фолбэк: пробуем альтернативный домен
-                    const alt = alreadyCounted
-                        ? `https://api.countapi.dev/get/${namespace}/${key}`
-                        : `https://api.countapi.dev/hit/${namespace}/${key}`;
-                    fetch(alt, { cache: 'no-store' })
-                        .then(r => r.ok ? r.json() : Promise.reject())
-                        .then(d => {
+                // Затем hit или get
+                for (const base of endpoints) {
+                    try {
+                        const url = alreadyCounted
+                            ? `${base}/get/${namespace}/${key}`
+                            : `${base}/hit/${namespace}/${key}`;
+                        const res = await fetch(url, { cache: 'no-store' });
+                        if (!res.ok) throw new Error('bad status');
+                        const d = await res.json();
+                        if (d && typeof d.value === 'number') {
                             if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
-                            if (d && (typeof d.value === 'number')) {
-                                renderCount(d.value);
-                            } else {
-                                throw new Error('Invalid response');
-                            }
-                        })
-                        .catch(() => {
-                            // Локальный фолбэк (не глобальный, но даёт видимость работы счётчика)
-                            if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
-                            incrementLocal();
-                        });
-                });
+                            renderCount(d.value);
+                            return true;
+                        }
+                    } catch(_) { /* try next */ }
+                }
+                return false;
+            };
+
+            tryFetch().then(ok => { if (!ok) incrementLocal(); });
         })();
 
         // Динамическое затемнение фона за секциями "ПРОФИЛЬ" и "КЛЮЧЕВЫЕ КОМПЕТЕНЦИИ"
