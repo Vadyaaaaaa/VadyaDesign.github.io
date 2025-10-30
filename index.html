@@ -264,6 +264,9 @@
             transform: translateY(-2px); 
         }
         
+        /* Мобильный раздел с анимированной гифкой между секциями */
+        .mobile-gif-divider { display: none; }
+
         /* Экран загрузки — новая минималистичная анимация */
         .loading-screen {
             position: fixed;
@@ -582,6 +585,18 @@
             .competencies-subtitle { font-size: 1.6rem; line-height: 1.3; }
             .competencies-text { font-size: 1.1rem; line-height: 1.45; }
             .nowrap { white-space: nowrap; }
+            /* Мобильная гифка-разделитель */
+            .mobile-gif-divider {
+                display: block;
+                width: 100%;
+                height: 220px;
+                background-image: url('assets/img/BG.gif');
+                background-repeat: no-repeat;
+                background-size: 240px 240px;
+                background-position: center;
+                background-attachment: scroll;
+                margin: 10px 0 0 0;
+            }
             /* Глобально на мобильных: не переносить слова по частям */
             body, p, h1, h2, h3, h4, h5, h6,
             .profile-text p, .competencies-text, .modal-description, .work-title,
@@ -697,6 +712,8 @@
             </h1>
         </div>
     </section>
+    <!-- Мобильная гифка между DESIGN VADYA и ПРОФИЛЬ -->
+    <section class="mobile-gif-divider" aria-hidden="true"></section>
     <section class="profile" id="profile">
         <h2 class="profile-title">ПРОФИЛЬ</h2>
         <div class="profile-content">
@@ -837,10 +854,11 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Индикатор посещений (инкремент на каждом обновлении, многоступенчатые фолбэки)
+        // Индикатор посещений (инкремент на каждом обновлении, с фолбэком на бейдж)
         (function initVisitCounter(){
-            const textNode = document.querySelector('#visitIndicator span:last-child');
-            if (!textNode) return;
+            const container = document.getElementById('visitIndicator');
+            const textNode = container ? container.querySelector('span:last-child') : null;
+            if (!container || !textNode) return;
 
             const namespace = 'by-vadya-design';
             const key = 'site-views';
@@ -885,7 +903,55 @@
                 return false;
             };
 
-            tryFetch().then(ok => { if (!ok) incrementLocal(); });
+            tryFetch().then(ok => { 
+                if (!ok) {
+                    // Фолбэк: вставляем бейдж-картинку счётчика
+                    const urlToTrack = encodeURIComponent(location.origin + location.pathname);
+                    container.innerHTML = '<span class="visit-dot"></span>'+
+                        '<img alt="Посещений" style="height:18px; vertical-align:middle" '+
+                        'src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url='+urlToTrack+'&count_bg=%23FFFFFF&title_bg=%23000000&icon=&icon_color=%23E7E7E7&title=%D0%9F%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B9&edge_flat=false" />';
+                }
+            });
+        })();
+
+        // Десктоп: красивый след за курсором
+        (function initCursorTrail(){
+            const isDesktop = window.matchMedia('(pointer:fine) and (min-width: 900px)').matches;
+            if (!isDesktop) return;
+
+            const canvas = document.createElement('canvas');
+            Object.assign(canvas.style, {position:'fixed', inset:'0', pointerEvents:'none', zIndex: 9999});
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
+
+            function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize); resize();
+
+            const particles = [];
+            function addParticle(x, y){
+                particles.push({x, y, vx:(Math.random()-0.5)*0.7, vy:(Math.random()-0.5)*0.7, life: 1});
+            }
+            window.addEventListener('mousemove', e => {
+                for (let i=0;i<4;i++) addParticle(e.clientX, e.clientY);
+            }, {passive:true});
+
+            function tick(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                for (let i=particles.length-1;i>=0;i--){
+                    const p = particles[i];
+                    p.x += p.vx; p.y += p.vy; p.life -= 0.016;
+                    if (p.life <= 0) { particles.splice(i,1); continue; }
+                    const alpha = Math.max(p.life, 0);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2.2, 0, Math.PI*2);
+                    ctx.fillStyle = 'rgba(255,255,255,'+alpha+')';
+                    ctx.shadowColor = 'rgba(255,255,255,'+alpha+')';
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
+                }
+                requestAnimationFrame(tick);
+            }
+            tick();
         })();
 
         // Динамическое затемнение фона за секциями "ПРОФИЛЬ" и "КЛЮЧЕВЫЕ КОМПЕТЕНЦИИ"
