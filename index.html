@@ -552,6 +552,8 @@
         @media (max-width: 600px) {
             .hero { height: 88vh; }
             .hero-content { padding: 0 16px; }
+            /* Сместить DESIGN VADYA ниже */
+            .hero-title { margin-top: 12vh; }
             .vadya-word { font-size: clamp(4.5rem, 18vw, 6.5rem); letter-spacing: 0.06em; }
             .design-word { font-size: clamp(2.2rem, 10vw, 3.2rem); letter-spacing: 0.12em; transform: translateX(0); text-align: center; }
             /* Уменьшаем интервал между верхним блоком и профилем */
@@ -852,57 +854,20 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Индикатор посещений: JSONP через CountAPI + локальный надёжный фолбэк
+        // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
         (function initVisitCounter(){
             const container = document.getElementById('visitIndicator');
             const textNode = container ? container.querySelector('span:last-child') : null;
             if (!container || !textNode) return;
 
-            const namespace = 'by-vadya-design';
-            const key = 'site-views';
-            const endpoints = ['https://api.countapi.xyz', 'https://api.countapi.store', 'https://api.countapi.dev'];
-
-            function render(count){
-                textNode.textContent = 'Посещений: ' + (Number.isFinite(count) ? count.toLocaleString('ru-RU') : '—');
-            }
-
-            function jsonp(base, path, cb){
-                return new Promise((resolve, reject) => {
-                    const cbName = '__cnt_cb_' + Math.random().toString(36).slice(2);
-                    window[cbName] = function(data){ try{ delete window[cbName]; }catch(_){} script.remove(); resolve(data); };
-                    const url = `${base}${path}${path.includes('?') ? '&' : '?'}callback=${cbName}`;
-                    const script = document.createElement('script');
-                    script.src = url;
-                    script.async = true;
-                    script.onerror = () => { try{ delete window[cbName]; }catch(_){} script.remove(); reject(new Error('jsonp error')); };
-                    document.head.appendChild(script);
-                });
-            }
-
-            function renderLocalIncrement(){
-                try {
-                    const k = 'local-visit-count';
-                    const val = Number(localStorage.getItem(k) || '0') + 1;
-                    localStorage.setItem(k, String(val));
-                    render(val);
-                } catch(_) { render(1); }
-            }
-
-            (async function run(){
-                // пробуем создать ключ
-                for (const base of endpoints) {
-                    try { await jsonp(base, `/create?namespace=${encodeURIComponent(namespace)}&key=${encodeURIComponent(key)}&value=0`); break; } catch(_) {}
-                }
-                // hit по одному из эндпоинтов
-                for (const base of endpoints) {
-                    try {
-                        const d = await jsonp(base, `/hit/${namespace}/${key}`);
-                        if (d && typeof d.value === 'number') { render(d.value); return; }
-                    } catch(_) {}
-                }
-                // Локальный надёжный фолбэк: число всегда меняется при обновлении
-                renderLocalIncrement();
-            })();
+            const storageKey = 'local-visit-count';
+            let value = 0;
+            try {
+                value = Number(localStorage.getItem(storageKey) || '0');
+            } catch(_) { value = 0; }
+            value += 1;
+            try { localStorage.setItem(storageKey, String(value)); } catch(_){ }
+            textNode.textContent = 'Посещений: ' + value.toLocaleString('ru-RU');
         })();
 
         // Десктоп: красивый след за курсором
