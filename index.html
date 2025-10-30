@@ -563,13 +563,29 @@
             .contact { padding: 100px 16px; }
             .works-grid { grid-template-columns: 1fr; gap: 24px; }
             .scroll-indicator { height: 3px; }
-            /* Мобильная версия: фон-гиф шара (BG.gif) двигается при скролле */
+            /* Мобильная версия: фон-гиф шара (BG.gif) двигается при скролле через псевдоэлемент */
             body { 
+                background-image: none;
+                position: relative;
+            }
+            body::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 200vh;
                 background-image: url('assets/img/BG.gif');
                 background-repeat: no-repeat;
-                background-attachment: scroll; 
-                background-size: 400px 400px; 
+                background-size: 400px 400px;
                 background-position: center 30vh;
+                z-index: 0;
+                pointer-events: none;
+            }
+            /* Поднимаем контент над фоном */
+            .hero, .profile, .competencies, .works, .contact {
+                position: relative;
+                z-index: 1;
             }
             .modal-image { max-width: 100vw; border-radius: 8px; }
             .modal-info { padding: 24px 16px; }
