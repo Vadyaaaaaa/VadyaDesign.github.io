@@ -570,7 +570,7 @@
                 background-repeat: no-repeat !important;
                 background-attachment: scroll !important;
                 background-size: 400px 400px !important;
-                background-position: center 30vh !important;
+                background-position: center 30vh; /* Без !important, чтобы JS мог изменять */
                 position: relative;
             }
             .modal-image { max-width: 100vw; border-radius: 8px; }
@@ -626,7 +626,7 @@
                 background-repeat: no-repeat !important;
                 background-attachment: scroll !important;
                 background-size: 320px 320px !important;
-                background-position: center 30vh !important;
+                background-position: center 30vh; /* Без !important, чтобы JS мог изменять */
             }
         }
         
@@ -863,6 +863,35 @@
         }, 10);
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
+
+        // Мобильная версия: синхронизация фоновой сферы со скроллом
+        (function initMobileBgScroll(){
+            if (window.innerWidth > 600) return; // Только для мобильных
+            
+            let ticking = false;
+            const initialVh = window.innerHeight * 0.3; // 30vh в пикселях
+            
+            function updateBgPosition(){
+                const scrollY = window.pageYOffset || window.scrollY;
+                const body = document.body;
+                // Смещаем фон вместе со скроллом (можно изменить множитель для эффекта параллакса)
+                const bgPositionY = initialVh + (scrollY * 0.5); // 0.5 = скорость движения фона
+                body.style.backgroundPosition = `center ${bgPositionY}px`;
+                ticking = false;
+            }
+            
+            function requestTick(){
+                if (!ticking) {
+                    requestAnimationFrame(updateBgPosition);
+                    ticking = true;
+                }
+            }
+            
+            window.addEventListener('scroll', requestTick, { passive: true });
+            window.addEventListener('resize', updateBgPosition, { passive: true });
+            // Обновляем при загрузке
+            updateBgPosition();
+        })();
 
         // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
         (function initVisitCounter(){
