@@ -264,8 +264,7 @@
             transform: translateY(-2px); 
         }
         
-        /* Мобильный раздел с анимированной гифкой между секциями */
-        .mobile-gif-divider { display: none; }
+        /* Удалён разделитель */
 
         /* Экран загрузки — новая минималистичная анимация */
         .loading-screen {
@@ -555,7 +554,8 @@
             .hero-content { padding: 0 16px; }
             .vadya-word { font-size: clamp(4.5rem, 18vw, 6.5rem); letter-spacing: 0.06em; }
             .design-word { font-size: clamp(2.2rem, 10vw, 3.2rem); letter-spacing: 0.12em; transform: translateX(0); text-align: center; }
-            .profile { padding: 100px 16px; }
+            /* Уменьшаем интервал между верхним блоком и профилем */
+            .profile { padding: 60px 16px; }
             .competencies { padding: 140px 16px; }
             .works-container { padding: 0 16px; }
             .contact { padding: 100px 16px; }
@@ -712,8 +712,6 @@
             </h1>
         </div>
     </section>
-    <!-- Мобильная гифка между DESIGN VADYA и ПРОФИЛЬ -->
-    <section class="mobile-gif-divider" aria-hidden="true"></section>
     <section class="profile" id="profile">
         <h2 class="profile-title">ПРОФИЛЬ</h2>
         <div class="profile-content">
@@ -854,7 +852,7 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Индикатор посещений (инкремент на каждом обновлении, с фолбэком на бейдж)
+        // Индикатор посещений: JSONP через CountAPI + фоновый инкремент изображением
         (function initVisitCounter(){
             const container = document.getElementById('visitIndicator');
             const textNode = container ? container.querySelector('span:last-child') : null;
@@ -862,56 +860,41 @@
 
             const namespace = 'by-vadya-design';
             const key = 'site-views';
-            const localKey = 'local-visit-count';
-
             const endpoints = ['https://api.countapi.xyz', 'https://api.countapi.store', 'https://api.countapi.dev'];
 
-            const renderCount = (count) => {
-                textNode.textContent = 'Посещений: ' + (Number.isFinite(count) ? Number(count).toLocaleString('ru-RU') : '—');
-            };
+            function render(count){
+                textNode.textContent = 'Посещений: ' + (Number.isFinite(count) ? count.toLocaleString('ru-RU') : '—');
+            }
 
-            const incrementLocal = () => {
-                try {
-                    const current = Number(localStorage.getItem(localKey) || '0') + 1;
-                    localStorage.setItem(localKey, String(current));
-                    renderCount(current);
-                } catch(_) { renderCount('—'); }
-            };
+            function jsonp(base, path, cb){
+                return new Promise((resolve, reject) => {
+                    const cbName = '__cnt_cb_' + Math.random().toString(36).slice(2);
+                    window[cbName] = function(data){ try{ delete window[cbName]; }catch(_){} script.remove(); resolve(data); };
+                    const url = `${base}${path}${path.includes('?') ? '&' : '?'}callback=${cbName}`;
+                    const script = document.createElement('script');
+                    script.src = url;
+                    script.async = true;
+                    script.onerror = () => { try{ delete window[cbName]; }catch(_){} script.remove(); reject(new Error('jsonp error')); };
+                    document.head.appendChild(script);
+                });
+            }
 
-            const tryFetch = async () => {
-                // Пытаемся создать ключ (без ошибок, если уже существует)
+            (async function run(){
+                // пробуем создать ключ
+                for (const base of endpoints) {
+                    try { await jsonp(base, `/create?namespace=${encodeURIComponent(namespace)}&key=${encodeURIComponent(key)}&value=0`); break; } catch(_) {}
+                }
+                // hit по одному из эндпоинтов
                 for (const base of endpoints) {
                     try {
-                        await fetch(`${base}/create?namespace=${encodeURIComponent(namespace)}&key=${encodeURIComponent(key)}&value=0`, { method: 'GET', cache: 'no-store' });
-                        break;
+                        const d = await jsonp(base, `/hit/${namespace}/${key}`);
+                        if (d && typeof d.value === 'number') { render(d.value); return; }
                     } catch(_) {}
                 }
-
-                // Затем hit или get
-                for (const base of endpoints) {
-                    try {
-                        const url = `${base}/hit/${namespace}/${key}`;
-                        const res = await fetch(url, { cache: 'no-store' });
-                        if (!res.ok) throw new Error('bad status');
-                        const d = await res.json();
-                        if (d && typeof d.value === 'number') {
-                            renderCount(d.value);
-                            return true;
-                        }
-                    } catch(_) { /* try next */ }
-                }
-                return false;
-            };
-
-            tryFetch().then(ok => { 
-                if (!ok) {
-                    // Фолбэк: вставляем бейдж-картинку счётчика
-                    const urlToTrack = encodeURIComponent(location.origin + location.pathname);
-                    container.innerHTML = '<span class="visit-dot"></span>'+
-                        '<img alt="Посещений" style="height:18px; vertical-align:middle" '+
-                        'src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url='+urlToTrack+'&count_bg=%23FFFFFF&title_bg=%23000000&icon=&icon_color=%23E7E7E7&title=%D0%9F%D0%BE%D1%81%D0%B5%D1%89%D0%B5%D0%BD%D0%B8%D0%B9&edge_flat=false" />';
-                }
-            });
+                // последний шанс: инкремент изображением (увеличит общий счётчик), текст оставить как есть
+                const tracker = new Image();
+                tracker.src = `https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=${encodeURIComponent(location.origin+location.pathname)}&rand=${Date.now()}`;
+            })();
         })();
 
         // Десктоп: красивый след за курсором
