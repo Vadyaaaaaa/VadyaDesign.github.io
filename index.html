@@ -558,12 +558,12 @@
             .contact { padding: 100px 16px; }
             .works-grid { grid-template-columns: 1fr; gap: 24px; }
             .scroll-indicator { height: 3px; }
-            /* Мобильная версия: фон-гиф шара (BG.gif), уменьшенная и без fixed */
+            /* Мобильная версия: фон-гиф шара (BG.gif) фиксированно, сверху вниз как на ПК */
             body { 
-                background-attachment: scroll; 
+                background-attachment: fixed; 
                 background-image: url('assets/img/BG.gif');
-                background-size: 320px 320px; 
-                background-position: center 28%;
+                background-size: 360px 360px; 
+                background-position: center 0%;
             }
             .modal-image { max-width: 100vw; border-radius: 8px; }
             .modal-info { padding: 24px 16px; }
@@ -581,6 +581,7 @@
             /* Корректные переносы и размеры шрифтов в блоке компетенций */
             .competencies-subtitle { font-size: 1.6rem; line-height: 1.3; }
             .competencies-text { font-size: 1.1rem; line-height: 1.45; }
+            .nowrap { white-space: nowrap; }
             /* Глобально на мобильных: не переносить слова по частям */
             body, p, h1, h2, h3, h4, h5, h6,
             .profile-text p, .competencies-text, .modal-description, .work-title,
@@ -599,7 +600,7 @@
             .profile { padding: 80px 14px; }
             .competencies { padding: 120px 14px; }
             .contact { padding: 80px 14px; }
-            body { background-size: 240px 240px; }
+            body { background-size: 260px 260px; }
         }
         
         /* Планшеты и крупные десктопы */
@@ -705,7 +706,7 @@
         </div>
     </section>
     <section class="competencies" id="competencies">
-        <h2 class="competencies-title">ПРОФЕССИОНАЛЬНЫЕ НАВЫКИ</h2>
+        <h2 class="competencies-title">ПРОФЕССИОНАЛЬНЫЕ <span class="nowrap">НАВЫКИ</span></h2>
         <div class="competencies-content">
             <div class="competencies-grid">
                 <div class="competencies-section">
@@ -836,14 +837,13 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Индикатор посещений (инициализация ключа + многоступенчатые фолбэки)
+        // Индикатор посещений (инкремент на каждом обновлении, многоступенчатые фолбэки)
         (function initVisitCounter(){
             const textNode = document.querySelector('#visitIndicator span:last-child');
             if (!textNode) return;
 
             const namespace = 'by-vadya-design';
             const key = 'site-views';
-            const sessionKey = 'visit-counted';
             const localKey = 'local-visit-count';
 
             const endpoints = ['https://api.countapi.xyz', 'https://api.countapi.store', 'https://api.countapi.dev'];
@@ -860,8 +860,6 @@
                 } catch(_) { renderCount('—'); }
             };
 
-            const alreadyCounted = sessionStorage.getItem(sessionKey) === '1';
-
             const tryFetch = async () => {
                 // Пытаемся создать ключ (без ошибок, если уже существует)
                 for (const base of endpoints) {
@@ -874,14 +872,11 @@
                 // Затем hit или get
                 for (const base of endpoints) {
                     try {
-                        const url = alreadyCounted
-                            ? `${base}/get/${namespace}/${key}`
-                            : `${base}/hit/${namespace}/${key}`;
+                        const url = `${base}/hit/${namespace}/${key}`;
                         const res = await fetch(url, { cache: 'no-store' });
                         if (!res.ok) throw new Error('bad status');
                         const d = await res.json();
                         if (d && typeof d.value === 'number') {
-                            if (!alreadyCounted) sessionStorage.setItem(sessionKey, '1');
                             renderCount(d.value);
                             return true;
                         }
