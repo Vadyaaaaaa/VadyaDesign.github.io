@@ -611,13 +611,15 @@
                 width: 100vw;
                 height: 100vh;
                 min-height: 100%;
-                background-image: url('assets/img/BG.gif');
-                background-repeat: no-repeat;
-                background-size: 400px 400px;
-                background-position: center center;
-                z-index: 0;
-                pointer-events: none;
+                background-image: url('assets/img/BG.gif') !important;
+                background-repeat: no-repeat !important;
+                background-size: 400px 400px !important;
+                background-position: center center !important;
+                z-index: 0 !important;
+                pointer-events: none !important;
                 will-change: transform;
+                opacity: 1 !important;
+                visibility: visible !important;
             }
             /* Поднимаем контент над фоном */
             .hero, .profile, .competencies, .works, .contact {
@@ -990,7 +992,19 @@
         // Мобильная версия: синхронизация фоновой сферы со скроллом через transform
         (function initMobileBgScroll(){
             const sphere = document.getElementById('mobileBgSphere');
-            if (!sphere || window.innerWidth > 600) return; // Только для мобильных
+            if (!sphere) return;
+            
+            // Проверяем мобильное устройство
+            const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+            const isMobile = screenWidth <= 1024; // Расширенная проверка для всех мобильных устройств
+            
+            if (!isMobile) {
+                sphere.style.display = 'none';
+                return;
+            }
+            
+            // Показываем сферу на мобильных
+            sphere.style.display = 'block';
             
             let ticking = false;
             const initialOffset = window.innerHeight * 0.3; // Начальная позиция 30vh от верха
