@@ -563,6 +563,9 @@
                 gap: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                min-height: auto !important;
+                height: auto !important;
+                justify-content: flex-start !important;
             }
             .modal-gallery.gallery-royalhorse .work-container img {
                 margin: 0 !important;
@@ -674,6 +677,9 @@
                 margin: 0 !important;
                 margin-bottom: 0 !important;
                 margin-top: 0 !important;
+                min-height: auto !important;
+                height: auto !important;
+                justify-content: flex-start !important;
             }
             .modal-gallery.gallery-main .work-container img,
             .modal-gallery.gallery-royalhorse .work-container img {
@@ -1758,8 +1764,9 @@
                             workContainer.style.setProperty('margin', '0', 'important');
                             workContainer.style.setProperty('margin-bottom', '0', 'important');
                             workContainer.style.setProperty('margin-top', '0', 'important');
-                            workContainer.style.minHeight = '100vh';
-                            workContainer.style.justifyContent = 'center';
+                            workContainer.style.setProperty('min-height', 'auto', 'important');
+                            workContainer.style.setProperty('height', 'auto', 'important');
+                            workContainer.style.justifyContent = 'flex-start';
                             workContainer.style.opacity = '0';
                             workContainer.style.transform = 'translate3d(0, 30px, 0)';
                             workContainer.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
@@ -1962,6 +1969,9 @@
                                 container.style.setProperty('margin', '0', 'important');
                                 container.style.setProperty('margin-bottom', '0', 'important');
                                 container.style.setProperty('margin-top', '0', 'important');
+                                container.style.setProperty('min-height', 'auto', 'important');
+                                container.style.setProperty('height', 'auto', 'important');
+                                container.style.setProperty('justify-content', 'flex-start', 'important');
                             });
                             
                             // Применяем стили ко всем изображениям
@@ -1971,6 +1981,7 @@
                                 img.style.setProperty('margin-bottom', '0', 'important');
                                 img.style.setProperty('margin-top', '0', 'important');
                                 img.style.setProperty('display', 'block', 'important');
+                                img.style.setProperty('vertical-align', 'top', 'important');
                             });
                         }
                     }
