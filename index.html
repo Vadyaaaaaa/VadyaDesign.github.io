@@ -1056,10 +1056,10 @@
             }
         })();
 
-        // Новый счетчик посещений - работает на всех версиях
+        // Общий счетчик посещений для всех пользователей
         (function initVisitCounter(){
             function updateCounter() {
-                const container = document.getElementById('visitIndicator');
+                const container = document.getElementById('visitCounter');
                 if (!container) {
                     // Повторяем попытку если элемент еще не загружен
                     setTimeout(updateCounter, 100);
@@ -1069,34 +1069,52 @@
                 const textNode = container.querySelector('span:last-child');
                 if (!textNode) return;
                 
-                const storageKey = 'site-visit-count';
-                let visitCount = 0;
+                // Проверяем, был ли уже засчитан визит в этой сессии
+                const sessionKey = 'visit-counted-' + new Date().toDateString();
+                const alreadyCounted = sessionStorage.getItem(sessionKey);
                 
-                // Получаем текущее значение из localStorage
-                try {
-                    const stored = localStorage.getItem(storageKey);
-                    if (stored) {
-                        visitCount = parseInt(stored, 10) || 0;
-                    }
-                } catch(e) {
-                    console.log('localStorage недоступен');
-                }
+                // Используем внешний API для хранения общего счетчика
+                // FreeCounter API для общего счетчика
+                const counterUrl = 'https://api.countapi.xyz/hit/vadya-design/visits';
                 
-                // Увеличиваем счетчик
-                visitCount += 1;
-                
-                // Сохраняем новое значение
-                try {
-                    localStorage.setItem(storageKey, String(visitCount));
-                } catch(e) {
-                    console.log('Не удалось сохранить счетчик');
-                }
-                
-                // Обновляем текст
-                try {
-                    textNode.textContent = 'Посещений: ' + visitCount.toLocaleString('ru-RU');
-                } catch(e) {
-                    textNode.textContent = 'Посещений: ' + visitCount;
+                // Отправляем запрос для увеличения общего счетчика (только один раз в день)
+                if (!alreadyCounted) {
+                    fetch(counterUrl)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.value !== undefined) {
+                                sessionStorage.setItem(sessionKey, 'true');
+                                const count = data.value;
+                                try {
+                                    textNode.textContent = 'Посещений: ' + count.toLocaleString('ru-RU');
+                                } catch(e) {
+                                    textNode.textContent = 'Посещений: ' + count;
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Ошибка загрузки счетчика:', error);
+                            // Fallback: показываем сообщение об ошибке
+                            textNode.textContent = 'Посещений: —';
+                        });
+                } else {
+                    // Если уже засчитали, просто получаем текущее значение
+                    fetch('https://api.countapi.xyz/get/vadya-design/visits')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data && data.value !== undefined) {
+                                const count = data.value;
+                                try {
+                                    textNode.textContent = 'Посещений: ' + count.toLocaleString('ru-RU');
+                                } catch(e) {
+                                    textNode.textContent = 'Посещений: ' + count;
+                                }
+                            }
+                        })
+                        .catch(error => {
+                            console.log('Ошибка получения счетчика:', error);
+                            textNode.textContent = 'Посещений: —';
+                        });
                 }
             }
             
@@ -1108,7 +1126,7 @@
             }
             
             // Дополнительная проверка через небольшую задержку
-            setTimeout(updateCounter, 200);
+            setTimeout(updateCounter, 500);
         })();
 
         // Десктоп: красивый след за курсором
@@ -2258,7 +2276,7 @@
             <div class="contact-row">
                 <div class="made-in">Сделано с любовью из России</div>
                 <div class="contact-center">
-                    <div class="visit-indicator" id="visitIndicator"><span class="visit-dot"></span><span>Посещений: —</span></div>
+                    <div class="visit-indicator" id="visitCounter"><span class="visit-dot"></span><span>Посещений: —</span></div>
                 </div>
                 <div class="contact-right">
                     <div class="contact-minimal">
