@@ -1667,9 +1667,29 @@
                 // Проверяем, является ли это галереей Royal Horse
                 const isRoyalHorse = currentGalleryType === 'royalhorse';
                 
+                // Определяем мобильное устройство ПЕРЕД применением стилей
+                const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+                const isMobile = screenWidth <= 600;
+                
                 // Удаляем все классы галереи и добавляем нужный
                 modalGallery.classList.remove('gallery-main', 'gallery-royalhorse', 'gallery-lumiere', 'gallery-ekolife', 'gallery-newproject', 'gallery-project5');
                 modalGallery.classList.add('gallery-' + currentGalleryType);
+                
+                // Применяем стили к modalGallery напрямую для мобильных устройств
+                if (isMobile && (isRoyalHorse || currentGalleryType === 'main')) {
+                    modalGallery.style.setProperty('gap', '0', 'important');
+                    modalGallery.style.setProperty('padding', '0', 'important');
+                } else if (isMobile && (currentGalleryType === 'newproject' || currentGalleryType === 'project5')) {
+                    modalGallery.style.setProperty('gap', '4px', 'important');
+                    modalGallery.style.setProperty('padding', '15px 5px', 'important');
+                } else if (isMobile) {
+                    modalGallery.style.setProperty('gap', '16px', 'important');
+                    modalGallery.style.setProperty('padding', '30px 10px', 'important');
+                } else {
+                    // ПК версия - стандартные стили
+                    modalGallery.style.removeProperty('gap');
+                    modalGallery.style.removeProperty('padding');
+                }
                 
                 // Скрываем навигацию для всех галерей
                 const modalNav = document.querySelector('.modal-nav');
@@ -1683,29 +1703,25 @@
                     workContainer.className = 'work-container';
                     
                     // Определяем стили в зависимости от типа галереи и размера экрана
-                    // Надежная проверка мобильного устройства - проверяем ширину экрана
-                    const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-                    const isMobile = screenWidth <= 600;
+                    // isMobile уже определен выше
                     const isMain = currentGalleryType === 'main';
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
                     
                     if (isRoyalHorse || isMain) {
-                        // Для Royal Horse и МОИ РАБОТЫ всегда на мобильных: без отступов
+                        // Для Royal Horse и МОИ РАБОТЫ на мобильных: без отступов
                         if (isMobile) {
-                            workContainer.style.cssText = `
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                gap: 0 !important;
-                                padding: 0 !important;
-                                margin: 0 !important;
-                                min-height: 100vh;
-                                justify-content: center;
-                                opacity: 0;
-                                transform: translate3d(0, 30px, 0);
-                                transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                            `;
+                            workContainer.style.display = 'flex';
+                            workContainer.style.flexDirection = 'column';
+                            workContainer.style.alignItems = 'center';
+                            workContainer.style.setProperty('gap', '0', 'important');
+                            workContainer.style.setProperty('padding', '0', 'important');
+                            workContainer.style.setProperty('margin', '0', 'important');
+                            workContainer.style.minHeight = '100vh';
+                            workContainer.style.justifyContent = 'center';
+                            workContainer.style.opacity = '0';
+                            workContainer.style.transform = 'translate3d(0, 30px, 0)';
+                            workContainer.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                         } else {
                             // Для ПК версии
                             workContainer.style.cssText = `
