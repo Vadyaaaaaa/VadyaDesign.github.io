@@ -1056,20 +1056,59 @@
             }
         })();
 
-        // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
+        // Новый счетчик посещений - работает на всех версиях
         (function initVisitCounter(){
-            const container = document.getElementById('visitIndicator');
-            const textNode = container ? container.querySelector('span:last-child') : null;
-            if (!container || !textNode) return;
-
-            const storageKey = 'local-visit-count';
-            let value = 0;
-            try {
-                value = Number(localStorage.getItem(storageKey) || '0');
-            } catch(_) { value = 0; }
-            value += 1;
-            try { localStorage.setItem(storageKey, String(value)); } catch(_){ }
-            textNode.textContent = 'Посещений: ' + value.toLocaleString('ru-RU');
+            function updateCounter() {
+                const container = document.getElementById('visitIndicator');
+                if (!container) {
+                    // Повторяем попытку если элемент еще не загружен
+                    setTimeout(updateCounter, 100);
+                    return;
+                }
+                
+                const textNode = container.querySelector('span:last-child');
+                if (!textNode) return;
+                
+                const storageKey = 'site-visit-count';
+                let visitCount = 0;
+                
+                // Получаем текущее значение из localStorage
+                try {
+                    const stored = localStorage.getItem(storageKey);
+                    if (stored) {
+                        visitCount = parseInt(stored, 10) || 0;
+                    }
+                } catch(e) {
+                    console.log('localStorage недоступен');
+                }
+                
+                // Увеличиваем счетчик
+                visitCount += 1;
+                
+                // Сохраняем новое значение
+                try {
+                    localStorage.setItem(storageKey, String(visitCount));
+                } catch(e) {
+                    console.log('Не удалось сохранить счетчик');
+                }
+                
+                // Обновляем текст
+                try {
+                    textNode.textContent = 'Посещений: ' + visitCount.toLocaleString('ru-RU');
+                } catch(e) {
+                    textNode.textContent = 'Посещений: ' + visitCount;
+                }
+            }
+            
+            // Инициализируем при загрузке DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', updateCounter);
+            } else {
+                updateCounter();
+            }
+            
+            // Дополнительная проверка через небольшую задержку
+            setTimeout(updateCounter, 200);
         })();
 
         // Десктоп: красивый след за курсором
