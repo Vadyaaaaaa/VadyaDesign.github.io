@@ -1914,6 +1914,35 @@
                     modalGallery.appendChild(workContainer);
                 });
                 
+                // КРИТИЧЕСКОЕ: Применяем стили ПОСЛЕ добавления всех элементов в DOM
+                // Это гарантирует применение стилей для ROYAL HORSE на мобильных устройствах
+                setTimeout(() => {
+                    if (isRoyalHorse && isMobile) {
+                        // Принудительно применяем стили ко всем элементам ROYAL HORSE
+                        modalGallery.style.setProperty('gap', '0', 'important');
+                        modalGallery.style.setProperty('padding', '0', 'important');
+                        
+                        // Применяем стили ко всем work-container
+                        const containers = modalGallery.querySelectorAll('.work-container');
+                        containers.forEach(container => {
+                            container.style.setProperty('gap', '0', 'important');
+                            container.style.setProperty('padding', '0', 'important');
+                            container.style.setProperty('margin', '0', 'important');
+                            container.style.setProperty('margin-bottom', '0', 'important');
+                            container.style.setProperty('margin-top', '0', 'important');
+                        });
+                        
+                        // Применяем стили ко всем изображениям
+                        const images = modalGallery.querySelectorAll('img');
+                        images.forEach(img => {
+                            img.style.setProperty('margin', '0', 'important');
+                            img.style.setProperty('margin-bottom', '0', 'important');
+                            img.style.setProperty('margin-top', '0', 'important');
+                            img.style.setProperty('display', 'block', 'important');
+                        });
+                    }
+                }, 100);
+                
                 // Добавляем стрелочку закрытия снизу для всех галерей
                     const closeButton = document.createElement('div');
                     closeButton.className = 'royal-horse-close';
@@ -1983,7 +2012,26 @@
                 // Убеждаемся, что скролл находится в самом верху
                 setTimeout(() => {
                     modal.scrollTop = 0;
-                }, 100);
+                    
+                    // ДОПОЛНИТЕЛЬНАЯ проверка для ROYAL HORSE - применяем стили еще раз после полной загрузки
+                    if (isRoyalHorse && isMobile) {
+                        modalGallery.style.setProperty('gap', '0', 'important');
+                        modalGallery.style.setProperty('padding', '0', 'important');
+                        
+                        const allContainers = modalGallery.querySelectorAll('.work-container');
+                        allContainers.forEach(container => {
+                            container.style.setProperty('gap', '0', 'important');
+                            container.style.setProperty('padding', '0', 'important');
+                            container.style.setProperty('margin', '0', 'important');
+                        });
+                        
+                        const allImages = modalGallery.querySelectorAll('.work-container img');
+                        allImages.forEach(img => {
+                            img.style.setProperty('margin', '0', 'important');
+                            img.style.setProperty('display', 'block', 'important');
+                        });
+                    }
+                }, 300);
             }
             
             
