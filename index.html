@@ -612,6 +612,10 @@
                 gap: 0 !important;
                 padding: 0 !important;
             }
+            .modal-gallery.gallery-main > *,
+            .modal-gallery.gallery-royalhorse > * {
+                margin: 0 !important;
+            }
             .modal-gallery.gallery-lumiere,
             .modal-gallery.gallery-ekolife {
                 gap: 16px !important;
@@ -647,6 +651,11 @@
                 gap: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
+            }
+            .modal-gallery.gallery-main .work-container img,
+            .modal-gallery.gallery-royalhorse .work-container img {
+                margin: 0 !important;
+                display: block !important;
             }
             .modal-gallery.gallery-lumiere .work-container,
             .modal-gallery.gallery-ekolife .work-container {
@@ -1674,28 +1683,44 @@
                     workContainer.className = 'work-container';
                     
                     // Определяем стили в зависимости от типа галереи и размера экрана
-                    // Более надежная проверка мобильного устройства
-                    const isMobile = window.matchMedia('(max-width: 768px)').matches || 
-                                     (window.innerWidth <= 768 && window.innerHeight <= 1024);
+                    // Надежная проверка мобильного устройства - проверяем ширину экрана
+                    const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+                    const isMobile = screenWidth <= 600;
                     const isMain = currentGalleryType === 'main';
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
                     
-                    if ((isRoyalHorse || isMain) && isMobile) {
-                        // Для Royal Horse и МОИ РАБОТЫ только на мобильных: без отступов
-                        workContainer.style.cssText = `
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 0 !important;
-                            padding: 0 !important;
-                            margin: 0 !important;
-                            min-height: 100vh;
-                            justify-content: center;
-                            opacity: 0;
-                            transform: translate3d(0, 30px, 0);
-                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                        `;
+                    if (isRoyalHorse || isMain) {
+                        // Для Royal Horse и МОИ РАБОТЫ всегда на мобильных: без отступов
+                        if (isMobile) {
+                            workContainer.style.cssText = `
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 0 !important;
+                                padding: 0 !important;
+                                margin: 0 !important;
+                                min-height: 100vh;
+                                justify-content: center;
+                                opacity: 0;
+                                transform: translate3d(0, 30px, 0);
+                                transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            `;
+                        } else {
+                            // Для ПК версии
+                            workContainer.style.cssText = `
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 40px;
+                                padding: 60px 20px;
+                                min-height: 100vh;
+                                justify-content: center;
+                                opacity: 0;
+                                transform: translate3d(0, 30px, 0);
+                                transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            `;
+                        }
                     } else if ((isUPDUTY || isGHY) && isMobile) {
                         // Для UPDUTY и GHY на мобильных: минимальные отступы
                         workContainer.style.cssText = `
