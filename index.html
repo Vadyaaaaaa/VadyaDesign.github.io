@@ -1054,91 +1054,44 @@
         })();
 
 
-        // Новый кастомный курсор для десктопа
-        (function initCustomCursor(){
+        // Десктоп: красивый след за курсором
+        (function initCursorTrail(){
             const isDesktop = window.matchMedia('(pointer:fine) and (min-width: 900px)').matches;
             if (!isDesktop) return;
 
-            // Скрываем стандартный курсор
-            document.body.style.cursor = 'none';
-            
-            const cursor = document.createElement('div');
-            cursor.id = 'custom-cursor';
-            cursor.style.cssText = `
-                position: fixed;
-                width: 20px;
-                height: 20px;
-                border: 2px solid rgba(255, 255, 255, 0.8);
-                border-radius: 50%;
-                pointer-events: none;
-                z-index: 99999;
-                transform: translate(-50%, -50%);
-                transition: width 0.2s ease, height 0.2s ease, border-width 0.2s ease;
-                mix-blend-mode: difference;
-            `;
-            document.body.appendChild(cursor);
+            const canvas = document.createElement('canvas');
+            Object.assign(canvas.style, {position:'fixed', inset:'0', pointerEvents:'none', zIndex: 9999});
+            document.body.appendChild(canvas);
+            const ctx = canvas.getContext('2d');
 
-            const cursorDot = document.createElement('div');
-            cursorDot.style.cssText = `
-                position: absolute;
-                width: 4px;
-                height: 4px;
-                background: rgba(255, 255, 255, 0.9);
-                border-radius: 50%;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                transition: opacity 0.2s ease;
-            `;
-            cursor.appendChild(cursorDot);
+            function resize(){ canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+            window.addEventListener('resize', resize); resize();
 
-            let mouseX = 0, mouseY = 0;
-            let cursorX = 0, cursorY = 0;
-            let isHovering = false;
-
-            function updateCursor() {
-                const dx = mouseX - cursorX;
-                const dy = mouseY - cursorY;
-                cursorX += dx * 0.1;
-                cursorY += dy * 0.1;
-                
-                cursor.style.left = cursorX + 'px';
-                cursor.style.top = cursorY + 'px';
-                
-                requestAnimationFrame(updateCursor);
+            const particles = [];
+            function addParticle(x, y){
+                particles.push({x, y, vx:(Math.random()-0.5)*0.7, vy:(Math.random()-0.5)*0.7, life: 1});
             }
+            window.addEventListener('mousemove', e => {
+                for (let i=0;i<4;i++) addParticle(e.clientX, e.clientY);
+            }, {passive:true});
 
-            document.addEventListener('mousemove', (e) => {
-                mouseX = e.clientX;
-                mouseY = e.clientY;
-                
-                // Плавное следование
-                if (!cursorX && !cursorY) {
-                    cursorX = mouseX;
-                    cursorY = mouseY;
+            function tick(){
+                ctx.clearRect(0,0,canvas.width,canvas.height);
+                for (let i=particles.length-1;i>=0;i--){
+                    const p = particles[i];
+                    p.x += p.vx; p.y += p.vy; p.life -= 0.016;
+                    if (p.life <= 0) { particles.splice(i,1); continue; }
+                    const alpha = Math.max(p.life, 0);
+                    ctx.beginPath();
+                    ctx.arc(p.x, p.y, 2.2, 0, Math.PI*2);
+                    ctx.fillStyle = 'rgba(255,255,255,'+alpha+')';
+                    ctx.shadowColor = 'rgba(255,255,255,'+alpha+')';
+                    ctx.shadowBlur = 8;
+                    ctx.fill();
                 }
-            }, { passive: true });
-
-            // Увеличение курсора при наведении на интерактивные элементы
-            const interactiveElements = document.querySelectorAll('a, button, .work-item, .modal-close, .royal-horse-close');
-            interactiveElements.forEach(el => {
-                el.addEventListener('mouseenter', () => {
-                    isHovering = true;
-                    cursor.style.width = '40px';
-                    cursor.style.height = '40px';
-                    cursor.style.borderWidth = '1px';
-                    cursorDot.style.opacity = '0';
-                });
-                el.addEventListener('mouseleave', () => {
-                    isHovering = false;
-                    cursor.style.width = '20px';
-                    cursor.style.height = '20px';
-                    cursor.style.borderWidth = '2px';
-                    cursorDot.style.opacity = '1';
-                });
-            });
-
-            updateCursor();
+                requestAnimationFrame(tick);
+            }
+            tick();
         })();
 
         // Динамическое затемнение фона за секциями "ПРОФИЛЬ" и "КЛЮЧЕВЫЕ КОМПЕТЕНЦИИ"
