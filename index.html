@@ -606,6 +606,52 @@
             .modal-info { padding: 24px 16px; }
             .modal-title { font-size: 2rem; }
             .modal-description { font-size: 1rem; }
+            /* Стили для модальных галерей в мобильной версии */
+            .modal-gallery.gallery-main,
+            .modal-gallery.gallery-royalhorse {
+                gap: 4px !important;
+                padding: 20px 0 !important;
+            }
+            .modal-gallery.gallery-lumiere,
+            .modal-gallery.gallery-ekolife,
+            .modal-gallery.gallery-newproject,
+            .modal-gallery.gallery-project5 {
+                gap: 16px !important;
+                padding: 30px 10px !important;
+            }
+            .modal-gallery.gallery-lumiere .modal-info,
+            .modal-gallery.gallery-ekolife .modal-info,
+            .modal-gallery.gallery-newproject .modal-info,
+            .modal-gallery.gallery-project5 .modal-info {
+                padding: 20px 12px !important;
+            }
+            .modal-gallery.gallery-lumiere .modal-title,
+            .modal-gallery.gallery-ekolife .modal-title,
+            .modal-gallery.gallery-newproject .modal-title,
+            .modal-gallery.gallery-project5 .modal-title {
+                font-size: 1.4rem !important;
+                margin-bottom: 12px !important;
+            }
+            .modal-gallery.gallery-lumiere .modal-description,
+            .modal-gallery.gallery-ekolife .modal-description,
+            .modal-gallery.gallery-newproject .modal-description,
+            .modal-gallery.gallery-project5 .modal-description {
+                font-size: 0.85rem !important;
+                line-height: 1.5 !important;
+            }
+            .modal-gallery.gallery-main .work-container,
+            .modal-gallery.gallery-royalhorse .work-container {
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .modal-gallery.gallery-lumiere .work-container,
+            .modal-gallery.gallery-ekolife .work-container,
+            .modal-gallery.gallery-newproject .work-container,
+            .modal-gallery.gallery-project5 .work-container {
+                gap: 16px !important;
+                padding: 30px 10px !important;
+            }
             .contact-minimal { gap: 20px; }
             .contact-row { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px; }
             .contact-right { align-items: center; }
@@ -1605,6 +1651,10 @@
                 
                 // Проверяем, является ли это галереей Royal Horse
                 const isRoyalHorse = currentGalleryType === 'royalhorse';
+                
+                // Удаляем все классы галереи и добавляем нужный
+                modalGallery.classList.remove('gallery-main', 'gallery-royalhorse', 'gallery-lumiere', 'gallery-ekolife', 'gallery-newproject', 'gallery-project5');
+                modalGallery.classList.add('gallery-' + currentGalleryType);
                 
                 // Скрываем навигацию для всех галерей
                 const modalNav = document.querySelector('.modal-nav');
