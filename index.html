@@ -339,18 +339,6 @@
             padding: 60px 20px;
             gap: 40px;
         }
-        /* Убираем интервалы для МОИ РАБОТЫ и ROYAL HORSE на всех устройствах */
-        .modal-gallery.gallery-main,
-        .modal-gallery.gallery-royalhorse {
-            gap: 0 !important;
-            padding: 20px 0 !important;
-        }
-        .modal-gallery.gallery-main .work-container,
-        .modal-gallery.gallery-royalhorse .work-container {
-            gap: 0 !important;
-            padding: 0 !important;
-            margin: 0 !important;
-        }
         
         .modal-close {
             position: fixed;
@@ -1691,8 +1679,8 @@
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
                     
-                    if (isRoyalHorse || isMain) {
-                        // Для Royal Horse и МОИ РАБОТЫ на всех устройствах: без отступов
+                    if ((isRoyalHorse || isMain) && isMobile) {
+                        // Для Royal Horse и МОИ РАБОТЫ только на мобильных: без отступов
                         workContainer.style.cssText = `
                             display: flex;
                             flex-direction: column;
