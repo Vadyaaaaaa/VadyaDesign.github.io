@@ -615,6 +615,8 @@
             .modal-gallery.gallery-main > *,
             .modal-gallery.gallery-royalhorse > * {
                 margin: 0 !important;
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
             }
             .modal-gallery.gallery-lumiere,
             .modal-gallery.gallery-ekolife {
@@ -651,11 +653,16 @@
                 gap: 0 !important;
                 padding: 0 !important;
                 margin: 0 !important;
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
             }
             .modal-gallery.gallery-main .work-container img,
             .modal-gallery.gallery-royalhorse .work-container img {
                 margin: 0 !important;
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
                 display: block !important;
+                vertical-align: top !important;
             }
             .modal-gallery.gallery-lumiere .work-container,
             .modal-gallery.gallery-ekolife .work-container {
@@ -1668,15 +1675,21 @@
                 const isRoyalHorse = currentGalleryType === 'royalhorse';
                 
                 // Определяем мобильное устройство ПЕРЕД применением стилей
+                // Расширенная проверка для всех мобильных устройств (до 1024px - планшеты и телефоны)
                 const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-                const isMobile = screenWidth <= 600;
+                const screenHeight = window.innerHeight || document.documentElement.clientHeight;
+                const isMobile = screenWidth <= 1024 || (screenWidth <= 1200 && screenHeight <= 1200);
                 
                 // Удаляем все классы галереи и добавляем нужный
                 modalGallery.classList.remove('gallery-main', 'gallery-royalhorse', 'gallery-lumiere', 'gallery-ekolife', 'gallery-newproject', 'gallery-project5');
                 modalGallery.classList.add('gallery-' + currentGalleryType);
                 
                 // Применяем стили к modalGallery напрямую для мобильных устройств
-                if (isMobile && (isRoyalHorse || currentGalleryType === 'main')) {
+                // Для ROYAL HORSE на всех мобильных устройствах всегда без отступов
+                if (isRoyalHorse && isMobile) {
+                    modalGallery.style.setProperty('gap', '0', 'important');
+                    modalGallery.style.setProperty('padding', '0', 'important');
+                } else if (isMobile && (currentGalleryType === 'main')) {
                     modalGallery.style.setProperty('gap', '0', 'important');
                     modalGallery.style.setProperty('padding', '0', 'important');
                 } else if (isMobile && (currentGalleryType === 'newproject' || currentGalleryType === 'project5')) {
@@ -1686,9 +1699,11 @@
                     modalGallery.style.setProperty('gap', '16px', 'important');
                     modalGallery.style.setProperty('padding', '30px 10px', 'important');
                 } else {
-                    // ПК версия - стандартные стили
-                    modalGallery.style.removeProperty('gap');
-                    modalGallery.style.removeProperty('padding');
+                    // ПК версия - стандартные стили (только для НЕ мобильных)
+                    if (!isRoyalHorse) {
+                        modalGallery.style.removeProperty('gap');
+                        modalGallery.style.removeProperty('padding');
+                    }
                 }
                 
                 // Скрываем навигацию для всех галерей
@@ -1708,8 +1723,39 @@
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
                     
-                    if (isRoyalHorse || isMain) {
-                        // Для Royal Horse и МОИ РАБОТЫ на мобильных: без отступов
+                    if (isRoyalHorse) {
+                        // Для ROYAL HORSE на всех мобильных устройствах: всегда без отступов
+                        if (isMobile) {
+                            workContainer.style.display = 'flex';
+                            workContainer.style.flexDirection = 'column';
+                            workContainer.style.alignItems = 'center';
+                            workContainer.style.setProperty('gap', '0', 'important');
+                            workContainer.style.setProperty('padding', '0', 'important');
+                            workContainer.style.setProperty('margin', '0', 'important');
+                            workContainer.style.setProperty('margin-bottom', '0', 'important');
+                            workContainer.style.setProperty('margin-top', '0', 'important');
+                            workContainer.style.minHeight = '100vh';
+                            workContainer.style.justifyContent = 'center';
+                            workContainer.style.opacity = '0';
+                            workContainer.style.transform = 'translate3d(0, 30px, 0)';
+                            workContainer.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+                        } else {
+                            // Для ПК версии ROYAL HORSE
+                            workContainer.style.cssText = `
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+                                gap: 40px;
+                                padding: 60px 20px;
+                                min-height: 100vh;
+                                justify-content: center;
+                                opacity: 0;
+                                transform: translate3d(0, 30px, 0);
+                                transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                            `;
+                        }
+                    } else if (isMain) {
+                        // Для МОИ РАБОТЫ на мобильных: без отступов
                         if (isMobile) {
                             workContainer.style.display = 'flex';
                             workContainer.style.flexDirection = 'column';
@@ -1780,7 +1826,7 @@
                     img.className = 'modal-image';
                     
                     if (isRoyalHorse) {
-                        // Для Royal Horse: увеличенный размер, без отступов
+                        // Для Royal Horse: увеличенный размер, без отступов (на всех мобильных устройствах)
                         img.style.cssText = `
                             width: 100%;
                             max-width: 100vw;
@@ -1791,6 +1837,10 @@
                             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                             opacity: 0;
                             transform: scale(0.9);
+                            margin: 0 !important;
+                            margin-bottom: 0 !important;
+                            margin-top: 0 !important;
+                            display: block !important;
                         `;
                     } else {
                         // Для остальных галерей: стандартный стиль
