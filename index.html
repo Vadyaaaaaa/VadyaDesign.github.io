@@ -991,20 +991,36 @@
 
         // Мобильная версия: синхронизация фоновой сферы со скроллом через transform
         (function initMobileBgScroll(){
-            const sphere = document.getElementById('mobileBgSphere');
-            if (!sphere) return;
-            
-            // Проверяем мобильное устройство
-            const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-            const isMobile = screenWidth <= 1024; // Расширенная проверка для всех мобильных устройств
-            
-            if (!isMobile) {
-                sphere.style.display = 'none';
-                return;
-            }
-            
-            // Показываем сферу на мобильных
-            sphere.style.display = 'block';
+            function initSphere() {
+                const sphere = document.getElementById('mobileBgSphere');
+                if (!sphere) return;
+                
+                // Проверяем мобильное устройство множественными способами
+                const screenWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
+                const screenHeight = window.innerHeight || document.documentElement.clientHeight || screen.height;
+                const minDimension = Math.min(screenWidth, screenHeight);
+                const isMobile = screenWidth <= 1024 || minDimension <= 768;
+                
+                if (!isMobile) {
+                    sphere.style.display = 'none';
+                    return;
+                }
+                
+                // ПРИНУДИТЕЛЬНО применяем все стили для гарантированного отображения
+                sphere.style.setProperty('display', 'block', 'important');
+                sphere.style.setProperty('position', 'fixed', 'important');
+                sphere.style.setProperty('top', '0', 'important');
+                sphere.style.setProperty('left', '0', 'important');
+                sphere.style.setProperty('width', '100vw', 'important');
+                sphere.style.setProperty('height', '100vh', 'important');
+                sphere.style.setProperty('background-image', "url('assets/img/BG.gif')", 'important');
+                sphere.style.setProperty('background-repeat', 'no-repeat', 'important');
+                sphere.style.setProperty('background-size', '400px 400px', 'important');
+                sphere.style.setProperty('background-position', 'center center', 'important');
+                sphere.style.setProperty('z-index', '0', 'important');
+                sphere.style.setProperty('pointer-events', 'none', 'important');
+                sphere.style.setProperty('opacity', '1', 'important');
+                sphere.style.setProperty('visibility', 'visible', 'important');
             
             let ticking = false;
             const initialOffset = window.innerHeight * 0.3; // Начальная позиция 30vh от верха
@@ -1036,11 +1052,32 @@
                 sphere.style.height = docHeight + 'px';
             }
             
-            window.addEventListener('scroll', requestTick, { passive: true });
-            window.addEventListener('resize', () => { updateHeight(); updateSpherePosition(); }, { passive: true });
-            // Инициализация
-            updateHeight();
-            updateSpherePosition();
+                window.addEventListener('scroll', requestTick, { passive: true });
+                window.addEventListener('resize', () => { 
+                    updateHeight(); 
+                    updateSpherePosition();
+                    initSphere(); // Повторно инициализируем при изменении размера
+                }, { passive: true });
+                
+                // Инициализация
+                updateHeight();
+                updateSpherePosition();
+            }
+            
+            // Инициализируем сразу
+            initSphere();
+            
+            // Также инициализируем после полной загрузки DOM
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', initSphere);
+            } else {
+                initSphere();
+            }
+            
+            // Инициализируем при изменении ориентации
+            window.addEventListener('orientationchange', function() {
+                setTimeout(initSphere, 100);
+            });
         })();
 
         // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
