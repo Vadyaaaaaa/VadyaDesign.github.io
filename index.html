@@ -991,9 +991,41 @@
 
         // Мобильная версия: синхронизация фоновой сферы со скроллом через transform
         (function initMobileBgScroll(){
-            function initSphere() {
-                const sphere = document.getElementById('mobileBgSphere');
+            let sphere = null;
+            let ticking = false;
+            let scrollHandler = null;
+            let resizeHandler = null;
+            
+            function applySphereStyles() {
                 if (!sphere) return;
+                
+                // ПРИНУДИТЕЛЬНО применяем ВСЕ стили для гарантированного отображения
+                sphere.style.cssText = `
+                    display: block !important;
+                    position: fixed !important;
+                    top: 0 !important;
+                    left: 0 !important;
+                    width: 100vw !important;
+                    height: 100vh !important;
+                    min-height: 100% !important;
+                    background-image: url('assets/img/BG.gif') !important;
+                    background-repeat: no-repeat !important;
+                    background-size: 400px 400px !important;
+                    background-position: center center !important;
+                    z-index: 0 !important;
+                    pointer-events: none !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    will-change: transform;
+                `;
+            }
+            
+            function initSphere() {
+                sphere = document.getElementById('mobileBgSphere');
+                if (!sphere) {
+                    setTimeout(initSphere, 100);
+                    return;
+                }
                 
                 // Проверяем мобильное устройство множественными способами
                 const screenWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
@@ -1006,27 +1038,13 @@
                     return;
                 }
                 
-                // ПРИНУДИТЕЛЬНО применяем все стили для гарантированного отображения
-                sphere.style.setProperty('display', 'block', 'important');
-                sphere.style.setProperty('position', 'fixed', 'important');
-                sphere.style.setProperty('top', '0', 'important');
-                sphere.style.setProperty('left', '0', 'important');
-                sphere.style.setProperty('width', '100vw', 'important');
-                sphere.style.setProperty('height', '100vh', 'important');
-                sphere.style.setProperty('background-image', "url('assets/img/BG.gif')", 'important');
-                sphere.style.setProperty('background-repeat', 'no-repeat', 'important');
-                sphere.style.setProperty('background-size', '400px 400px', 'important');
-                sphere.style.setProperty('background-position', 'center center', 'important');
-                sphere.style.setProperty('z-index', '0', 'important');
-                sphere.style.setProperty('pointer-events', 'none', 'important');
-                sphere.style.setProperty('opacity', '1', 'important');
-                sphere.style.setProperty('visibility', 'visible', 'important');
+                // Применяем стили
+                applySphereStyles();
                 
-                // Функции для работы со сферой
-                let ticking = false;
                 const initialOffset = window.innerHeight * 0.3;
                 
                 function updateSpherePosition(){
+                    if (!sphere) return;
                     const scrollY = window.pageYOffset || window.scrollY;
                     const translateY = initialOffset + (scrollY * 0.8);
                     sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
@@ -1034,13 +1052,14 @@
                 }
                 
                 function requestTick(){
-                    if (!ticking) {
+                    if (!ticking && sphere) {
                         requestAnimationFrame(updateSpherePosition);
                         ticking = true;
                     }
                 }
                 
                 function updateHeight(){
+                    if (!sphere) return;
                     const docHeight = Math.max(
                         document.body.scrollHeight,
                         document.body.offsetHeight,
@@ -1051,33 +1070,60 @@
                     sphere.style.height = docHeight + 'px';
                 }
                 
-                // Добавляем обработчики событий
-                window.addEventListener('scroll', requestTick, { passive: true });
-                window.addEventListener('resize', () => { 
+                // Удаляем старые обработчики если есть
+                if (scrollHandler) {
+                    window.removeEventListener('scroll', scrollHandler);
+                }
+                if (resizeHandler) {
+                    window.removeEventListener('resize', resizeHandler);
+                }
+                
+                // Добавляем новые обработчики
+                scrollHandler = requestTick;
+                resizeHandler = function() { 
                     updateHeight(); 
                     updateSpherePosition();
-                    initSphere();
-                }, { passive: true });
+                    applySphereStyles();
+                };
+                
+                window.addEventListener('scroll', scrollHandler, { passive: true });
+                window.addEventListener('resize', resizeHandler, { passive: true });
                 
                 // Инициализация
                 updateHeight();
                 updateSpherePosition();
             }
             
-            // Инициализируем сразу
+            // Множественная инициализация для гарантии
             initSphere();
             
-            // Также инициализируем после полной загрузки DOM
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', initSphere);
+                document.addEventListener('DOMContentLoaded', function() {
+                    setTimeout(initSphere, 50);
+                    setTimeout(applySphereStyles, 100);
+                });
             } else {
-                initSphere();
+                setTimeout(initSphere, 50);
+                setTimeout(applySphereStyles, 100);
             }
             
-            // Инициализируем при изменении ориентации
             window.addEventListener('orientationchange', function() {
-                setTimeout(initSphere, 100);
+                setTimeout(function() {
+                    initSphere();
+                    applySphereStyles();
+                }, 200);
             });
+            
+            // Дополнительная проверка через секунду после загрузки
+            setTimeout(function() {
+                if (sphere) {
+                    applySphereStyles();
+                    const screenWidth = window.innerWidth || document.documentElement.clientWidth;
+                    if (screenWidth <= 1024) {
+                        sphere.style.display = 'block';
+                    }
+                }
+            }, 1000);
         })();
 
         // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
