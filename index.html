@@ -266,10 +266,6 @@
         
         /* Удалён разделитель */
 
-        /* Мобильный фоновый элемент - скрыт на десктопе */
-        #mobileBgSphere {
-            display: none;
-        }
 
         /* Экран загрузки — новая минималистичная анимация */
         .loading-screen {
@@ -603,23 +599,25 @@
                 background-image: none !important;
                 position: relative;
             }
-            #mobileBgSphere {
+            /* Новая оптимизированная сфера для мобильной версии */
+            #mobileSphere {
                 display: block !important;
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                min-height: 100%;
+                position: fixed !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100vw !important;
+                height: 100vh !important;
                 background-image: url('assets/img/BG.gif') !important;
                 background-repeat: no-repeat !important;
                 background-size: 400px 400px !important;
                 background-position: center center !important;
                 z-index: 0 !important;
                 pointer-events: none !important;
-                will-change: transform;
-                opacity: 1 !important;
-                visibility: visible !important;
+                will-change: transform !important;
+                backface-visibility: hidden !important;
+                -webkit-backface-visibility: hidden !important;
+                transform: translateZ(0) !important;
+                contain: strict !important;
             }
             /* Поднимаем контент над фоном */
             .hero, .profile, .competencies, .works, .contact {
@@ -748,8 +746,8 @@
                 background: #000000 !important;
                 background-image: none !important;
             }
-            #mobileBgSphere {
-                background-size: 320px 320px;
+            #mobileSphere {
+                background-size: 320px 320px !important;
             }
         }
         
@@ -834,8 +832,8 @@
     
     <div class="scroll-indicator"><div class="scroll-progress" id="scrollProgress"></div></div>
     <div id="bgDimmer" aria-hidden="true"></div>
-    <!-- Мобильный фоновый элемент со сферой -->
-    <div id="mobileBgSphere" aria-hidden="true"></div>
+    <!-- Новая оптимизированная сфера для мобильной версии -->
+    <div id="mobileSphere" aria-hidden="true"></div>
     
     <section class="hero" id="home">
         <div class="hero-content">
@@ -989,187 +987,73 @@
         
         window.addEventListener('scroll', updateScrollProgress, { passive: true });
 
-        // Мобильная версия: синхронизация фоновой сферы со скроллом через transform
-        (function initMobileBgScroll(){
-            let sphere = null;
-            let ticking = false;
-            let scrollHandler = null;
-            let resizeHandler = null;
+        // Новая оптимизированная сфера для мобильной версии
+        (function initMobileSphere(){
+            const sphere = document.getElementById('mobileSphere');
+            if (!sphere) return;
             
-            function applySphereStyles() {
-                if (!sphere) return;
-                
-                // ПРИНУДИТЕЛЬНО применяем ВСЕ стили для гарантированного отображения
-                sphere.style.cssText = `
-                    display: block !important;
-                    position: fixed !important;
-                    top: 0 !important;
-                    left: 0 !important;
-                    width: 100vw !important;
-                    height: 100vh !important;
-                    min-height: 100% !important;
-                    background-image: url('assets/img/BG.gif') !important;
-                    background-repeat: no-repeat !important;
-                    background-size: 400px 400px !important;
-                    background-position: center center !important;
-                    z-index: 0 !important;
-                    pointer-events: none !important;
-                    opacity: 1 !important;
-                    visibility: visible !important;
-                    will-change: transform !important;
-                    backface-visibility: hidden !important;
-                    -webkit-backface-visibility: hidden !important;
-                    transform: translateZ(0) !important;
-                    contain: strict !important;
-                    isolation: isolate !important;
-                `;
+            function checkMobile() {
+                const width = window.innerWidth || document.documentElement.clientWidth;
+                return width <= 1024;
             }
             
             function initSphere() {
-                sphere = document.getElementById('mobileBgSphere');
-                if (!sphere) {
-                    setTimeout(initSphere, 100);
-                    return;
-                }
-                
-                // Проверяем мобильное устройство множественными способами
-                const screenWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
-                const screenHeight = window.innerHeight || document.documentElement.clientHeight || screen.height;
-                const minDimension = Math.min(screenWidth, screenHeight);
-                const isMobile = screenWidth <= 1024 || minDimension <= 768;
-                
-                if (!isMobile) {
+                if (!checkMobile()) {
                     sphere.style.display = 'none';
                     return;
                 }
                 
-                // Применяем стили
-                applySphereStyles();
+                sphere.style.display = 'block';
+                const startY = window.innerHeight * 0.3;
+                let lastY = startY;
+                let raf = null;
                 
-                const initialOffset = window.innerHeight * 0.3;
-                let lastScrollY = -1;
-                let lastTranslateY = initialOffset;
-                let rafId = null;
-                
-                function updateSpherePosition(){
-                    if (!sphere) {
-                        ticking = false;
-                        if (rafId) {
-                            cancelAnimationFrame(rafId);
-                            rafId = null;
-                        }
-                        return;
+                function update() {
+                    if (!checkMobile()) return;
+                    
+                    const scroll = Math.round(window.pageYOffset || window.scrollY || 0);
+                    const y = Math.round(startY + (scroll * 0.3));
+                    
+                    if (Math.abs(y - lastY) >= 3) {
+                        lastY = y;
+                        if (raf) cancelAnimationFrame(raf);
+                        raf = requestAnimationFrame(() => {
+                            sphere.style.transform = `translate3d(0,${y}px,0)`;
+                            raf = null;
+                        });
                     }
-                    
-                    const scrollY = Math.round(window.pageYOffset || window.scrollY || 0);
-                    
-                    // Оптимизация: обновляем только если скролл изменился значительно (более 3px)
-                    if (Math.abs(scrollY - lastScrollY) < 3) {
-                        ticking = false;
-                        return;
-                    }
-                    
-                    lastScrollY = scrollY;
-                    
-                    // Уменьшена скорость движения сферы (0.3 вместо 0.8) - сфера будет двигаться медленнее
-                    const translateY = Math.round(initialOffset + (scrollY * 0.3));
-                    
-                    // Оптимизация: обновляем transform только если позиция изменилась значительно (более 2px)
-                    if (Math.abs(translateY - lastTranslateY) >= 2) {
-                        lastTranslateY = translateY;
-                        // Используем transform3d для аппаратного ускорения, без дробных значений
-                        sphere.style.transform = `translate3d(0,${translateY}px,0)`;
-                    }
-                    
-                    ticking = false;
-                    rafId = null;
                 }
                 
-                function requestTick(){
-                    if (!ticking && sphere && !rafId) {
-                        rafId = requestAnimationFrame(function() {
-                            updateSpherePosition();
-                            rafId = null;
+                // Throttle для скролла - максимум 60fps
+                let ticking = false;
+                function onScroll() {
+                    if (!ticking) {
+                        requestAnimationFrame(() => {
+                            update();
+                            ticking = false;
                         });
                         ticking = true;
                     }
                 }
                 
-                // Debounce для скролла - ограничиваем частоту обновлений
-                let scrollTimeout = null;
-                const debouncedRequestTick = function() {
-                    if (scrollTimeout) {
-                        clearTimeout(scrollTimeout);
+                window.addEventListener('scroll', onScroll, { passive: true });
+                window.addEventListener('resize', () => {
+                    if (checkMobile()) {
+                        sphere.style.display = 'block';
+                    } else {
+                        sphere.style.display = 'none';
                     }
-                    scrollTimeout = setTimeout(requestTick, 10);
-                };
+                    update();
+                }, { passive: true });
                 
-                function updateHeight(){
-                    if (!sphere) return;
-                    const docHeight = Math.max(
-                        document.body.scrollHeight,
-                        document.body.offsetHeight,
-                        document.documentElement.clientHeight,
-                        document.documentElement.scrollHeight,
-                        document.documentElement.offsetHeight
-                    );
-                    sphere.style.height = docHeight + 'px';
-                }
-                
-                // Удаляем старые обработчики если есть
-                if (scrollHandler) {
-                    window.removeEventListener('scroll', scrollHandler);
-                }
-                if (resizeHandler) {
-                    window.removeEventListener('resize', resizeHandler);
-                }
-                
-                // Добавляем новые обработчики с debounce
-                scrollHandler = debouncedRequestTick;
-                resizeHandler = function() { 
-                    updateHeight(); 
-                    updateSpherePosition();
-                    applySphereStyles();
-                };
-                
-                window.addEventListener('scroll', scrollHandler, { passive: true });
-                window.addEventListener('resize', resizeHandler, { passive: true });
-                
-                // Инициализация
-                updateHeight();
-                updateSpherePosition();
+                update();
             }
-            
-            // Множественная инициализация для гарантии
-            initSphere();
             
             if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', function() {
-                    setTimeout(initSphere, 50);
-                    setTimeout(applySphereStyles, 100);
-                });
+                document.addEventListener('DOMContentLoaded', initSphere);
             } else {
-                setTimeout(initSphere, 50);
-                setTimeout(applySphereStyles, 100);
+                initSphere();
             }
-            
-            window.addEventListener('orientationchange', function() {
-                setTimeout(function() {
-                    initSphere();
-                    applySphereStyles();
-                }, 200);
-            });
-            
-            // Дополнительная проверка через секунду после загрузки
-            setTimeout(function() {
-                if (sphere) {
-                    applySphereStyles();
-                    const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-                    if (screenWidth <= 1024) {
-                        sphere.style.display = 'block';
-                    }
-                }
-            }, 1000);
         })();
 
         // Индикатор посещений: полностью локальный (localStorage) — число меняется при каждом обновлении
