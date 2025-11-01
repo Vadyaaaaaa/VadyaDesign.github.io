@@ -1046,7 +1046,8 @@
                 function updateSpherePosition(){
                     if (!sphere) return;
                     const scrollY = window.pageYOffset || window.scrollY;
-                    const translateY = initialOffset + (scrollY * 0.8);
+                    // Уменьшена скорость движения сферы (0.3 вместо 0.8) - сфера будет двигаться медленнее
+                    const translateY = initialOffset + (scrollY * 0.3);
                     sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
                     ticking = false;
                 }
