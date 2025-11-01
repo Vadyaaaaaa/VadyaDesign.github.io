@@ -1673,14 +1673,34 @@
                     const workContainer = document.createElement('div');
                     workContainer.className = 'work-container';
                     
-                    if (isRoyalHorse) {
-                        // Для Royal Horse: без отступов, только изображения
+                    // Определяем стили в зависимости от типа галереи и размера экрана
+                    const isMobile = window.innerWidth <= 600;
+                    const isMain = currentGalleryType === 'main';
+                    const isUPDUTY = currentGalleryType === 'newproject';
+                    const isGHY = currentGalleryType === 'project5';
+                    
+                    if (isRoyalHorse || (isMain && isMobile)) {
+                        // Для Royal Horse и МОИ РАБОТЫ на мобильных: без отступов
                         workContainer.style.cssText = `
                             display: flex;
                             flex-direction: column;
                             align-items: center;
                             gap: 0;
                             padding: 0;
+                            min-height: 100vh;
+                            justify-content: center;
+                            opacity: 0;
+                            transform: translate3d(0, 30px, 0);
+                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+                        `;
+                    } else if ((isUPDUTY || isGHY) && isMobile) {
+                        // Для UPDUTY и GHY на мобильных: минимальные отступы
+                        workContainer.style.cssText = `
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            gap: 4px;
+                            padding: 15px 5px;
                             min-height: 100vh;
                             justify-content: center;
                             opacity: 0;
