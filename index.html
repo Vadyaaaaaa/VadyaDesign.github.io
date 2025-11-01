@@ -610,7 +610,7 @@
             .modal-gallery.gallery-main,
             .modal-gallery.gallery-royalhorse {
                 gap: 0 !important;
-                padding: 20px 0 !important;
+                padding: 0 !important;
             }
             .modal-gallery.gallery-lumiere,
             .modal-gallery.gallery-ekolife {
@@ -1674,7 +1674,9 @@
                     workContainer.className = 'work-container';
                     
                     // Определяем стили в зависимости от типа галереи и размера экрана
-                    const isMobile = window.innerWidth <= 600 || window.innerHeight <= 900;
+                    // Более надежная проверка мобильного устройства
+                    const isMobile = window.matchMedia('(max-width: 768px)').matches || 
+                                     (window.innerWidth <= 768 && window.innerHeight <= 1024);
                     const isMain = currentGalleryType === 'main';
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
@@ -1685,8 +1687,9 @@
                             display: flex;
                             flex-direction: column;
                             align-items: center;
-                            gap: 0;
-                            padding: 0;
+                            gap: 0 !important;
+                            padding: 0 !important;
+                            margin: 0 !important;
                             min-height: 100vh;
                             justify-content: center;
                             opacity: 0;
@@ -1699,8 +1702,8 @@
                             display: flex;
                             flex-direction: column;
                             align-items: center;
-                            gap: 4px;
-                            padding: 15px 5px;
+                            gap: 4px !important;
+                            padding: 15px 5px !important;
                             min-height: 100vh;
                             justify-content: center;
                             opacity: 0;
@@ -1708,7 +1711,7 @@
                             transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
                         `;
                     } else {
-                        // Для остальных галерей: стандартный стиль
+                        // Для остальных галерей: стандартный стиль (только для ПК)
                         workContainer.style.cssText = `
                             display: flex;
                             flex-direction: column;
