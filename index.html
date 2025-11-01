@@ -1020,6 +1020,8 @@
                     backface-visibility: hidden !important;
                     -webkit-backface-visibility: hidden !important;
                     transform: translateZ(0) !important;
+                    contain: strict !important;
+                    isolation: isolate !important;
                 `;
             }
             
@@ -1045,19 +1047,24 @@
                 applySphereStyles();
                 
                 const initialOffset = window.innerHeight * 0.3;
-                let lastScrollY = 0;
+                let lastScrollY = -1;
                 let lastTranslateY = initialOffset;
+                let rafId = null;
                 
                 function updateSpherePosition(){
                     if (!sphere) {
                         ticking = false;
+                        if (rafId) {
+                            cancelAnimationFrame(rafId);
+                            rafId = null;
+                        }
                         return;
                     }
                     
-                    const scrollY = window.pageYOffset || window.scrollY;
+                    const scrollY = Math.round(window.pageYOffset || window.scrollY || 0);
                     
-                    // Оптимизация: обновляем только если скролл изменился значительно (более 1px)
-                    if (Math.abs(scrollY - lastScrollY) < 1 && ticking) {
+                    // Оптимизация: обновляем только если скролл изменился значительно (более 3px)
+                    if (Math.abs(scrollY - lastScrollY) < 3) {
                         ticking = false;
                         return;
                     }
@@ -1065,24 +1072,37 @@
                     lastScrollY = scrollY;
                     
                     // Уменьшена скорость движения сферы (0.3 вместо 0.8) - сфера будет двигаться медленнее
-                    const translateY = initialOffset + (scrollY * 0.3);
+                    const translateY = Math.round(initialOffset + (scrollY * 0.3));
                     
-                    // Оптимизация: обновляем transform только если позиция изменилась
-                    if (Math.abs(translateY - lastTranslateY) >= 0.5) {
+                    // Оптимизация: обновляем transform только если позиция изменилась значительно (более 2px)
+                    if (Math.abs(translateY - lastTranslateY) >= 2) {
                         lastTranslateY = translateY;
-                        // Используем transform3d для аппаратного ускорения
-                        sphere.style.transform = `translate3d(0, ${Math.round(translateY)}px, 0)`;
+                        // Используем transform3d для аппаратного ускорения, без дробных значений
+                        sphere.style.transform = `translate3d(0,${translateY}px,0)`;
                     }
                     
                     ticking = false;
+                    rafId = null;
                 }
                 
                 function requestTick(){
-                    if (!ticking && sphere) {
-                        requestAnimationFrame(updateSpherePosition);
+                    if (!ticking && sphere && !rafId) {
+                        rafId = requestAnimationFrame(function() {
+                            updateSpherePosition();
+                            rafId = null;
+                        });
                         ticking = true;
                     }
                 }
+                
+                // Debounce для скролла - ограничиваем частоту обновлений
+                let scrollTimeout = null;
+                const debouncedRequestTick = function() {
+                    if (scrollTimeout) {
+                        clearTimeout(scrollTimeout);
+                    }
+                    scrollTimeout = setTimeout(requestTick, 10);
+                };
                 
                 function updateHeight(){
                     if (!sphere) return;
@@ -1104,8 +1124,8 @@
                     window.removeEventListener('resize', resizeHandler);
                 }
                 
-                // Добавляем новые обработчики
-                scrollHandler = requestTick;
+                // Добавляем новые обработчики с debounce
+                scrollHandler = debouncedRequestTick;
                 resizeHandler = function() { 
                     updateHeight(); 
                     updateSpherePosition();
