@@ -548,7 +548,26 @@
             .works-container { padding: 0 30px; } 
             .contact { padding: 120px 30px; } 
             .works-grid { grid-template-columns: 1fr; } 
-            .contact-minimal { flex-direction: column; gap: 30px; } 
+            .contact-minimal { flex-direction: column; gap: 30px; }
+            /* Стили для ROYAL HORSE на всех мобильных устройствах */
+            .modal-gallery.gallery-royalhorse {
+                gap: 0 !important;
+                padding: 0 !important;
+            }
+            .modal-gallery.gallery-royalhorse > * {
+                margin: 0 !important;
+                margin-bottom: 0 !important;
+                margin-top: 0 !important;
+            }
+            .modal-gallery.gallery-royalhorse .work-container {
+                gap: 0 !important;
+                padding: 0 !important;
+                margin: 0 !important;
+            }
+            .modal-gallery.gallery-royalhorse .work-container img {
+                margin: 0 !important;
+                display: block !important;
+            }
         }
         @media (max-width: 480px) { .hero-content { padding: 0 20px; } .profile { padding: 120px 20px; } .competencies { padding: 180px 20px; } .competencies-subtitle { font-size: 2.2rem; } .competencies-text { font-size: 1.76rem; line-height: 1.35; margin-bottom: 24px; } .works-container { padding: 0 20px; } .contact { padding: 120px 20px; } }
         
@@ -1675,10 +1694,15 @@
                 const isRoyalHorse = currentGalleryType === 'royalhorse';
                 
                 // Определяем мобильное устройство ПЕРЕД применением стилей
-                // Расширенная проверка для всех мобильных устройств (до 1024px - планшеты и телефоны)
-                const screenWidth = window.innerWidth || document.documentElement.clientWidth;
-                const screenHeight = window.innerHeight || document.documentElement.clientHeight;
-                const isMobile = screenWidth <= 1024 || (screenWidth <= 1200 && screenHeight <= 1200);
+                // Множественная проверка для надежности - проверяем оба значения
+                const screenWidth = window.innerWidth || document.documentElement.clientWidth || screen.width;
+                const screenHeight = window.innerHeight || document.documentElement.clientHeight || screen.height;
+                const isMobileMatch = window.matchMedia('(max-width: 1024px)').matches;
+                const isMobileByWidth = screenWidth <= 1024;
+                const isMobileByHeight = screenHeight <= 1024 && screenWidth <= 1200;
+                // В вертикальной ориентации проверяем по меньшей стороне
+                const minDimension = Math.min(screenWidth, screenHeight);
+                const isMobile = isMobileMatch || isMobileByWidth || isMobileByHeight || minDimension <= 768;
                 
                 // Удаляем все классы галереи и добавляем нужный
                 modalGallery.classList.remove('gallery-main', 'gallery-royalhorse', 'gallery-lumiere', 'gallery-ekolife', 'gallery-newproject', 'gallery-project5');
@@ -1916,32 +1940,47 @@
                 
                 // КРИТИЧЕСКОЕ: Применяем стили ПОСЛЕ добавления всех элементов в DOM
                 // Это гарантирует применение стилей для ROYAL HORSE на мобильных устройствах
-                setTimeout(() => {
-                    if (isRoyalHorse && isMobile) {
-                        // Принудительно применяем стили ко всем элементам ROYAL HORSE
-                        modalGallery.style.setProperty('gap', '0', 'important');
-                        modalGallery.style.setProperty('padding', '0', 'important');
+                // Функция принудительного применения стилей
+                function applyRoyalHorseStyles() {
+                    if (isRoyalHorse) {
+                        // Проверяем мобильное устройство заново на момент применения
+                        const currentWidth = window.innerWidth || document.documentElement.clientWidth;
+                        const currentHeight = window.innerHeight || document.documentElement.clientHeight;
+                        const currentMin = Math.min(currentWidth, currentHeight);
+                        const isCurrentlyMobile = currentWidth <= 1024 || currentHeight <= 1024 || currentMin <= 768;
                         
-                        // Применяем стили ко всем work-container
-                        const containers = modalGallery.querySelectorAll('.work-container');
-                        containers.forEach(container => {
-                            container.style.setProperty('gap', '0', 'important');
-                            container.style.setProperty('padding', '0', 'important');
-                            container.style.setProperty('margin', '0', 'important');
-                            container.style.setProperty('margin-bottom', '0', 'important');
-                            container.style.setProperty('margin-top', '0', 'important');
-                        });
-                        
-                        // Применяем стили ко всем изображениям
-                        const images = modalGallery.querySelectorAll('img');
-                        images.forEach(img => {
-                            img.style.setProperty('margin', '0', 'important');
-                            img.style.setProperty('margin-bottom', '0', 'important');
-                            img.style.setProperty('margin-top', '0', 'important');
-                            img.style.setProperty('display', 'block', 'important');
-                        });
+                        if (isCurrentlyMobile) {
+                            // Принудительно применяем стили ко всем элементам ROYAL HORSE
+                            modalGallery.style.setProperty('gap', '0', 'important');
+                            modalGallery.style.setProperty('padding', '0', 'important');
+                            
+                            // Применяем стили ко всем work-container
+                            const containers = modalGallery.querySelectorAll('.work-container');
+                            containers.forEach(container => {
+                                container.style.setProperty('gap', '0', 'important');
+                                container.style.setProperty('padding', '0', 'important');
+                                container.style.setProperty('margin', '0', 'important');
+                                container.style.setProperty('margin-bottom', '0', 'important');
+                                container.style.setProperty('margin-top', '0', 'important');
+                            });
+                            
+                            // Применяем стили ко всем изображениям
+                            const images = modalGallery.querySelectorAll('img');
+                            images.forEach(img => {
+                                img.style.setProperty('margin', '0', 'important');
+                                img.style.setProperty('margin-bottom', '0', 'important');
+                                img.style.setProperty('margin-top', '0', 'important');
+                                img.style.setProperty('display', 'block', 'important');
+                            });
+                        }
                     }
-                }, 100);
+                }
+                
+                // Применяем стили несколько раз для гарантии
+                setTimeout(applyRoyalHorseStyles, 50);
+                setTimeout(applyRoyalHorseStyles, 100);
+                setTimeout(applyRoyalHorseStyles, 200);
+                setTimeout(applyRoyalHorseStyles, 500);
                 
                 // Добавляем стрелочку закрытия снизу для всех галерей
                     const closeButton = document.createElement('div');
@@ -2014,24 +2053,18 @@
                     modal.scrollTop = 0;
                     
                     // ДОПОЛНИТЕЛЬНАЯ проверка для ROYAL HORSE - применяем стили еще раз после полной загрузки
-                    if (isRoyalHorse && isMobile) {
-                        modalGallery.style.setProperty('gap', '0', 'important');
-                        modalGallery.style.setProperty('padding', '0', 'important');
-                        
-                        const allContainers = modalGallery.querySelectorAll('.work-container');
-                        allContainers.forEach(container => {
-                            container.style.setProperty('gap', '0', 'important');
-                            container.style.setProperty('padding', '0', 'important');
-                            container.style.setProperty('margin', '0', 'important');
-                        });
-                        
-                        const allImages = modalGallery.querySelectorAll('.work-container img');
-                        allImages.forEach(img => {
-                            img.style.setProperty('margin', '0', 'important');
-                            img.style.setProperty('display', 'block', 'important');
-                        });
+                    if (isRoyalHorse) {
+                        applyRoyalHorseStyles();
                     }
                 }, 300);
+                
+                // Также применяем при изменении ориентации
+                if (isRoyalHorse) {
+                    window.addEventListener('resize', applyRoyalHorseStyles);
+                    window.addEventListener('orientationchange', function() {
+                        setTimeout(applyRoyalHorseStyles, 100);
+                    });
+                }
             }
             
             
