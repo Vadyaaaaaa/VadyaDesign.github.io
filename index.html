@@ -1021,42 +1021,42 @@
                 sphere.style.setProperty('pointer-events', 'none', 'important');
                 sphere.style.setProperty('opacity', '1', 'important');
                 sphere.style.setProperty('visibility', 'visible', 'important');
-            
-            let ticking = false;
-            const initialOffset = window.innerHeight * 0.3; // Начальная позиция 30vh от верха
-            
-            function updateSpherePosition(){
-                const scrollY = window.pageYOffset || window.scrollY;
-                // Смещаем сферу вместе со скроллом (0.8 = скорость движения, можно менять)
-                const translateY = initialOffset + (scrollY * 0.8);
-                sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
-                ticking = false;
-            }
-            
-            function requestTick(){
-                if (!ticking) {
-                    requestAnimationFrame(updateSpherePosition);
-                    ticking = true;
+                
+                // Функции для работы со сферой
+                let ticking = false;
+                const initialOffset = window.innerHeight * 0.3;
+                
+                function updateSpherePosition(){
+                    const scrollY = window.pageYOffset || window.scrollY;
+                    const translateY = initialOffset + (scrollY * 0.8);
+                    sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
+                    ticking = false;
                 }
-            }
-            
-            // Обновляем высоту элемента, чтобы покрыть весь скролл
-            function updateHeight(){
-                const docHeight = Math.max(
-                    document.body.scrollHeight,
-                    document.body.offsetHeight,
-                    document.documentElement.clientHeight,
-                    document.documentElement.scrollHeight,
-                    document.documentElement.offsetHeight
-                );
-                sphere.style.height = docHeight + 'px';
-            }
-            
+                
+                function requestTick(){
+                    if (!ticking) {
+                        requestAnimationFrame(updateSpherePosition);
+                        ticking = true;
+                    }
+                }
+                
+                function updateHeight(){
+                    const docHeight = Math.max(
+                        document.body.scrollHeight,
+                        document.body.offsetHeight,
+                        document.documentElement.clientHeight,
+                        document.documentElement.scrollHeight,
+                        document.documentElement.offsetHeight
+                    );
+                    sphere.style.height = docHeight + 'px';
+                }
+                
+                // Добавляем обработчики событий
                 window.addEventListener('scroll', requestTick, { passive: true });
                 window.addEventListener('resize', () => { 
                     updateHeight(); 
                     updateSpherePosition();
-                    initSphere(); // Повторно инициализируем при изменении размера
+                    initSphere();
                 }, { passive: true });
                 
                 // Инициализация
