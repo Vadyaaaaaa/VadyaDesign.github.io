@@ -1016,7 +1016,10 @@
                     pointer-events: none !important;
                     opacity: 1 !important;
                     visibility: visible !important;
-                    will-change: transform;
+                    will-change: transform !important;
+                    backface-visibility: hidden !important;
+                    -webkit-backface-visibility: hidden !important;
+                    transform: translateZ(0) !important;
                 `;
             }
             
@@ -1042,13 +1045,35 @@
                 applySphereStyles();
                 
                 const initialOffset = window.innerHeight * 0.3;
+                let lastScrollY = 0;
+                let lastTranslateY = initialOffset;
                 
                 function updateSpherePosition(){
-                    if (!sphere) return;
+                    if (!sphere) {
+                        ticking = false;
+                        return;
+                    }
+                    
                     const scrollY = window.pageYOffset || window.scrollY;
+                    
+                    // Оптимизация: обновляем только если скролл изменился значительно (более 1px)
+                    if (Math.abs(scrollY - lastScrollY) < 1 && ticking) {
+                        ticking = false;
+                        return;
+                    }
+                    
+                    lastScrollY = scrollY;
+                    
                     // Уменьшена скорость движения сферы (0.3 вместо 0.8) - сфера будет двигаться медленнее
                     const translateY = initialOffset + (scrollY * 0.3);
-                    sphere.style.transform = `translate3d(0, ${translateY}px, 0)`;
+                    
+                    // Оптимизация: обновляем transform только если позиция изменилась
+                    if (Math.abs(translateY - lastTranslateY) >= 0.5) {
+                        lastTranslateY = translateY;
+                        // Используем transform3d для аппаратного ускорения
+                        sphere.style.transform = `translate3d(0, ${Math.round(translateY)}px, 0)`;
+                    }
+                    
                     ticking = false;
                 }
                 
