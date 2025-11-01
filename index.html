@@ -345,6 +345,12 @@
             gap: 0 !important;
             padding: 20px 0 !important;
         }
+        .modal-gallery.gallery-main .work-container,
+        .modal-gallery.gallery-royalhorse .work-container {
+            gap: 0 !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
         
         .modal-close {
             position: fixed;
@@ -1680,7 +1686,7 @@
                     workContainer.className = 'work-container';
                     
                     // Определяем стили в зависимости от типа галереи и размера экрана
-                    const isMobile = window.innerWidth <= 600;
+                    const isMobile = window.innerWidth <= 600 || window.innerHeight <= 900;
                     const isMain = currentGalleryType === 'main';
                     const isUPDUTY = currentGalleryType === 'newproject';
                     const isGHY = currentGalleryType === 'project5';
