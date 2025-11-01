@@ -687,11 +687,17 @@
                 vertical-align: top !important;
             }
             .modal-gallery.gallery-lumiere .work-container,
-            .modal-gallery.gallery-ekolife .work-container,
+            .modal-gallery.gallery-ekolife .work-container {
+                gap: 16px !important;
+                padding: 30px 10px !important;
+            }
             .modal-gallery.gallery-newproject .work-container,
             .modal-gallery.gallery-project5 .work-container {
                 gap: 16px !important;
                 padding: 30px 10px !important;
+                min-height: auto !important;
+                height: auto !important;
+                justify-content: flex-start !important;
             }
             .contact-minimal { gap: 20px; }
             .contact-row { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px; }
@@ -1809,14 +1815,15 @@
                             `;
                         }
                     } else if ((isUPDUTY || isGHY) && isMobile) {
-                        // Для UPDUTY и GHY на мобильных: такие же отступы, как у ECOLIFE
+                        // Для UPDUTY и GHY на мобильных: убираем большие интервалы
                         workContainer.style.display = 'flex';
                         workContainer.style.flexDirection = 'column';
                         workContainer.style.alignItems = 'center';
                         workContainer.style.setProperty('gap', '16px', 'important');
                         workContainer.style.setProperty('padding', '30px 10px', 'important');
-                        workContainer.style.minHeight = '100vh';
-                        workContainer.style.justifyContent = 'center';
+                        workContainer.style.setProperty('min-height', 'auto', 'important');
+                        workContainer.style.setProperty('height', 'auto', 'important');
+                        workContainer.style.justifyContent = 'flex-start';
                         workContainer.style.opacity = '0';
                         workContainer.style.transform = 'translate3d(0, 30px, 0)';
                         workContainer.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
