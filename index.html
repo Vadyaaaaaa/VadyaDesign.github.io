@@ -641,14 +641,11 @@
                 margin-top: 0 !important;
             }
             .modal-gallery.gallery-lumiere,
-            .modal-gallery.gallery-ekolife {
-                gap: 16px !important;
-                padding: 30px 10px !important;
-            }
+            .modal-gallery.gallery-ekolife,
             .modal-gallery.gallery-newproject,
             .modal-gallery.gallery-project5 {
-                gap: 4px !important;
-                padding: 15px 5px !important;
+                gap: 16px !important;
+                padding: 30px 10px !important;
             }
             .modal-gallery.gallery-lumiere .modal-info,
             .modal-gallery.gallery-ekolife .modal-info,
@@ -690,14 +687,11 @@
                 vertical-align: top !important;
             }
             .modal-gallery.gallery-lumiere .work-container,
-            .modal-gallery.gallery-ekolife .work-container {
-                gap: 16px !important;
-                padding: 30px 10px !important;
-            }
+            .modal-gallery.gallery-ekolife .work-container,
             .modal-gallery.gallery-newproject .work-container,
             .modal-gallery.gallery-project5 .work-container {
-                gap: 4px !important;
-                padding: 15px 5px !important;
+                gap: 16px !important;
+                padding: 30px 10px !important;
             }
             .contact-minimal { gap: 20px; }
             .contact-row { display: grid; grid-template-columns: 1fr; gap: 12px; padding: 0 16px; }
@@ -1722,9 +1716,9 @@
                 } else if (isMobile && (currentGalleryType === 'main')) {
                     modalGallery.style.setProperty('gap', '0', 'important');
                     modalGallery.style.setProperty('padding', '0', 'important');
-                } else if (isMobile && (currentGalleryType === 'newproject' || currentGalleryType === 'project5')) {
-                    modalGallery.style.setProperty('gap', '4px', 'important');
-                    modalGallery.style.setProperty('padding', '15px 5px', 'important');
+                } else if (isMobile && (currentGalleryType === 'newproject' || currentGalleryType === 'project5' || currentGalleryType === 'ekolife' || currentGalleryType === 'lumiere')) {
+                    modalGallery.style.setProperty('gap', '16px', 'important');
+                    modalGallery.style.setProperty('padding', '30px 10px', 'important');
                 } else if (isMobile) {
                     modalGallery.style.setProperty('gap', '16px', 'important');
                     modalGallery.style.setProperty('padding', '30px 10px', 'important');
@@ -1815,19 +1809,17 @@
                             `;
                         }
                     } else if ((isUPDUTY || isGHY) && isMobile) {
-                        // Для UPDUTY и GHY на мобильных: минимальные отступы
-                        workContainer.style.cssText = `
-                            display: flex;
-                            flex-direction: column;
-                            align-items: center;
-                            gap: 4px !important;
-                            padding: 15px 5px !important;
-                            min-height: 100vh;
-                            justify-content: center;
-                            opacity: 0;
-                            transform: translate3d(0, 30px, 0);
-                            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-                        `;
+                        // Для UPDUTY и GHY на мобильных: такие же отступы, как у ECOLIFE
+                        workContainer.style.display = 'flex';
+                        workContainer.style.flexDirection = 'column';
+                        workContainer.style.alignItems = 'center';
+                        workContainer.style.setProperty('gap', '16px', 'important');
+                        workContainer.style.setProperty('padding', '30px 10px', 'important');
+                        workContainer.style.minHeight = '100vh';
+                        workContainer.style.justifyContent = 'center';
+                        workContainer.style.opacity = '0';
+                        workContainer.style.transform = 'translate3d(0, 30px, 0)';
+                        workContainer.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
                     } else {
                         // Для остальных галерей: стандартный стиль (только для ПК)
                         workContainer.style.cssText = `
